@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dongjie — Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #0d0d0d;
+      --white:        #ffffff;
+      --gray-50:      #f7f7f5;
+      --gray-100:     #ededeb;
+      --gray-200:     #d9d9d6;
+      --gray-400:     #9b9b96;
+      --gray-600:     #646460;
+      --text:         #0d0d0d;
+      --text-muted:   #646460;
+      --text-faint:   #9b9b96;
+      --border:       #e3e3e0;
+      --page-px:      40px;
+      --max-w:        1100px;
+    }
+
+    html { font-size: 16px; overflow-x: hidden; }
+    body { font-family: 'Geist', 'Helvetica Neue', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; max-width: 100vw; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--page-px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-left { display: flex; align-items: center; gap: 32px; }
+    .nav-logo { font-weight: 500; font-size: 15px; letter-spacing: -0.01em; color: var(--text); }
+    .nav-links { display: flex; align-items: center; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--text-muted); padding: 6px 14px; border-radius: 6px; transition: color .15s, background .15s; }
+    .nav-links a:hover { color: var(--text); background: var(--gray-100); }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher { position: relative; }
+
+    .lang-btn {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 14px; font-weight: 400; color: var(--text-muted);
+      padding: 6px 10px; border-radius: 6px; border: none; background: transparent;
+      cursor: pointer; font-family: 'Geist', sans-serif; transition: color .15s, background .15s;
+    }
+    .lang-btn:hover { color: var(--text); background: var(--gray-100); }
+    .lang-btn-label { font-size: 13px; }
+    .lang-option-flag { display: none; }
+    .lang-btn-caret {
+      width: 13px; height: 13px; flex-shrink: 0;
+      stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform .18s;
+    }
+    .lang-btn.open .lang-btn-caret { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      display: none; position: absolute; top: calc(100% + 6px); right: 0;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 5px; min-width: 130px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); z-index: 200;
+    }
+    .lang-dropdown.open { display: block; }
+
+    .lang-option {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 6px;
+      font-size: 13px; color: var(--text-muted);
+      cursor: pointer; transition: background .12s, color .12s; white-space: nowrap;
+    }
+    .lang-option:hover { background: var(--gray-50); color: var(--text); }
+    .lang-option.active { color: var(--text); font-weight: 500; }
+    .lang-option-flag { font-size: 14px; }
+    .lang-check {
+      margin-left: auto; width: 13px; height: 13px;
+      stroke: var(--text); fill: none; stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round; opacity: 0;
+    }
+    .lang-option.active .lang-check { opacity: 1; }
+
+    /* ── NAV CTA ── */
+    .nav-btn-solid {
+      font-size: 13px; font-weight: 500; color: var(--white);
+      background: var(--black); padding: 7px 16px; border-radius: 6px; transition: opacity .15s;
+    }
+    .nav-btn-solid:hover { opacity: .78; }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 36px; height: 36px; background: none; border: none;
+      cursor: pointer; padding: 4px; border-radius: 6px; transition: background .15s;
+    }
+    .nav-hamburger:hover { background: var(--gray-100); }
+    .nav-hamburger span {
+      display: block; width: 18px; height: 1.5px; background: var(--text);
+      border-radius: 2px; transition: transform .2s, opacity .2s; transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .nav-drawer {
+      display: none; position: fixed; top: 56px; left: 0; right: 0; bottom: 0;
+      background: var(--white); z-index: 98;
+      padding: 16px 20px 32px; flex-direction: column; overflow-y: auto;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer-link {
+      display: block; font-size: 17px; color: var(--text);
+      padding: 14px 0; border-bottom: 1px solid var(--border); transition: color .15s;
+    }
+    .nav-drawer-link:hover { color: var(--text-muted); }
+    .drawer-lang-section { margin-top: 24px; }
+    .drawer-lang-label {
+      font-size: 11px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-faint); margin-bottom: 10px;
+    }
+    .drawer-lang-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .drawer-lang-pill {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 13px; color: var(--text-muted);
+      padding: 7px 13px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; cursor: pointer; font-family: 'Geist', sans-serif; transition: all .15s;
+    }
+    .drawer-lang-pill.active { background: var(--gray-100); border-color: var(--gray-200); color: var(--text); font-weight: 500; }
+    .nav-drawer-actions { display: flex; flex-direction: column; gap: 10px; }
+    .nav-drawer-btn {
+      display: flex; align-items: center; justify-content: center;
+      height: 46px; border-radius: 8px; font-size: 15px; font-weight: 500; transition: opacity .15s;
+    }
+    .nav-drawer-btn.solid { background: var(--black); color: var(--white); border: none; }
+    .nav-drawer-btn:hover { opacity: .75; }
+
+    /* ── HERO ── */
+    .hero { padding: 88px var(--page-px) 72px; text-align: center; max-width: 680px; margin: 0 auto; }
+    .hero-title {
+      font-family: 'Instrument Serif', serif; font-size: 36px; font-weight: 400;
+      line-height: 1.25; letter-spacing: -.015em; color: var(--text); margin-bottom: 28px;
+    }
+    .hero-input-wrap { position: relative; max-width: 520px; margin: 0 auto 20px; }
+    .hero-input {
+      width: 100%; height: 52px; padding: 0 52px 0 20px;
+      border: 1px solid var(--border); border-radius: 26px;
+      font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text);
+      background: var(--white); outline: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06); transition: border-color .15s, box-shadow .15s; appearance: none;
+    }
+    .hero-input:focus { border-color: var(--gray-400); box-shadow: 0 1px 6px rgba(0,0,0,.10); }
+    .hero-input::placeholder { color: var(--text-faint); font-size: 14px; }
+    .hero-input-icon {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      width: 28px; height: 28px; background: var(--black); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; transition: opacity .15s; flex-shrink: 0;
+    }
+    .hero-input-icon:hover { opacity: .75; }
+    .hero-input-icon svg { width: 13px; height: 13px; fill: none; stroke: var(--white); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-chips { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px; font-size: 13px;
+      color: var(--text-muted); background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 13px; cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+    }
+    .chip:hover { background: var(--gray-100); border-color: var(--gray-200); color: var(--text); }
+    .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-400); flex-shrink: 0; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 64px var(--page-px); max-width: 1100px; margin: 0 auto; width: 100%; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .section-label { font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: -.01em; }
+    .section-more { display: flex; align-items: center; gap: 4px; font-size: 14px; color: var(--text-muted); transition: color .15s; }
+    .section-more:hover { color: var(--text); }
+
+    /* ── FEATURED ── */
+    .featured-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+    .feat-main-thumb {
+      background: var(--gray-100); border-radius: 12px; height: 300px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+    }
+    .feat-tag { font-size: 12px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 5px; }
+    .feat-title { font-family: 'Instrument Serif', serif; font-size: 22px; font-weight: 400; line-height: 1.25; letter-spacing: -.015em; color: var(--text); }
+    .feat-main { min-width: 0; }
+    .feat-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; overflow: hidden; }
+    .feat-side-card { display: block; cursor: pointer; }
+    .feat-side-card:hover .feat-side-thumb { opacity: .85; }
+    .feat-side-thumb {
+      background: var(--gray-100); border-radius: 10px; height: 160px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; transition: opacity .2s;
+    }
+    .feat-side-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 3px; }
+    .feat-side-sub { font-size: 12px; color: var(--text-faint); }
+
+    /* ── UPDATES ── */
+    .updates-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .update-item {
+      display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: start;
+      padding: 18px 0; border-bottom: 1px solid var(--border); cursor: pointer;
+    }
+    .updates-grid > .update-item:nth-child(odd)  { padding-right: 32px; border-right: 1px solid var(--border); }
+    .updates-grid > .update-item:nth-child(even) { padding-left: 32px; }
+    .update-item:hover .update-thumb-sm { opacity: .8; }
+    .update-thumb-sm {
+      background: var(--gray-100); border-radius: 7px; width: 72px; height: 56px;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity .2s;
+    }
+    .update-tag-sm   { font-size: 11px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+    .update-title-sm { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 3px; }
+    .update-date-sm  { font-size: 11px; color: var(--text-faint); }
+
+    /* ── 3-COL ── */
+    .cards-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .card3 { display: block; cursor: pointer; }
+    .card3:hover .card3-thumb { opacity: .85; }
+    .card3-thumb {
+      background: var(--gray-100); border-radius: 10px; height: 180px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; transition: opacity .2s;
+    }
+    .card3-tag   { font-size: 11px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 5px; }
+    .card3-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .card3-date  { font-size: 12px; color: var(--text-faint); margin-top: 3px; }
+
+    .ph { font-size: 11px; color: var(--gray-200); letter-spacing: .02em; user-select: none; }
+
+    /* ── CTA ── */
+    .cta-block { padding: 88px var(--page-px); text-align: center; border-top: 1px solid var(--border); }
+    .cta-block h2 { font-family: 'Instrument Serif', serif; font-size: 40px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 24px; }
+    .cta-btn { display: inline-flex; align-items: center; font-size: 14px; font-weight: 500; color: var(--white); background: var(--black); padding: 11px 26px; border-radius: 6px; transition: opacity .15s; }
+    .cta-btn:hover { opacity: .78; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 32px var(--page-px); display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
+    .footer-col h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a { font-size: 13px; color: var(--text-muted); transition: color .15s; }
+    .footer-col ul a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding: 16px var(--page-px); display: flex; align-items: center; justify-content: space-between; }
+    .footer-bottom span { font-size: 12px; color: var(--text-faint); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { font-size: 12px; color: var(--text-faint); transition: color .15s; }
+    .footer-social a:hover { color: var(--text); }
+
+    hr.sec-div { border: none; border-top: 1px solid var(--border); }
+
+    /* ── CONTACT PAGE ── */
+    .contact-page {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-block {
+      padding: 72px var(--page-px);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .contact-block-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-block-inner--right {
+      grid-template-columns: 1fr;
+      justify-items: end;
+    }
+
+    .contact-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 11px;
+      margin-bottom: 20px;
+    }
+
+    .contact-body {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+
+    .contact-sub {
+      font-size: 16px;
+      color: var(--text);
+      margin-top: 8px;
+    }
+
+    .contact-left--wide .contact-body { max-width: 560px; }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding-top: 4px;
+    }
+
+    .contact-person {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .contact-detail {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      transition: color .15s;
+      line-height: 1.5;
+    }
+
+    .contact-detail:hover { color: var(--text-muted); }
+
+    .contact-detail--lg {
+      font-size: 22px;
+    }
+
+    .contact-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--black);
+      padding: 12px 28px;
+      border-radius: 100px;
+      margin-top: 20px;
+      transition: opacity .15s;
+    }
+
+    .contact-cta:hover { opacity: .78; }
+
+    .contact-learn {
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 1px;
+      margin-top: 8px;
+      transition: color .15s, border-color .15s;
+    }
+
+    .contact-learn:hover { color: var(--text-muted); border-color: var(--text-muted); }
+
+    .contact-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 var(--page-px);
+    }
+
+    /* ── CAPSULE NAV FOOTER ── */
+    .contact-footer {
+      border-top: 1px solid var(--border);
+      padding: 28px var(--page-px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .capsule-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--gray-50);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px;
+    }
+
+    .capsule-link {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 7px 18px;
+      border-radius: 100px;
+      transition: color .15s, background .15s;
+    }
+
+    .capsule-link:hover { color: var(--text); background: var(--white); }
+
+    .capsule-link--active {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .capsule-link--active:hover { background: var(--black); color: var(--white); opacity: .85; }
+
+    .contact-copy {
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    /* ════ MOBILE ≤767px ════ */
+    @media (max-width: 767px) {
+      :root { --page-px: 20px; }
+      .nav-links { display: none; }
+      .lang-btn-label { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 56px var(--page-px) 48px; }
+      .hero-title { font-size: 24px; margin-bottom: 20px; }
+      .hero-input-wrap { max-width: 100%; }
+      .chip { font-size: 12px; padding: 5px 11px; }
+      .section { padding-top: 40px; padding-bottom: 40px; }
+      .featured-grid { grid-template-columns: 1fr; gap: 0; }
+      .feat-main-thumb { height: 220px; border-radius: 10px; }
+      .feat-main-meta { padding: 12px 0 24px; border-bottom: 1px solid var(--border); }
+      .feat-side { gap: 0; }
+      .feat-side-card { display: grid; grid-template-columns: 100px 1fr; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+      .feat-side-thumb { width: 100px; height: 76px; margin-bottom: 0; border-radius: 8px; }
+      .updates-grid { grid-template-columns: 1fr; }
+      .updates-grid > .update-item:nth-child(odd)  { padding-right: 0; border-right: none; }
+      .updates-grid > .update-item:nth-child(even) { padding-left: 0; }
+      .update-item { padding: 16px 0; }
+      .cards-3 { grid-template-columns: 1fr; gap: 0; }
+      .card3 { display: grid; grid-template-columns: 100px 1fr; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+      .card3-thumb { width: 100px; height: 76px; margin-bottom: 0; border-radius: 8px; grid-row: 1/4; }
+      .cta-block { padding: 64px var(--page-px); }
+      .cta-block h2 { font-size: 28px; margin-bottom: 20px; }
+      .contact-block { padding: 48px var(--page-px); }
+      .contact-block-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-block-inner--right { justify-items: start; }
+      .contact-detail--lg { font-size: 17px; }
+      .contact-footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .capsule-nav { flex-wrap: wrap; border-radius: 12px; padding: 4px; }
+      .capsule-link { padding: 6px 14px; font-size: 13px; }
+      footer { flex-wrap: wrap; gap: 32px 40px; padding: 32px var(--page-px); }
+      .footer-col { min-width: calc(50% - 20px); }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px var(--page-px); }
+      .footer-social { flex-wrap: wrap; gap: 12px; }
+    }
+
+    /* ════ TABLET 768–1199px ════ */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      :root { --page-px: 28px; }
+      .hero-title { font-size: 38px; }
+      .featured-grid { grid-template-columns: 1.5fr 1fr; }
+      .cards-3 { grid-template-columns: repeat(2,1fr); }
+      .updates-grid > .update-item:nth-child(odd)  { padding-right: 20px; }
+      .updates-grid > .update-item:nth-child(even) { padding-left: 20px; }
+      footer { flex-wrap: wrap; gap: 28px 40px; }
+      .footer-col { min-width: calc(33% - 20px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="#">Dongjie</a>
+    <ul class="nav-links">
+      <li><a href="#work"     data-i18n="nav.work">作品</a></li>
+      <li><a href="#about"    data-i18n="nav.about">关于</a></li>
+      <li><a href="#research" data-i18n="nav.research">研究</a></li>
+      <li><a href="#contact"  data-i18n="nav.contact">联系</a></li>
+      <li><a href="#"         data-i18n="nav.resume">简历</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="lang-btn-label" id="langBtnLabel">中文</span>
+        <svg class="lang-btn-caret" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown" role="listbox">
+        <div class="lang-option active" data-lang="zh" role="option" tabindex="0">
+          <span>中文</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+        <div class="lang-option" data-lang="en" role="option" tabindex="0">
+          <span>English</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+        <div class="lang-option" data-lang="de" role="option" tabindex="0">
+          <span>Deutsch</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <a class="nav-btn-solid" href="mailto:hello@dongjie.design" data-i18n="nav.cta">联系我</a>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-drawer-link" href="#work"     onclick="closeDrawer()" data-i18n="nav.work">作品</a>
+  <a class="nav-drawer-link" href="#about"    onclick="closeDrawer()" data-i18n="nav.about">关于</a>
+  <a class="nav-drawer-link" href="#research" onclick="closeDrawer()" data-i18n="nav.research">研究</a>
+  <a class="nav-drawer-link" href="#contact"  onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
+  <a class="nav-drawer-link" href="#"         onclick="closeDrawer()" data-i18n="nav.resume">简历</a>
+  <div class="drawer-lang-section">
+    <div class="drawer-lang-label" data-i18n="nav.language">语言</div>
+    <div class="drawer-lang-pills">
+      <button class="drawer-lang-pill active" data-lang="zh">中文</button>
+      <button class="drawer-lang-pill"        data-lang="en">English</button>
+      <button class="drawer-lang-pill"        data-lang="de">Deutsch</button>
+    </div>
+  </div>
+  <div class="nav-drawer-actions">
+    <a class="nav-drawer-btn solid" href="mailto:hello@dongjie.design" data-i18n="nav.cta">联系我</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 class="hero-title" data-i18n="hero.title">我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。</h1>
+  <div class="hero-input-wrap">
+    <input class="hero-input" id="heroInput" type="text" data-i18n-ph="hero.placeholder" placeholder="告诉我可以帮你做什么…" />
+    <button class="hero-input-icon" id="heroSend" aria-label="发送">
+      <svg viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg>
+    </button>
+  </div>
+  <div class="hero-chips">
+    <span class="chip" data-fill="chip.ux"><span class="chip-dot"></span><span data-i18n="chip.ux">UX Design</span></span>
+    <span class="chip" data-fill="chip.brand"><span class="chip-dot"></span><span data-i18n="chip.brand">品牌设计</span></span>
+    <span class="chip" data-fill="chip.portfolio"><span class="chip-dot"></span><span data-i18n="chip.portfolio">作品集</span></span>
+    <span class="chip" data-fill="chip.collab"><span class="chip-dot"></span><span data-i18n="chip.collab">合作</span></span>
+    <span class="chip" data-fill="chip.more" data-i18n="chip.more">更多</span>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<div class="section" id="work">
+  <div class="featured-grid">
+    <a class="feat-main" href="#">
+      <div class="feat-main-thumb" style="background-image: url('images/zeitguard-bg.png'); background-size: cover; background-position: center;">
+        <img src="images/zeitguard-cover.png" style="height: 170%; object-fit: contain; margin-top: -20px;" />
+      </div>
+      <div class="feat-main-meta">
+        <div class="feat-tag" data-i18n="feat.tag">重磅发布</div>
+        <div class="feat-title" data-i18n="feat.title">ZeitGuard — 安全与时间管理系统</div>
+        <div style="font-size:12px;color:var(--text-faint);margin-top:6px;" data-i18n="feat.meta">产品 · 2024年5月发布</div>
+      </div>
+    </a>
+    <div class="feat-side">
+      <a class="feat-side-card" href="#">
+        <div class="feat-side-thumb" style="background-image: url('images/steps-bg.png'); background-size: cover; background-position: center;">
+          <img src="images/steps-cover.png" style="height: 20%; object-fit: contain; margin-top: 0px;" />
+        </div>
+        <div class="feat-side-title" data-i18n="side1.title">Steps — 健康陪伴应用</div>
+        <div class="feat-side-sub"   data-i18n="side1.sub">产品 · 2周前发布</div>
+      </a>
+      <a class="feat-side-card" href="#">
+        <div class="feat-side-thumb" style="background-image: url('images/modulor-bg.png'); background-size: cover; background-position: center;">
+          <img src="images/modulor-cover.png" style="height: 200%; object-fit: contain; transform: translateX(70px) translateY(20px);" />
+        </div>
+        <div class="feat-side-title" data-i18n="side2.title">即刻提效工具 Modulor Go</div>
+        <div class="feat-side-sub"   data-i18n="side2.sub">产品 · 2周前发布</div>
+      </a>
+      <a class="feat-side-card" href="#">
+        <div class="feat-side-thumb"><span class="ph">图片</span></div>
+        <div class="feat-side-title" data-i18n="side3.title">通过 API 中转搭建语音录音智能</div>
+        <div class="feat-side-sub"   data-i18n="side3.sub">产品 · 2周前发布</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div" />
+
+<!-- UPDATES -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-label" data-i18n="sec.updates">最新动态</span>
+    <a class="section-more" href="#"><span data-i18n="sec.all">全部</span> ›</a>
+  </div>
+  <div class="updates-grid">
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.product">产品</div><div class="update-title-sm" data-i18n="u1.title">全新个人作品集体验上线</div><div class="update-date-sm" data-i18n="u1.date">2024年5月9日</div></div>
+    </a>
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.research">研究</div><div class="update-title-sm" data-i18n="u2.title">设计如何在复杂场景中识别用户意图</div><div class="update-date-sm" data-i18n="u2.date">研究 · 2024年5月9日</div></div>
+    </a>
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.product">产品</div><div class="update-title-sm" data-i18n="u3.title">推出更直观的商业人才引擎</div><div class="update-date-sm" data-i18n="u3.date">2024年5月7日</div></div>
+    </a>
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.announce">公告</div><div class="update-title-sm" data-i18n="u4.title">初步企业安全最佳实践</div><div class="update-date-sm" data-i18n="u4.date">2024年5月7日</div></div>
+    </a>
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.product">产品</div><div class="update-title-sm" data-i18n="u5.title">购买 Design Site 的新方式</div><div class="update-date-sm" data-i18n="u5.date">2024年5月6日</div></div>
+    </a>
+    <a class="update-item" href="#">
+      <div class="update-thumb-sm"><span class="ph">图</span></div>
+      <div><div class="update-tag-sm" data-i18n="utag.product">产品</div><div class="update-title-sm" data-i18n="u6.title">推出高级隐私安全功能</div><div class="update-date-sm" data-i18n="u6.date">2024年5月6日</div></div>
+    </a>
+  </div>
+</div>
+
+<hr class="sec-div" />
+
+<!-- CASES -->
+<div class="section" id="about">
+  <div class="section-header">
+    <span class="section-label" data-i18n="sec.cases">客户案例</span>
+    <a class="section-more" href="#"><span data-i18n="sec.viewall">查看所有</span> ›</a>
+  </div>
+  <div class="cards-3">
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="c1.title">SRH Wald-Klinikum Gera 医院导视系统</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="c2.title">Edurino 零售 POS 系统设计</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="c3.title">Tourism For All 无障碍旅游品牌视觉</div></a>
+  </div>
+</div>
+
+<hr class="sec-div" />
+
+<!-- RESEARCH -->
+<div class="section" id="research">
+  <div class="section-header">
+    <span class="section-label" data-i18n="sec.research">最新研究</span>
+    <a class="section-more" href="#"><span data-i18n="sec.viewall">查看所有</span> ›</a>
+  </div>
+  <div class="cards-3">
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.research">研究</div><div class="card3-title" data-i18n="r1.title">通用超大规模网格组织结构</div><div class="card3-date" data-i18n="r1.date">研究 · 2024年5月9日</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.research">研究</div><div class="card3-title" data-i18n="r2.title">在精细验证中构建创意设计系统</div><div class="card3-date" data-i18n="r2.date">研究 · 2024年5月9日</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.research">研究</div><div class="card3-title" data-i18n="r3.title">多任务流程下的跨领域设计观察</div><div class="card3-date" data-i18n="r3.date">研究 · 2024年5月9日</div></a>
+  </div>
+</div>
+
+<hr class="sec-div" />
+
+<!-- ENTERPRISE -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-label" data-i18n="sec.enterprise">企业解决方案</span>
+    <a class="section-more" href="#"><span data-i18n="sec.viewall">查看所有</span> ›</a>
+  </div>
+  <div class="cards-3">
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="e1.title">modulor go — B2B 商务平台设计</div><div class="card3-date" data-i18n="e1.date">案例 · 2024年5月9日</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="e2.title">xArch Symposium — 活动品牌设计</div><div class="card3-date" data-i18n="e2.date">案例 · 2024年5月9日</div></a>
+    <a class="card3" href="#"><div class="card3-thumb"><span class="ph">图片</span></div><div class="card3-tag" data-i18n="ctag.case">案例</div><div class="card3-title" data-i18n="e3.title">Unser Berlin Kunstsaison — 文化视觉传播</div><div class="card3-date" data-i18n="e3.date">案例 · 2024年5月9日</div></a>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contact" class="contact-page">
+
+  <!-- Block 1: New Business -->
+  <div class="contact-block">
+    <div class="contact-block-inner">
+      <div class="contact-left">
+        <span class="contact-tag" data-i18n="ct.tag1">合作咨询</span>
+        <p class="contact-body" data-i18n="ct.body1">我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。</p>
+        <p class="contact-sub" data-i18n="ct.sub1">期待聊聊你的项目。</p>
+      </div>
+      <div class="contact-right">
+        <div class="contact-person" data-i18n="ct.name">Dongjie</div>
+        <a class="contact-detail" href="mailto:hello@dongjie.design">hello@dongjie.design</a>
+        <a class="contact-detail" href="https://linkedin.com">LinkedIn</a>
+        <a class="contact-cta" href="mailto:hello@dongjie.design">
+          <span data-i18n="ct.cta">联系我</span> →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-divider"></div>
+
+  <!-- Block 2: General inquiries -->
+  <div class="contact-block">
+    <div class="contact-block-inner contact-block-inner--right">
+      <div class="contact-right">
+        <span class="contact-tag" data-i18n="ct.tag2">一般询问</span>
+        <a class="contact-detail contact-detail--lg" href="mailto:hello@dongjie.design">hello@dongjie.design</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-divider"></div>
+
+  <!-- Block 3: About -->
+  <div class="contact-block">
+    <div class="contact-block-inner">
+      <div class="contact-left contact-left--wide">
+        <span class="contact-tag" data-i18n="ct.tag3">关于我</span>
+        <p class="contact-body" data-i18n="ct.body3">我的设计实践横跨产品 UX、品牌标识与图形设计，相信好的设计既有系统逻辑，也有人文温度。</p>
+        <p class="contact-body" data-i18n="ct.body3b">目前开放全职机会、自由合作及远程项目，欢迎柏林本地及国际团队联系。</p>
+        <a class="contact-learn" href="#work" data-i18n="ct.learn">查看作品 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capsule nav footer -->
+  <div class="contact-footer">
+    <nav class="capsule-nav" aria-label="页面导航">
+      <a class="capsule-link" href="#work"     data-i18n="nav.work">作品</a>
+      <a class="capsule-link" href="#about"    data-i18n="nav.about">关于</a>
+      <a class="capsule-link" href="#research" data-i18n="nav.research">研究</a>
+      <a class="capsule-link capsule-link--active" href="#contact" data-i18n="nav.contact">联系</a>
+    </nav>
+    <p class="contact-copy" data-i18n="footer.copy">© 2025 Dongjie. Berlin, Germany.</p>
+  </div>
+
+</div>
+
+<script>
+/* ══ TRANSLATIONS ══ */
+var T = {
+  zh: {
+    "nav.work":"作品","nav.about":"关于","nav.research":"研究","nav.contact":"联系","nav.resume":"简历","nav.cta":"联系我","nav.language":"语言",
+    "hero.title":"我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。","hero.placeholder":"告诉我可以帮你做什么…",
+    "chip.ux":"UX Design","chip.brand":"品牌设计","chip.portfolio":"作品集","chip.collab":"合作","chip.more":"更多",
+    "feat.tag":"重磅发布","feat.title":"ZeitGuard — 安全与时间管理系统","feat.meta":"产品 · 2024年5月发布",
+    "side1.title":"Steps — 健康陪伴应用","side1.sub":"产品 · 2周前发布",
+    "side2.title":"即刻提效工具 Modulor Go","side2.sub":"产品 · 2周前发布",
+    "side3.title":"通过 API 中转搭建语音录音智能","side3.sub":"产品 · 2周前发布",
+    "sec.updates":"最新动态","sec.all":"全部","sec.cases":"客户案例","sec.viewall":"查看所有","sec.research":"最新研究","sec.enterprise":"企业解决方案",
+    "utag.product":"产品","utag.research":"研究","utag.announce":"公告",
+    "u1.title":"全新个人作品集体验上线","u1.date":"2024年5月9日",
+    "u2.title":"设计如何在复杂场景中识别用户意图","u2.date":"研究 · 2024年5月9日",
+    "u3.title":"推出更直观的商业人才引擎","u3.date":"2024年5月7日",
+    "u4.title":"初步企业安全最佳实践","u4.date":"2024年5月7日",
+    "u5.title":"购买 Design Site 的新方式","u5.date":"2024年5月6日",
+    "u6.title":"推出高级隐私安全功能","u6.date":"2024年5月6日",
+    "ctag.case":"案例","ctag.research":"研究",
+    "c1.title":"SRH Wald-Klinikum Gera 医院导视系统","c2.title":"Edurino 零售 POS 系统设计","c3.title":"Tourism For All 无障碍旅游品牌视觉",
+    "r1.title":"通用超大规模网格组织结构","r1.date":"研究 · 2024年5月9日",
+    "r2.title":"在精细验证中构建创意设计系统","r2.date":"研究 · 2024年5月9日",
+    "r3.title":"多任务流程下的跨领域设计观察","r3.date":"研究 · 2024年5月9日",
+    "e1.title":"modulor go — B2B 商务平台设计","e1.date":"案例 · 2024年5月9日",
+    "e2.title":"xArch Symposium — 活动品牌设计","e2.date":"案例 · 2024年5月9日",
+    "e3.title":"Unser Berlin Kunstsaison — 文化视觉传播","e3.date":"案例 · 2024年5月9日",
+    "cta.title":"开始联系 Dongjie","cta.btn":"联系我 →",
+    "ct.tag1":"合作咨询","ct.body1":"我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。","ct.sub1":"期待聊聊你的项目。","ct.name":"Dongjie","ct.cta":"联系我",
+    "ct.tag2":"一般询问",
+    "ct.tag3":"关于我","ct.body3":"我的设计实践横跨产品 UX、品牌标识与图形设计，相信好的设计既有系统逻辑，也有人文温度。","ct.body3b":"目前开放全职机会、自由合作及远程项目，欢迎柏林本地及国际团队联系。","ct.learn":"查看作品 →",
+    "footer.work":"作品","footer.about":"关于我","footer.research":"研究","footer.contact":"联系","footer.lang":"语言",
+    "footer.intro":"简介","footer.cv":"简历下载","footer.writing":"写作","footer.method":"方法论",
+    "footer.ds":"设计系统","footer.a11y":"可访问性","footer.brand":"品牌策略",
+    "footer.copy":"© 2025 Dongjie. Berlin, Germany."
+  },
+  en: {
+    "nav.work":"Work","nav.about":"About","nav.research":"Research","nav.contact":"Contact","nav.resume":"Résumé","nav.cta":"Get in touch","nav.language":"Language",
+    "hero.title":"I'm a Berlin-based designer specialising in product experience, brand design, and visual communication.","hero.placeholder":"Tell me what I can help you with…",
+    "chip.ux":"UX Design","chip.brand":"Brand Design","chip.portfolio":"Portfolio","chip.collab":"Collaborate","chip.more":"More",
+    "feat.tag":"Featured","feat.title":"ZeitGuard — Security & Time Management System","feat.meta":"Product · Released May 2024",
+    "side1.title":"Steps — Wellness Companion App","side1.sub":"Product · 2 weeks ago",
+    "side2.title":"Modulor Go — Productivity Tool","side2.sub":"Product · 2 weeks ago",
+    "side3.title":"Voice Intelligence via API Integration","side3.sub":"Product · 2 weeks ago",
+    "sec.updates":"Latest Updates","sec.all":"All","sec.cases":"Case Studies","sec.viewall":"View all","sec.research":"Research","sec.enterprise":"Enterprise Work",
+    "utag.product":"Product","utag.research":"Research","utag.announce":"Announcement",
+    "u1.title":"New portfolio experience launched","u1.date":"May 9, 2024",
+    "u2.title":"How design recognizes intent in complex contexts","u2.date":"Research · May 9, 2024",
+    "u3.title":"Introducing a more intuitive talent discovery tool","u3.date":"May 7, 2024",
+    "u4.title":"Initial enterprise security best practices","u4.date":"May 7, 2024",
+    "u5.title":"New ways to present design work","u5.date":"May 6, 2024",
+    "u6.title":"Launching advanced privacy features","u6.date":"May 6, 2024",
+    "ctag.case":"Case Study","ctag.research":"Research",
+    "c1.title":"SRH Wald-Klinikum Gera — Hospital Wayfinding","c2.title":"Edurino — Retail POS Display System","c3.title":"Tourism For All — Accessible Travel Brand Identity",
+    "r1.title":"Large-scale grid organisation structures","r1.date":"Research · May 9, 2024",
+    "r2.title":"Building creative design systems through iteration","r2.date":"Research · May 9, 2024",
+    "r3.title":"Cross-domain design observations in multitasking flows","r3.date":"Research · May 9, 2024",
+    "e1.title":"modulor go — B2B Commerce Platform","e1.date":"Case Study · May 9, 2024",
+    "e2.title":"xArch Symposium — Event Brand Identity","e2.date":"Case Study · May 9, 2024",
+    "e3.title":"Unser Berlin Kunstsaison — Cultural Visual Campaign","e3.date":"Case Study · May 9, 2024",
+    "cta.title":"Let's work together.","cta.btn":"Get in touch →",
+    "ct.tag1":"New Business","ct.body1":"I'm a Berlin-based designer working across product UX, brand identity, and visual communication. Whether it's a full-time role, freelance project, or a conversation about collaboration — I'd love to hear from you.","ct.sub1":"Let's talk about your project.","ct.name":"Dongjie","ct.cta":"Get in touch",
+    "ct.tag2":"General Inquiries",
+    "ct.tag3":"About","ct.body3":"My practice spans product UX, brand identity, and graphic design. I believe great design is both systematic and human.","ct.body3b":"Currently open to full-time roles, freelance work, and remote projects. Berlin-based and internationally available.","ct.learn":"View my work →",
+    "footer.work":"Work","footer.about":"About","footer.research":"Research","footer.contact":"Contact","footer.lang":"Language",
+    "footer.intro":"Bio","footer.cv":"Download CV","footer.writing":"Writing","footer.method":"Methodology",
+    "footer.ds":"Design Systems","footer.a11y":"Accessibility","footer.brand":"Brand Strategy",
+    "footer.copy":"© 2025 Dongjie. Berlin, Germany."
+  },
+  de: {
+    "nav.work":"Arbeiten","nav.about":"Über mich","nav.research":"Forschung","nav.contact":"Kontakt","nav.resume":"Lebenslauf","nav.cta":"Kontakt aufnehmen","nav.language":"Sprache",
+    "hero.title":"Ich bin ein Designer aus Berlin – spezialisiert auf Produkterlebnisse, Markendesign und visuelle Kommunikation.","hero.placeholder":"Sag mir, womit ich helfen kann…",
+    "chip.ux":"UX Design","chip.brand":"Markendesign","chip.portfolio":"Portfolio","chip.collab":"Zusammenarbeit","chip.more":"Mehr",
+    "feat.tag":"Highlight","feat.title":"ZeitGuard — Sicherheits- & Zeitmanagement-System","feat.meta":"Produkt · Veröffentlicht Mai 2024",
+    "side1.title":"Steps — Gesundheits-Begleit-App","side1.sub":"Produkt · vor 2 Wochen",
+    "side2.title":"Modulor Go — Produktivitätswerkzeug","side2.sub":"Produkt · vor 2 Wochen",
+    "side3.title":"Sprachintelligenz via API-Integration","side3.sub":"Produkt · vor 2 Wochen",
+    "sec.updates":"Neuigkeiten","sec.all":"Alle","sec.cases":"Fallstudien","sec.viewall":"Alle anzeigen","sec.research":"Forschung","sec.enterprise":"Unternehmensarbeit",
+    "utag.product":"Produkt","utag.research":"Forschung","utag.announce":"Ankündigung",
+    "u1.title":"Neue Portfolio-Erfahrung gestartet","u1.date":"9. Mai 2024",
+    "u2.title":"Wie Design Absichten in komplexen Kontexten erkennt","u2.date":"Forschung · 9. Mai 2024",
+    "u3.title":"Intuitiveres Talent-Entdeckungswerkzeug vorgestellt","u3.date":"7. Mai 2024",
+    "u4.title":"Erste Best Practices für Unternehmenssicherheit","u4.date":"7. Mai 2024",
+    "u5.title":"Neue Wege zur Präsentation von Designarbeit","u5.date":"6. Mai 2024",
+    "u6.title":"Erweiterte Datenschutzfunktionen eingeführt","u6.date":"6. Mai 2024",
+    "ctag.case":"Fallstudie","ctag.research":"Forschung",
+    "c1.title":"SRH Wald-Klinikum Gera — Krankenhausleitsystem","c2.title":"Edurino — POS-Display-System für den Einzelhandel","c3.title":"Tourism For All — Barrierefreie Reise-Markenidentität",
+    "r1.title":"Großangelegte Gitterorganisationsstrukturen","r1.date":"Forschung · 9. Mai 2024",
+    "r2.title":"Kreative Designsysteme durch Iteration aufbauen","r2.date":"Forschung · 9. Mai 2024",
+    "r3.title":"Domänenübergreifende Beobachtungen in Multitasking-Abläufen","r3.date":"Forschung · 9. Mai 2024",
+    "e1.title":"modulor go — B2B-Commerce-Plattform","e1.date":"Fallstudie · 9. Mai 2024",
+    "e2.title":"xArch Symposium — Eventmarken-Identität","e2.date":"Fallstudie · 9. Mai 2024",
+    "e3.title":"Unser Berlin Kunstsaison — Kulturelle Bildkampagne","e3.date":"Fallstudie · 9. Mai 2024",
+    "cta.title":"Lass uns zusammenarbeiten.","cta.btn":"Kontakt aufnehmen →",
+    "ct.tag1":"Neue Projekte","ct.body1":"Ich bin ein in Berlin ansässiger Designer mit Schwerpunkt auf Produkt-UX, Markenidentität und visueller Kommunikation. Ob Festanstellung, Freelance-Projekt oder kreatives Gespräch — melde dich gerne.","ct.sub1":"Ich freue mich auf dein Projekt.","ct.name":"Dongjie","ct.cta":"Kontakt aufnehmen",
+    "ct.tag2":"Allgemeine Anfragen",
+    "ct.tag3":"Über mich","ct.body3":"Meine Praxis umfasst Produkt-UX, Markenidentität und Grafikdesign. Ich glaube, gutes Design ist sowohl systematisch als auch menschlich.","ct.body3b":"Derzeit offen für Festanstellungen, Freelance-Arbeit und Remote-Projekte. In Berlin ansässig und international verfügbar.","ct.learn":"Arbeiten ansehen →",
+    "footer.work":"Arbeiten","footer.about":"Über mich","footer.research":"Forschung","footer.contact":"Kontakt","footer.lang":"Sprache",
+    "footer.intro":"Biografie","footer.cv":"Lebenslauf herunterladen","footer.writing":"Schreiben","footer.method":"Methodik",
+    "footer.ds":"Designsysteme","footer.a11y":"Barrierefreiheit","footer.brand":"Markenstrategie",
+    "footer.copy":"© 2025 Dongjie. Berlin, Deutschland."
+  }
+};
+
+var LANG_META = {
+  zh: { flag:"🇨🇳", label:"中文",   html:"zh-CN" },
+  en: { flag:"🇬🇧", label:"English", html:"en" },
+  de: { flag:"🇩🇪", label:"Deutsch", html:"de" }
+};
+
+var currentLang = "zh";
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  document.documentElement.lang = LANG_META[lang].html;
+
+  // Swap all text nodes
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n");
+    if (T[lang][k] != null) el.textContent = T[lang][k];
+  });
+
+  // Swap placeholders
+  document.querySelectorAll("[data-i18n-ph]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n-ph");
+    if (T[lang][k] != null) el.placeholder = T[lang][k];
+  });
+
+  // Update nav button label
+  document.getElementById("langBtnLabel").textContent = LANG_META[lang].label;
+
+  // Dropdown active states
+  document.querySelectorAll(".lang-option").forEach(function(o) {
+    o.classList.toggle("active", o.dataset.lang === lang);
+  });
+
+  // Drawer pill active states
+  document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+
+  closeLangDropdown();
+}
+
+/* ── Dropdown ── */
+var langBtn      = document.getElementById("langBtn");
+var langDropdown = document.getElementById("langDropdown");
+
+function closeLangDropdown() {
+  langDropdown.classList.remove("open");
+  langBtn.classList.remove("open");
+  langBtn.setAttribute("aria-expanded","false");
+}
+
+langBtn.addEventListener("click", function(e) {
+  e.stopPropagation();
+  var open = langDropdown.classList.contains("open");
+  if (open) { closeLangDropdown(); }
+  else { langDropdown.classList.add("open"); langBtn.classList.add("open"); langBtn.setAttribute("aria-expanded","true"); }
+});
+
+document.querySelectorAll(".lang-option").forEach(function(o) {
+  o.addEventListener("click", function() { setLang(this.dataset.lang); });
+  o.addEventListener("keydown", function(e) { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); setLang(this.dataset.lang); } });
+});
+
+document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+  b.addEventListener("click", function() { setLang(this.dataset.lang); });
+});
+
+document.addEventListener("click", function(e) {
+  if (!document.getElementById("langSwitcher").contains(e.target)) closeLangDropdown();
+});
+
+/* ── Hamburger ── */
+var hamburger = document.getElementById("hamburger");
+var drawer    = document.getElementById("nav-drawer");
+
+hamburger.addEventListener("click", function() {
+  var open = drawer.classList.contains("open");
+  if (open) { closeDrawer(); }
+  else { drawer.classList.add("open"); hamburger.classList.add("open"); hamburger.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; closeLangDropdown(); }
+});
+
+function closeDrawer() {
+  drawer.classList.remove("open"); hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded","false"); document.body.style.overflow="";
+}
+
+window.addEventListener("resize", function() { if (window.innerWidth>=768) closeDrawer(); });
+
+/* ── Hero input: chip click fills input ── */
+var heroInput = document.getElementById("heroInput");
+var heroSend  = document.getElementById("heroSend");
+
+// Chip fill messages per lang
+var chipMessages = {
+  zh: {
+    "chip.ux":        "我想聊一个 UX 设计项目",
+    "chip.brand":     "我想聊一个品牌设计项目",
+    "chip.portfolio": "我想了解你的作品集",
+    "chip.collab":    "我想探讨合作的可能性",
+    "chip.more":      "我想了解更多"
+  },
+  en: {
+    "chip.ux":        "I'd love to talk about a UX design project",
+    "chip.brand":     "I'd love to talk about a brand design project",
+    "chip.portfolio": "I'd like to learn more about your portfolio",
+    "chip.collab":    "I'd like to explore a collaboration",
+    "chip.more":      "I'd like to learn more"
+  },
+  de: {
+    "chip.ux":        "Ich möchte über ein UX-Design-Projekt sprechen",
+    "chip.brand":     "Ich möchte über ein Markendesign-Projekt sprechen",
+    "chip.portfolio": "Ich möchte mehr über dein Portfolio erfahren",
+    "chip.collab":    "Ich möchte eine Zusammenarbeit erkunden",
+    "chip.more":      "Ich möchte mehr erfahren"
+  }
+};
+
+// Subject lines per lang
+var mailSubjects = {
+  zh: "来自作品集的合作咨询",
+  en: "Inquiry from your portfolio",
+  de: "Anfrage über dein Portfolio"
+};
+
+document.querySelectorAll(".chip[data-fill]").forEach(function(chip) {
+  chip.addEventListener("click", function() {
+    var key = this.dataset.fill;
+    var msg = (chipMessages[currentLang] || chipMessages.zh)[key];
+    if (msg) {
+      heroInput.value = msg;
+      heroInput.focus();
+    }
+  });
+});
+
+function sendMail() {
+  var msg = heroInput.value.trim();
+  if (!msg) {
+    heroInput.focus();
+    heroInput.placeholder = (T[currentLang] || T.zh)["hero.placeholder.empty"] || "请先输入一句话…";
+    setTimeout(function() {
+      heroInput.placeholder = (T[currentLang] || T.zh)["hero.placeholder"];
+    }, 2000);
+    return;
+  }
+  var subject = encodeURIComponent(mailSubjects[currentLang] || mailSubjects.zh);
+  var body    = encodeURIComponent(msg);
+  window.location.href = "mailto:hello@dongjie.design?subject=" + subject + "&body=" + body;
+}
+
+heroSend.addEventListener("click", sendMail);
+heroInput.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") sendMail();
+});
+</script>
+</body>
+</html>
