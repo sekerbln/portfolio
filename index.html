@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -129,8 +130,8 @@
 
     .contact-block-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
       align-items: start;
     }
 
@@ -258,8 +259,15 @@
       .cta-block h2 { font-size: 28px; margin-bottom: 20px; }
       .contact-block { padding: 48px var(--page-px); }
       .contact-block-inner { grid-template-columns: 1fr; gap: 40px; }
-      .contact-block-inner--right { justify-items: start; }
-      .contact-detail--lg { font-size: 17px; }
+      .contact-icon > div {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .contact-icon img {
+        margin-top: 0 !important;
+      }
+
       .contact-footer {
         display: flex;
         position: fixed;
@@ -600,11 +608,20 @@
   <!-- Block 1: New Business -->
   <div class="contact-block">
     <div class="contact-block-inner">
-      <div class="contact-left">
-        <span class="contact-tag" data-i18n="ct.tag1">Open to work</span>
-        <p class="contact-body" data-i18n="ct.body1">我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。</p>
-        <p class="contact-sub" data-i18n="ct.sub1">期待聊聊你的项目。</p>
+      <div class="contact-icon">
+        <div style="display: flex; gap: 40px; align-items: flex-start;">
+          <img src="images/favicon.svg" style="width: 80px; flex-shrink: 0; margin-top: 54px;" />
+          <div>
+            <span class="contact-tag" data-i18n="ct.tag1">正在求职中</span>
+            <p class="contact-body" style="margin-top: 12px;" data-i18n="ct.body1">我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。</p>
+            <p class="contact-sub" data-i18n="ct.sub1">期待聊聊你的项目。</p>
+          </div>
+        </div>
       </div>
+
+      <div class="contact-left">
+      </div>
+
       <div class="contact-right">
         <span class="contact-tag" data-i18n="ct.tag2">在这里找到 Dongjie</span>
         <a class="contact-detail" href="mailto:sekermac@gmail.com">sekermac@gmail.com</a>
@@ -681,7 +698,7 @@ var T = {
     "e2.title":"xArch Symposium — 活动品牌设计","e2.date":"案例 · 2024年5月9日",
     "e3.title":"Unser Berlin Kunstsaison — 文化视觉传播","e3.date":"案例 · 2024年5月9日",
     "cta.title":"开始联系 Dongjie","cta.btn":"联系我 →",
-    "ct.tag1":"正在求职中","ct.body1":"我是一名来自柏林的设计师，<br>专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。","ct.sub1":"期待聊聊你的项目。","ct.tag2":"在这里找到 Dongjie","ct.cta":"联系我",
+    "ct.tag1":"正在求职中","ct.body1":"我是一名来自柏林的设计师，专注于产品体验、品牌设计与视觉传达。无论是全职合作、自由项目还是创意探讨，欢迎随时与我联系。","ct.sub1":"期待聊聊你的项目。","ct.tag2":"在这里找到 Dongjie","ct.cta":"联系我",
     "ct.tag3":"关于我","ct.body3":"我的设计实践横跨产品 UX、品牌标识与图形设计，相信好的设计既有系统逻辑，也有人文温度。","ct.body3b":"目前开放全职机会、自由合作及远程项目，欢迎柏林本地及国际团队联系。","ct.learn":"查看作品 →",
     "footer.work":"作品","footer.about":"关于我","footer.research":"研究","footer.contact":"联系","footer.lang":"语言",
     "footer.intro":"简介","footer.cv":"简历下载","footer.writing":"写作","footer.method":"方法论",
