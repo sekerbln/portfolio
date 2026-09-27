@@ -121,54 +121,12 @@
 
     /* ── MOBILE ── */
     @media (max-width: 767px) {
-      :root { --page-px: 20px; }
-      .nav-links { display: none; }
-      .nav-btn-download { display: none; }
-      .nav-hamburger { display: flex; }
       .page { padding: 40px var(--page-px) 64px; }
       .resume-name { font-size: 32px; }
       .exp-item { grid-template-columns: 1fr; }
       .exp-date { text-align: left; }
       .edu-item { grid-template-columns: 1fr; }
       .edu-date { text-align: left; }
-      .contact-footer {
-        display: flex;
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 99;
-      }
-
-      .capsule-nav {
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255,255,255,0.6);
-        border-radius: 100px;
-        padding: 6px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      }
-
-
-      .capsule-link {
-        font-size: 16px;
-        font-weight: 400;
-        color: var(--text-muted);
-        padding: 10px 20px;
-        border-radius: 999px;
-        transition: color .15s, background .15s;
-        white-space: nowrap;
-      }
-
-      .capsule-link--active {
-        background: var(--black);
-        color: var(--white);
-        font-weight: 500;
-      }
       .resume-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
     }
   </style>
@@ -181,9 +139,9 @@
     <div class="nav-left">
       <a class="nav-logo" href="index.html">Dongjie</a>
       <ul class="nav-links">
-        <li><a href="#work" data-i18n="nav.work">作品</a></li>
+        <li><a href="index.html#work" data-i18n="nav.work">作品</a></li>
         <li><a href="resume.html" class="active" data-i18n="nav.resume">简历</a></li>
-        <li><a href="#contact" data-i18n="nav.contact">联系</a></li>
+        <li><a href="index.html#contact" data-i18n="nav.contact">联系</a></li>
       </ul>
     </div>
     <div class="nav-right">
@@ -226,11 +184,9 @@
 
 <!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="nav-drawer">
-  <a class="nav-drawer-link" href="index.html#work"     onclick="closeDrawer()" data-i18n="nav.work">作品</a>
-  <a class="nav-drawer-link" href="index.html#about"    onclick="closeDrawer()" data-i18n="nav.about">关于</a>
-  <a class="nav-drawer-link" href="index.html#research" onclick="closeDrawer()" data-i18n="nav.research">研究</a>
-  <a class="nav-drawer-link" href="index.html#contact"  onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
+  <a class="nav-drawer-link" href="index.html#work"    onclick="closeDrawer()" data-i18n="nav.work">作品</a>
   <a class="nav-drawer-link active" href="resume.html"  onclick="closeDrawer()" data-i18n="nav.resume">简历</a>
+  <a class="nav-drawer-link" href="index.html#contact" onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
   <div class="drawer-lang-section">
     <div class="drawer-lang-label" data-i18n="nav.language">语言</div>
     <div class="drawer-lang-pills">
@@ -402,6 +358,7 @@ var T = {
     "skill.brand":"品牌标识","skill.visual":"视觉传达","skill.graphic":"平面设计",
     "skill.proto":"原型设计","skill.ds":"设计系统","skill.web":"网页开发",
     "skill.zh":"中文","skill.en":"英文","skill.de":"德文",
+    "mob.home":"主页","mob.work":"作品","mob.resume":"简历","mob.contact":"联系",
     "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
   },
   en: {
@@ -421,6 +378,7 @@ var T = {
     "skill.brand":"Brand Identity","skill.visual":"Visual Communication","skill.graphic":"Graphic Design",
     "skill.proto":"Prototyping","skill.ds":"Design Systems","skill.web":"Web Development",
     "skill.zh":"Chinese","skill.en":"English","skill.de":"German",
+    "mob.home":"Home","mob.work":"Work","mob.resume":"Résumé","mob.contact":"Contact",
     "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
   },
   de: {
@@ -440,6 +398,7 @@ var T = {
     "skill.brand":"Markenidentität","skill.visual":"Visuelle Kommunikation","skill.graphic":"Grafikdesign",
     "skill.proto":"Prototyping","skill.ds":"Designsysteme","skill.web":"Webentwicklung",
     "skill.zh":"Chinesisch","skill.en":"Englisch","skill.de":"Deutsch",
+    "mob.home":"Start","mob.work":"Arbeiten","mob.resume":"Lebenslauf","mob.contact":"Kontakt",
     "footer.copy":"© 2025 Dongjie Ma · Berlin, Deutschland"
   }
 };
@@ -450,7 +409,18 @@ var LANG_META = {
   de: { label:"Deutsch", html:"de" }
 };
 
-var currentLang = "zh";
+function detectLang() {
+  var params = new URLSearchParams(window.location.search);
+  var urlLang = params.get('lang');
+  if (urlLang && T[urlLang]) return urlLang;
+
+  var browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
+  if (browserLang.startsWith("de")) return "de";
+  if (browserLang.startsWith("zh")) return "zh";
+  return "en";
+}
+
+var currentLang = detectLang();
 
 function setLang(lang) {
   if (!T[lang]) return;
@@ -467,7 +437,17 @@ function setLang(lang) {
   document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
+
   closeLangDropdown();
+  /* 更新导航链接语言参数 */
+  document.querySelectorAll('a[href^="resume.html"]').forEach(function(a) {
+    a.href = 'resume.html?lang=' + lang;
+  });
+  document.querySelectorAll('a[href^="index.html"]').forEach(function(a) {
+    var url = new URL(a.href, window.location.href);
+    url.searchParams.set('lang', lang);
+    a.href = url.toString();
+  });
 }
 
 /* Lang dropdown */
@@ -516,6 +496,7 @@ function closeDrawer() {
 }
 
 window.addEventListener("resize", function() { if (window.innerWidth>=768) closeDrawer(); });
+setLang(currentLang);
 </script>
 </body>
 </html>

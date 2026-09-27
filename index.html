@@ -277,35 +277,6 @@
         z-index: 99;
       }
 
-      .capsule-nav {
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255,255,255,0.6);
-        border-radius: 100px;
-        padding: 6px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      }
-
-
-      .capsule-link {
-        font-size: 16px;
-        font-weight: 400;
-        color: var(--text-muted);
-        padding: 10px 20px;
-        border-radius: 999px;
-        transition: color .15s, background .15s;
-        white-space: nowrap;
-      }
-
-      .capsule-link--active {
-        background: var(--black);
-        color: var(--white);
-        font-weight: 500;
-      }
       footer { flex-wrap: wrap; gap: 32px 40px; padding: 32px var(--page-px); }
       .footer-col { min-width: calc(50% - 20px); }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px var(--page-px); }
@@ -375,7 +346,7 @@
         </div>
       </div>
 
-      <a class="nav-btn-solid" href="mailto:hello@dongjie.design" data-i18n="nav.cta">联系我</a>
+      <a class="nav-btn-solid" href="mailto:sekermac@gmail.com" data-i18n="nav.cta">联系我</a>
 
       <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -809,10 +780,20 @@ var LANG_META = {
 
 /* ── 自动检测语言 ── */
 function detectLang() {
+  var params = new URLSearchParams(window.location.search);
+  var urlLang = params.get('lang');
+  if (urlLang && T[urlLang]) return urlLang;
+
   var browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
   if (browserLang.startsWith("de")) return "de";
   if (browserLang.startsWith("zh")) return "zh";
-  return "en"; // 其他语言默认英文
+  return "en";
+}
+
+function updateResumeLinks() {
+  document.querySelectorAll('a[href^="resume.html"]').forEach(function(a) {
+    a.href = 'resume.html?lang=' + currentLang;
+  });
 }
 
 var currentLang = detectLang();
@@ -848,6 +829,7 @@ function setLang(lang) {
   });
 
   closeLangDropdown();
+  updateResumeLinks();
 }
 
 /* ── Dropdown ── */
