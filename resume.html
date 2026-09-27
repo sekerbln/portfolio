@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dongjie Ma — 简历</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px var(--page-px) 96px;
+    }
+
+    /* ── HEADER ── */
+    .resume-header {
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .resume-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 48px; font-weight: 400;
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 8px;
+    }
+
+    .resume-pronoun {
+      font-size: 14px; color: var(--text-faint);
+      font-weight: 400; margin-left: 8px;
+      letter-spacing: 0; font-family: 'Geist', sans-serif;
+    }
+
+    .resume-tagline {
+      font-size: 16px; color: var(--text-muted);
+      line-height: 1.65; max-width: 520px; margin-bottom: 28px;
+    }
+
+    .resume-contacts { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-muted);
+      background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 13px;
+      transition: background .15s, color .15s;
+    }
+    .contact-chip:hover { background: var(--gray-100); color: var(--text); }
+
+    /* ── DOWNLOAD BTN in header ── */
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500;
+      color: var(--white); background: var(--black);
+      padding: 8px 18px; border-radius: 6px; transition: opacity .15s;
+      margin-top: 24px;
+    }
+    .download-btn:hover { opacity: .78; }
+
+    /* ── SECTIONS ── */
+    .resume-section { margin-bottom: 48px; }
+
+    .section-title {
+      font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-faint); margin-bottom: 0;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4px 24px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-of-type { border-top: 1px solid var(--border); margin-top: 20px; }
+
+    .exp-role { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .exp-company { font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+    .exp-desc { font-size: 13px; color: var(--text-faint); line-height: 1.6; }
+    .exp-date { font-size: 12px; color: var(--text-faint); white-space: nowrap; text-align: right; padding-top: 3px; }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4px 24px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:first-of-type { border-top: 1px solid var(--border); margin-top: 20px; }
+
+    .edu-degree { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .edu-school { font-size: 13px; color: var(--text-muted); }
+    .edu-date { font-size: 12px; color: var(--text-faint); white-space: nowrap; text-align: right; padding-top: 3px; }
+
+    /* ── SKILLS ── */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .skill-tag {
+      font-size: 13px; color: var(--text-muted);
+      background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: 6px; padding: 5px 12px;
+    }
+
+
+    /* ── FOOTER ── */
+    .resume-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px var(--page-px);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .resume-footer span { font-size: 12px; color: var(--text-faint); }
+    .footer-back { font-size: 13px; color: var(--text-muted); transition: color .15s; }
+    .footer-back:hover { color: var(--text); }
+
+
+    /* ── MOBILE ── */
+    @media (max-width: 767px) {
+      :root { --page-px: 20px; }
+      .nav-links { display: none; }
+      .nav-btn-download { display: none; }
+      .nav-hamburger { display: flex; }
+      .page { padding: 40px var(--page-px) 64px; }
+      .resume-name { font-size: 32px; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-date { text-align: left; }
+      .edu-item { grid-template-columns: 1fr; }
+      .edu-date { text-align: left; }
+      .contact-footer {
+        display: flex;
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99;
+      }
+
+      .capsule-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.6);
+        border-radius: 100px;
+        padding: 6px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      }
+
+
+      .capsule-link {
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--text-muted);
+        padding: 10px 20px;
+        border-radius: 999px;
+        transition: color .15s, background .15s;
+        white-space: nowrap;
+      }
+
+      .capsule-link--active {
+        background: var(--black);
+        color: var(--white);
+        font-weight: 500;
+      }
+      .resume-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="index.html">Dongjie</a>
+    <ul class="nav-links">
+      <li><a href="#work"     data-i18n="nav.work">作品</a></li>
+      <li><a href="resume.html" class="active" data-i18n="nav.resume">简历</a></li>
+      <li><a href="#contact"  data-i18n="nav.contact">联系</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="lang-btn-label" id="langBtnLabel">中文</span>
+        <svg class="lang-btn-caret" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown" role="listbox">
+        <div class="lang-option active" data-lang="zh" role="option" tabindex="0">
+          <span>中文</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+        <div class="lang-option" data-lang="en" role="option" tabindex="0">
+          <span>English</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+        <div class="lang-option" data-lang="de" role="option" tabindex="0">
+          <span>Deutsch</span>
+          <svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+        </div>
+      </div>
+    </div>
+    <a class="nav-btn-download" href="Resume_en.pdf" download data-i18n="resume.download">下载 PDF</a>
+    <a class="nav-btn-solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-drawer-link" href="index.html#work"     onclick="closeDrawer()" data-i18n="nav.work">作品</a>
+  <a class="nav-drawer-link" href="index.html#about"    onclick="closeDrawer()" data-i18n="nav.about">关于</a>
+  <a class="nav-drawer-link" href="index.html#research" onclick="closeDrawer()" data-i18n="nav.research">研究</a>
+  <a class="nav-drawer-link" href="index.html#contact"  onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
+  <a class="nav-drawer-link active" href="resume.html"  onclick="closeDrawer()" data-i18n="nav.resume">简历</a>
+  <div class="drawer-lang-section">
+    <div class="drawer-lang-label" data-i18n="nav.language">语言</div>
+    <div class="drawer-lang-pills">
+      <button class="drawer-lang-pill active" data-lang="zh">中文</button>
+      <button class="drawer-lang-pill"        data-lang="en">English</button>
+      <button class="drawer-lang-pill"        data-lang="de">Deutsch</button>
+    </div>
+  </div>
+  <div class="nav-drawer-actions">
+    <a class="nav-drawer-btn solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="resume-header">
+    <h1 class="resume-name">
+      Dongjie Ma
+      <span class="resume-pronoun">29 · er/he/him</span>
+    </h1>
+    <p class="resume-tagline" data-i18n="resume.tagline">
+      平面与 UX 设计师，拥有 5 年工作经验，专注于品牌设计与视觉识别。目前在柏林修读网页开发学士学位。
+    </p>
+    <div class="resume-contacts">
+      <a class="contact-chip" href="mailto:sekermac@gmail.com">sekermac@gmail.com</a>
+      <a class="contact-chip" href="tel:+4915566429185">+49 155 664 29185</a>
+      <a class="contact-chip" href="https://www.linkedin.com/in/dongjiema/" target="_blank">LinkedIn</a>
+      <a class="contact-chip" href="https://behance.net" target="_blank">Behance</a>
+      <span class="contact-chip">IELTS 7.0</span>
+      <span class="contact-chip">Deutsch A2</span>
+    </div>
+  </div>
+
+  <!-- WORK EXPERIENCE -->
+  <div class="resume-section">
+    <div class="section-title" data-i18n="resume.work">工作经历</div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp1.role">中国品牌大使</div>
+        <div class="exp-company">Home & Co</div>
+        <div class="exp-desc" data-i18n="exp1.desc">负责中国市场营销内容本地化，维护公司网站内容。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp1.date">2025年4月 — 至今</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp2.role">设计师</div>
+        <div class="exp-company">Sustainable Advertising</div>
+        <div class="exp-desc" data-i18n="exp2.desc">负责品牌标识设计与网站原型开发。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp2.date">2024年5月 — 2024年8月</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp3.role">品牌与 UX 设计师</div>
+        <div class="exp-company">Gokoo Online</div>
+        <div class="exp-desc" data-i18n="exp3.desc">主导移动应用 UI/UX 原型设计，维护集团品牌视觉规范。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp3.date">2022年6月 — 2023年2月</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp4.role">设计师兼社交媒体经理</div>
+        <div class="exp-company">Arktek World</div>
+        <div class="exp-desc" data-i18n="exp4.desc">为意大利家具品牌设计社交媒体内容及 3D 展台。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp4.date">2022年3月 — 2022年6月</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp5.role">平面与 3D 设计师</div>
+        <div class="exp-company">AVANTGARDE</div>
+        <div class="exp-desc" data-i18n="exp5.desc">参与应用界面设计、关键视觉制作及 3D 建模支持。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp5.date">2021年8月 — 2022年2月</div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-role" data-i18n="exp6.role">品牌设计师</div>
+        <div class="exp-company">Xi'an Jiaotong-Liverpool University</div>
+        <div class="exp-desc" data-i18n="exp6.desc">负责管理大学整体视觉品牌形象与设计规范。</div>
+      </div>
+      <div class="exp-date" data-i18n="exp6.date">2021年2月 — 2021年7月</div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="resume-section">
+    <div class="section-title" data-i18n="resume.edu">教育背景</div>
+
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree" data-i18n="edu1.degree">网页开发学士（在读）</div>
+        <div class="edu-school">Berlin School of Design and Communication, SRH Hochschule</div>
+      </div>
+      <div class="edu-date" data-i18n="edu1.date">至今</div>
+    </div>
+
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree" data-i18n="edu2.degree">建筑工程学士</div>
+        <div class="edu-school">University of Liverpool · Xi'an Jiaotong-Liverpool University</div>
+      </div>
+      <div class="edu-date" data-i18n="edu2.date">2015年9月 — 2020年7月</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="resume-section">
+    <div class="section-title" data-i18n="resume.skills">技能</div>
+    <div class="skills-wrap">
+      <span class="skill-tag">UX Design</span>
+      <span class="skill-tag" data-i18n="skill.brand">品牌标识</span>
+      <span class="skill-tag" data-i18n="skill.visual">视觉传达</span>
+      <span class="skill-tag" data-i18n="skill.graphic">平面设计</span>
+      <span class="skill-tag">3D Design</span>
+      <span class="skill-tag">Figma</span>
+      <span class="skill-tag" data-i18n="skill.proto">原型设计</span>
+      <span class="skill-tag" data-i18n="skill.ds">设计系统</span>
+      <span class="skill-tag" data-i18n="skill.web">网页开发</span>
+      <span class="skill-tag" data-i18n="skill.zh">中文</span>
+      <span class="skill-tag" data-i18n="skill.en">英文</span>
+      <span class="skill-tag" data-i18n="skill.de">德文</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Mobile capsule nav -->
+<div class="contact-footer">
+  <nav class="capsule-nav" aria-label="页面导航">
+    <a class="capsule-link" href="index.html" data-i18n="mob.home">主页</a>
+    <a class="capsule-link" href="index.html#work" data-i18n="mob.work">作品</a>
+    <a class="capsule-link capsule-link--active" href="resume.html" data-i18n="mob.resume">简历</a>
+    <a class="capsule-link" href="index.html#contact" data-i18n="mob.contact">联系</a>
+  </nav>
+</div>
+
+<!-- FOOTER -->
+<div class="resume-footer">
+  <span data-i18n="footer.copy">© 2025 Dongjie Ma · Berlin, Germany</span>
+</div>
+
+<script>
+/* ══ TRANSLATIONS ══ */
+var T = {
+  zh: {
+    "nav.work":"作品","nav.about":"关于","nav.research":"研究","nav.contact":"联系","nav.resume":"简历","nav.cta":"联系我","nav.language":"语言",
+    "resume.tagline":"平面与 UX 设计师，拥有 5 年工作经验，专注于品牌设计与视觉识别。目前在柏林修读网页开发学士学位。",
+    "resume.download":"下载 PDF",
+    "resume.work":"工作经历","resume.edu":"教育背景","resume.skills":"技能",
+    "resume.back":"← 返回作品集",
+    "exp1.role":"中国品牌大使","exp1.desc":"负责中国市场营销内容本地化，维护公司网站内容。","exp1.date":"2025年4月 — 至今",
+    "exp2.role":"设计师","exp2.desc":"负责品牌标识设计与网站原型开发。","exp2.date":"2024年5月 — 2024年8月",
+    "exp3.role":"品牌与 UX 设计师","exp3.desc":"主导移动应用 UI/UX 原型设计，维护集团品牌视觉规范。","exp3.date":"2022年6月 — 2023年2月",
+    "exp4.role":"设计师兼社交媒体经理","exp4.desc":"为意大利家具品牌设计社交媒体内容及 3D 展台。","exp4.date":"2022年3月 — 2022年6月",
+    "exp5.role":"平面与 3D 设计师","exp5.desc":"参与应用界面设计、关键视觉制作及 3D 建模支持。","exp5.date":"2021年8月 — 2022年2月",
+    "exp6.role":"品牌设计师","exp6.desc":"负责管理大学整体视觉品牌形象与设计规范。","exp6.date":"2021年2月 — 2021年7月",
+    "edu1.degree":"网页开发学士（在读）","edu1.date":"至今",
+    "edu2.degree":"建筑工程学士","edu2.date":"2015年9月 — 2020年7月",
+    "skill.brand":"品牌标识","skill.visual":"视觉传达","skill.graphic":"平面设计",
+    "skill.proto":"原型设计","skill.ds":"设计系统","skill.web":"网页开发",
+    "skill.zh":"中文","skill.en":"英文","skill.de":"德文",
+    "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
+  },
+  en: {
+    "nav.work":"Work","nav.about":"About","nav.research":"Research","nav.contact":"Contact","nav.resume":"Résumé","nav.cta":"Get in touch","nav.language":"Language",
+    "resume.tagline":"Graphic & UX Designer with 5 years of working experience, specialising in branding and visual identity. Currently pursuing a Bachelor's degree in Web Development in Berlin.",
+    "resume.download":"Download PDF",
+    "resume.work":"Work Experience","resume.edu":"Education","resume.skills":"Skills",
+    "resume.back":"← Back to portfolio",
+    "exp1.role":"Chinese Brand Ambassador","exp1.desc":"Managed marketing content localisation and maintained company website content.","exp1.date":"Apr 2025 — Present",
+    "exp2.role":"Designer","exp2.desc":"Prototyping and designing brand identity and websites.","exp2.date":"May 2024 — Aug 2024",
+    "exp3.role":"Brand and UX Designer","exp3.desc":"Led mobile application UI/UX prototyping and maintained group brand visual identity.","exp3.date":"Jun 2022 — Feb 2023",
+    "exp4.role":"Designer & Social Media Manager","exp4.desc":"Designed social media content and 3D exhibition stands for Italian furniture brands.","exp4.date":"Mar 2022 — Jun 2022",
+    "exp5.role":"Graphic and 3D Designer","exp5.desc":"Supported app interface design, created key visuals, and leveraged 3D modelling for project support.","exp5.date":"Aug 2021 — Feb 2022",
+    "exp6.role":"Brand Designer","exp6.desc":"Managed the university's overall visual brand image and design standards.","exp6.date":"Feb 2021 — Jul 2021",
+    "edu1.degree":"Bachelor of Web Development (Present)","edu1.date":"Present",
+    "edu2.degree":"Bachelor of Engineering in Architecture","edu2.date":"Sep 2015 — Jul 2020",
+    "skill.brand":"Brand Identity","skill.visual":"Visual Communication","skill.graphic":"Graphic Design",
+    "skill.proto":"Prototyping","skill.ds":"Design Systems","skill.web":"Web Development",
+    "skill.zh":"Chinese","skill.en":"English","skill.de":"German",
+    "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
+  },
+  de: {
+    "nav.work":"Arbeiten","nav.about":"Über mich","nav.research":"Forschung","nav.contact":"Kontakt","nav.resume":"Lebenslauf","nav.cta":"Kontakt aufnehmen","nav.language":"Sprache",
+    "resume.tagline":"Grafik- und UX-Designer mit 5 Jahren Berufserfahrung, spezialisiert auf Branding und visuelle Identität. Derzeit absolviere ich meinen Bachelor in Web Development in Berlin.",
+    "resume.download":"PDF herunterladen",
+    "resume.work":"Berufserfahrung","resume.edu":"Ausbildung","resume.skills":"Fähigkeiten",
+    "resume.back":"← Zurück zum Portfolio",
+    "exp1.role":"Chinesischer Markenbotschafter","exp1.desc":"Verwaltung von Marketinginhalten für den chinesischen Markt und Pflege der Website-Inhalte.","exp1.date":"Apr 2025 — Heute",
+    "exp2.role":"Designer","exp2.desc":"Gestaltung der Markenidentität und Prototypenerstellung für Websites.","exp2.date":"Mai 2024 — Aug 2024",
+    "exp3.role":"Brand- und UX-Designer","exp3.desc":"Federführend beim UI/UX-Prototyping der mobilen App und Pflege der Markenidentität.","exp3.date":"Jun 2022 — Feb 2023",
+    "exp4.role":"Designer & Social-Media-Manager","exp4.desc":"Gestaltung von Social-Media-Posts und 3D-Messeständen für italienische Möbelmarken.","exp4.date":"Mär 2022 — Jun 2022",
+    "exp5.role":"Grafik- und 3D-Designer","exp5.desc":"App-UI-Design, Key-Visual-Erstellung und 3D-Modellierungs-Support.","exp5.date":"Aug 2021 — Feb 2022",
+    "exp6.role":"Brand Designer","exp6.desc":"Verwaltung des gesamten visuellen Markenauftritts und der Designstandards der Universität.","exp6.date":"Feb 2021 — Jul 2021",
+    "edu1.degree":"Bachelor of Web Development (laufend)","edu1.date":"Laufend",
+    "edu2.degree":"Bachelor of Engineering in Architektur","edu2.date":"Sep 2015 — Jul 2020",
+    "skill.brand":"Markenidentität","skill.visual":"Visuelle Kommunikation","skill.graphic":"Grafikdesign",
+    "skill.proto":"Prototyping","skill.ds":"Designsysteme","skill.web":"Webentwicklung",
+    "skill.zh":"Chinesisch","skill.en":"Englisch","skill.de":"Deutsch",
+    "footer.copy":"© 2025 Dongjie Ma · Berlin, Deutschland"
+  }
+};
+
+var LANG_META = {
+  zh: { label:"中文",   html:"zh-CN" },
+  en: { label:"English", html:"en" },
+  de: { label:"Deutsch", html:"de" }
+};
+
+var currentLang = "zh";
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  document.documentElement.lang = LANG_META[lang].html;
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n");
+    if (T[lang][k] != null) el.textContent = T[lang][k];
+  });
+  document.getElementById("langBtnLabel").textContent = LANG_META[lang].label;
+  document.querySelectorAll(".lang-option").forEach(function(o) {
+    o.classList.toggle("active", o.dataset.lang === lang);
+  });
+  document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+  closeLangDropdown();
+}
+
+/* Lang dropdown */
+var langBtn      = document.getElementById("langBtn");
+var langDropdown = document.getElementById("langDropdown");
+
+function closeLangDropdown() {
+  langDropdown.classList.remove("open");
+  langBtn.classList.remove("open");
+  langBtn.setAttribute("aria-expanded","false");
+}
+
+langBtn.addEventListener("click", function(e) {
+  e.stopPropagation();
+  var open = langDropdown.classList.contains("open");
+  if (open) { closeLangDropdown(); }
+  else { langDropdown.classList.add("open"); langBtn.classList.add("open"); langBtn.setAttribute("aria-expanded","true"); }
+});
+
+document.querySelectorAll(".lang-option").forEach(function(o) {
+  o.addEventListener("click", function() { setLang(this.dataset.lang); });
+  o.addEventListener("keydown", function(e) { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); setLang(this.dataset.lang); } });
+});
+
+document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+  b.addEventListener("click", function() { setLang(this.dataset.lang); });
+});
+
+document.addEventListener("click", function(e) {
+  if (!document.getElementById("langSwitcher").contains(e.target)) closeLangDropdown();
+});
+
+/* Hamburger */
+var hamburger = document.getElementById("hamburger");
+var drawer    = document.getElementById("nav-drawer");
+
+hamburger.addEventListener("click", function() {
+  var open = drawer.classList.contains("open");
+  if (open) { closeDrawer(); }
+  else { drawer.classList.add("open"); hamburger.classList.add("open"); hamburger.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; closeLangDropdown(); }
+});
+
+function closeDrawer() {
+  drawer.classList.remove("open"); hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded","false"); document.body.style.overflow="";
+}
+
+window.addEventListener("resize", function() { if (window.innerWidth>=768) closeDrawer(); });
+</script>
+</body>
+</html>
