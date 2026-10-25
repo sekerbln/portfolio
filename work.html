@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dongjie Ma — 作品</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE WRAPPER ── */
+    .work-page {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 64px var(--page-px) 120px;
+    }
+
+    /* ── HEADER ── */
+    .work-title {
+      font-size: 44px; font-weight: 500;
+      letter-spacing: -.02em; line-height: 1.15;
+      color: var(--text); margin-bottom: 24px;
+    }
+
+    .work-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; margin-bottom: 48px;
+    }
+
+    .work-tabs { display: flex; gap: 22px; flex-wrap: wrap; }
+
+    .work-tab {
+      font-family: 'Geist', sans-serif;
+      font-size: 15px; color: var(--text-faint);
+      background: none; border: none; padding: 4px 0;
+      cursor: pointer; transition: color .15s;
+    }
+    .work-tab:hover { color: var(--text-muted); }
+    .work-tab.active { color: var(--text); font-weight: 500; }
+
+    .view-toggle { display: flex; gap: 4px; }
+
+    .view-btn {
+      width: 30px; height: 30px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-faint); transition: background .15s, color .15s;
+    }
+    .view-btn:hover { background: var(--gray-100); color: var(--text); }
+    .view-btn.active { color: var(--text); }
+    .view-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── FEATURED ── */
+    .work-featured {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 96px;
+    }
+
+    .wf-main { position: sticky; top: 80px; min-width: 0; display: block; }
+
+    .wf-main-thumb {
+      aspect-ratio: 16 / 9;
+      border-radius: 12px; overflow: hidden;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .wf-main-thumb video { width: 102%; height: 102%; object-fit: cover; }
+
+    .wf-main-title {
+      font-size: 36px; font-weight: 500;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: var(--text); margin-bottom: 10px;
+    }
+
+    .wf-side { display: flex; flex-direction: column; gap: 48px; min-width: 0; }
+
+    .wf-side-card { display: block; }
+    .wf-side-card:hover .wf-side-thumb { opacity: .85; }
+
+    .wf-side-thumb {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px; overflow: hidden;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; transition: opacity .2s;
+    }
+    .wf-side-thumb video { width: 104%; height: 104%; object-fit: cover; }
+
+    .wf-side-title {
+      font-size: 17px; font-weight: 500;
+      color: var(--text); line-height: 1.35; margin-bottom: 8px;
+    }
+
+    /* ── META LINE (分类 + 日期) ── */
+    .w-meta { display: flex; gap: 10px; font-size: 13px; }
+    .w-meta-cat { color: var(--text); font-weight: 500; }
+    .w-meta-date { color: var(--text-faint); }
+
+    /* ── GRID ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: 16px; row-gap: 56px;
+    }
+
+    .w-card { display: block; min-width: 0; }
+    .w-card:hover .w-thumb { opacity: .88; }
+    .w-card.is-hidden { display: none; }
+
+    .w-thumb {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px; overflow: hidden;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      margin-bottom: 16px; transition: opacity .2s;
+    }
+
+    .w-title {
+      font-size: 16px; font-weight: 500;
+      color: var(--text); line-height: 1.4; margin-bottom: 8px;
+    }
+
+    .w-credit { font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+
+    /* ── LIST VIEW ── */
+    .work-grid.list-view {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+    .work-grid.list-view .w-card {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 28px; align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .work-grid.list-view .w-card:first-child { border-top: 1px solid var(--border); }
+    .work-grid.list-view .w-card.is-hidden { display: none; }
+    .work-grid.list-view .w-thumb { aspect-ratio: 4 / 3; margin-bottom: 0; border-radius: 8px; }
+    .work-grid.list-view .w-title { font-size: 18px; }
+
+    /* 筛选时隐藏精选区 */
+    .work-featured.is-hidden { display: none; }
+
+    .work-empty { display: none; color: var(--text-faint); font-size: 15px; padding: 40px 0; }
+
+    /* ════ TABLET ════ */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .work-featured { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+    }
+
+    /* ════ MOBILE ════ */
+    @media (max-width: 767px) {
+      .work-page { padding: 40px var(--page-px) 120px; }
+      .work-title { font-size: 32px; margin-bottom: 16px; }
+      .work-toolbar { margin-bottom: 32px; }
+      .view-toggle { display: none; }
+
+      .work-featured { grid-template-columns: 1fr; gap: 0; margin-bottom: 56px; }
+      .wf-main { position: static; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+      .wf-main-title { font-size: 26px; }
+      .wf-side { gap: 0; }
+      .wf-side-card {
+        display: grid; grid-template-columns: 140px 1fr;
+        gap: 16px; align-items: center;
+        padding: 16px 0; border-bottom: 1px solid var(--border);
+      }
+      .wf-side-thumb { aspect-ratio: 4 / 3; margin-bottom: 0; border-radius: 8px; }
+
+      .work-grid { grid-template-columns: 1fr; row-gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="nav-logo" href="index.html">Dongjie</a>
+      <ul class="nav-links">
+        <li><a href="work.html" class="active" data-i18n="nav.work">作品</a></li>
+        <li><a href="resume.html" data-i18n="nav.resume">简历</a></li>
+        <li><a href="index.html#contact" data-i18n="nav.contact">联系</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-btn-label" id="langBtnLabel">中文</span>
+          <svg class="lang-btn-caret" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="listbox">
+          <div class="lang-option active" data-lang="zh" role="option" tabindex="0">
+            <span>中文</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+          </div>
+          <div class="lang-option" data-lang="en" role="option" tabindex="0">
+            <span>English</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+          </div>
+          <div class="lang-option" data-lang="de" role="option" tabindex="0">
+            <span>Deutsch</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
+          </div>
+        </div>
+      </div>
+      <a class="nav-btn-solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-drawer-link active" href="work.html" onclick="closeDrawer()" data-i18n="nav.work">作品</a>
+  <a class="nav-drawer-link" href="resume.html" onclick="closeDrawer()" data-i18n="nav.resume">简历</a>
+  <a class="nav-drawer-link" href="index.html#contact" onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
+  <div class="drawer-lang-section">
+    <div class="drawer-lang-label" data-i18n="nav.language">语言</div>
+    <div class="drawer-lang-pills">
+      <button class="drawer-lang-pill active" data-lang="zh">中文</button>
+      <button class="drawer-lang-pill" data-lang="en">English</button>
+      <button class="drawer-lang-pill" data-lang="de">Deutsch</button>
+    </div>
+  </div>
+  <div class="nav-drawer-actions">
+    <a class="nav-drawer-btn solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+  </div>
+</div>
+
+<main class="work-page">
+
+  <!-- HEADER -->
+  <h1 class="work-title" data-i18n="work.title">作品</h1>
+  <div class="work-toolbar">
+    <div class="work-tabs" role="tablist">
+      <button class="work-tab active" data-filter="all" data-i18n="work.all">全部</button>
+      <button class="work-tab" data-filter="ux" data-i18n="cat.ux">UX 设计</button>
+      <button class="work-tab" data-filter="brand" data-i18n="cat.brand">品牌与平面</button>
+    </div>
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="grid" aria-label="Grid">
+        <svg viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+      </button>
+      <button class="view-btn" data-view="list" aria-label="List">
+        <svg viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="2" rx="1"/><rect x="1" y="7" width="14" height="2" rx="1"/><rect x="1" y="12" width="14" height="2" rx="1"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <section class="work-featured" id="workFeatured">
+    <a class="wf-main" href="#">
+      <div class="wf-main-thumb">
+        <video autoplay muted loop playsinline>
+          <source src="videos/zeitguard.mov" type="video/mp4">
+        </video>
+      </div>
+      <div class="wf-main-title" data-i18n="p.zeitguard.long">ZeitGuard — 帮助学生克服拖延症</div>
+      <div class="w-meta">
+        <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
+        <span class="w-meta-date" data-i18n="d.2024.02">2024年2月</span>
+      </div>
+    </a>
+
+    <div class="wf-side">
+      <a class="wf-side-card" href="#">
+        <div class="wf-side-thumb" style="background-image: url('images/steps-bg.png'); background-size: cover; background-position: center;">
+          <img src="images/steps-cover.png" style="height: 14%; object-fit: contain;" />
+        </div>
+        <div>
+          <div class="wf-side-title" data-i18n="p.steps.long">Steps — 记录旅行足迹</div>
+          <div class="w-meta">
+            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
+            <span class="w-meta-date" data-i18n="d.2025.06">2025年6月</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="wf-side-card" href="#">
+        <div class="wf-side-thumb" style="background-image: url('images/modulor-bg.png'); background-size: cover; background-position: center;">
+          <img src="images/modulor-cover.png" style="height: 200%; object-fit: contain; transform: translateX(30px) translateY(20px);" />
+        </div>
+        <div>
+          <div class="wf-side-title" data-i18n="p.modulor.long">Modulor Go 改革自助售货体验</div>
+          <div class="w-meta">
+            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
+            <span class="w-meta-date" data-i18n="d.2025.01">2025年1月</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="wf-side-card" href="#">
+        <div class="wf-side-thumb">
+          <video autoplay muted loop playsinline>
+            <source src="videos/Touch & Go.MOV" type="video/mp4">
+          </video>
+        </div>
+        <div>
+          <div class="wf-side-title" data-i18n="p.touchgo.long">为所有人设计的医院导航系统</div>
+          <div class="w-meta">
+            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
+            <span class="w-meta-date" data-i18n="d.2024.04">2024年4月</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <!-- data-cat="ux" 或 "brand"，筛选按钮靠它工作。日期留空的卡片请补上 -->
+  <section class="work-grid" id="workGrid">
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-color: #D7EDF8;">
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/srh-cover.png" style="height: 55%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.srh">SRH Wald-Klinikum Gera 医院导视系统</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2024.04">2024年4月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-color: #F5F5F5;">
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/timeline-cover.png" style="height: 80%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.timeline">Timeline OS 操作系统设计</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date"></span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-color: #FFFFFF;">
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/workflow-cover.png" style="height: 80%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.workflow">WorkFlow 办公套件</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date"></span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-image: url('images/zeitguard-bg.png'); background-size: cover; background-position: center;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/zeitguard-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 90%; max-width: 90%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.zeitguard">ZeitGuard 时间管理应用</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2024.02">2024年2月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-color: #FFFFFF;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/steps-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 80%; max-width: 90%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.steps">Steps 旅行记录与规划应用</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2025.06">2025年6月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-image: url('images/tv-casebg.png'); background-size: cover; background-position: center;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/tv-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85%; max-width: 95%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.tv">Timeline OS 电视操作系统</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date"></span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-image: url('images/modulor-casebg.png'); background-size: cover; background-position: center;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/modulor-casecover.png" style="position: absolute; top: 50%; left: 40%; transform: translate(-50%, -50%); max-height: 95%; max-width: 95%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.modulor">modulor 自动售货应用</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2025.01">2025年1月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-color: #FFFFFF;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/edurino-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85%; max-width: 90%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.edurino">Edurino 零售 POS 系统设计</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date"></span></div>
+    </a>
+
+    <a class="w-card" data-cat="ux" href="#">
+      <div class="w-thumb" style="background-image: url('images/mm-casebg.png'); background-size: cover; background-position: center;"></div>
+      <div class="w-title" data-i18n="p.muscat">Muscat Metro 马斯喀特地铁概念设计</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date"></span></div>
+      <div class="w-credit">Background Image: © Ahmed Al Toqi</div>
+    </a>
+
+    <a class="w-card" data-cat="brand" href="#">
+      <div class="w-thumb" style="background-color: #48b134;">
+        <img class="scroll-zoom-img" data-absolute="false" src="images/bkas-casecover.svg" style="height: 55%; object-fit: contain;" />
+      </div>
+      <div class="w-title" data-i18n="p.bkas">我们的柏林艺术季</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.brand">品牌与平面</span><span class="w-meta-date" data-i18n="d.2023.11">2023年11月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="brand" href="#">
+      <div class="w-thumb" style="background-image: url('images/xarch-casebg.jpg'); background-size: cover; background-position: center;">
+        <img class="scroll-zoom-img" data-absolute="true" src="images/xarch-casecover.svg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 60%; max-width: 75%; object-fit: contain;" />
+      </div>
+      <div class="w-title">xArch Symposium</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.brand">品牌与平面</span><span class="w-meta-date" data-i18n="d.2023.03">2023年3月</span></div>
+    </a>
+
+    <a class="w-card" data-cat="brand" href="#">
+      <div class="w-thumb" style="background-color: #000000;">
+        <img class="scroll-zoom-img" data-absolute="false" src="images/t4a-casecover.png" style="height: 55%; object-fit: contain;" />
+      </div>
+      <div class="w-title">Tourism For All</div>
+      <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.brand">品牌与平面</span><span class="w-meta-date" data-i18n="d.2024.11">2024年11月</span></div>
+    </a>
+
+  </section>
+
+  <p class="work-empty" id="workEmpty" data-i18n="work.empty">这个分类下暂时没有作品。</p>
+
+</main>
+
+<!-- Mobile capsule nav -->
+<div class="contact-footer">
+  <nav class="capsule-nav" aria-label="页面导航">
+    <a class="capsule-link" href="index.html" data-i18n="mob.home">主页</a>
+    <a class="capsule-link capsule-link--active" href="work.html" data-i18n="mob.work">作品</a>
+    <a class="capsule-link" href="resume.html" data-i18n="mob.resume">简历</a>
+    <a class="capsule-link" href="index.html#contact" data-i18n="mob.contact">联系</a>
+  </nav>
+</div>
+
+<footer class="site-footer">
+  <p data-i18n="footer.copy">© 2026 Dongjie Ma. Berlin, Germany.</p>
+</footer>
+
+<script>
+/* ══ TRANSLATIONS ══ */
+var T = {
+  zh: {
+    "nav.work":"作品","nav.contact":"联系","nav.resume":"简历","nav.cta":"联系我","nav.language":"语言",
+    "mob.home":"主页","mob.work":"作品","mob.resume":"简历","mob.contact":"联系",
+    "work.title":"作品","work.all":"全部","work.empty":"这个分类下暂时没有作品。",
+    "cat.ux":"UX 设计","cat.brand":"品牌与平面",
+    "p.zeitguard.long":"ZeitGuard — 帮助学生克服拖延症",
+    "p.steps.long":"Steps — 记录旅行足迹",
+    "p.modulor.long":"Modulor Go 改革自助售货体验",
+    "p.touchgo.long":"为所有人设计的医院导航系统",
+    "p.srh":"SRH Wald-Klinikum Gera 医院导视系统",
+    "p.timeline":"Timeline OS 操作系统设计",
+    "p.workflow":"WorkFlow 办公套件",
+    "p.zeitguard":"ZeitGuard 时间管理应用",
+    "p.steps":"Steps 旅行记录与规划应用",
+    "p.tv":"Timeline OS 电视操作系统",
+    "p.modulor":"modulor 自动售货应用",
+    "p.edurino":"Edurino 零售 POS 系统设计",
+    "p.muscat":"Muscat Metro 马斯喀特地铁概念设计",
+    "p.bkas":"我们的柏林艺术季",
+    "d.2023.03":"2023年3月","d.2023.11":"2023年11月","d.2024.02":"2024年2月","d.2024.04":"2024年4月",
+    "d.2024.11":"2024年11月","d.2025.01":"2025年1月","d.2025.06":"2025年6月",
+    "footer.copy":"© 2026 Dongjie Ma. Berlin, Germany."
+  },
+  en: {
+    "nav.work":"Work","nav.contact":"Contact","nav.resume":"Résumé","nav.cta":"Get in touch","nav.language":"Language",
+    "mob.home":"Home","mob.work":"Work","mob.resume":"Résumé","mob.contact":"Contact",
+    "work.title":"Work","work.all":"All","work.empty":"No projects in this category yet.",
+    "cat.ux":"UX Design","cat.brand":"Brand & Graphic",
+    "p.zeitguard.long":"ZeitGuard — Helping students overcome procrastination",
+    "p.steps.long":"Steps — Record your travel journey",
+    "p.modulor.long":"Modulor Go — Reinventing the vending experience",
+    "p.touchgo.long":"A hospital navigation system designed for everyone",
+    "p.srh":"SRH Wald-Klinikum Gera — Hospital Wayfinding System",
+    "p.timeline":"Timeline OS — Operating System Design",
+    "p.workflow":"WorkFlow — Office Suite",
+    "p.zeitguard":"ZeitGuard — Time Management App",
+    "p.steps":"Steps — Travel Tracking & Planning App",
+    "p.tv":"Timeline OS — TV Operating System",
+    "p.modulor":"modulor — Vending Machine App",
+    "p.edurino":"Edurino — Retail POS Display System",
+    "p.muscat":"Muscat Metro — Concept Design",
+    "p.bkas":"Our Berlin Art Season",
+    "d.2023.03":"March 2023","d.2023.11":"November 2023","d.2024.02":"February 2024","d.2024.04":"April 2024",
+    "d.2024.11":"November 2024","d.2025.01":"January 2025","d.2025.06":"June 2025",
+    "footer.copy":"© 2026 Dongjie Ma. Berlin, Germany."
+  },
+  de: {
+    "nav.work":"Arbeiten","nav.contact":"Kontakt","nav.resume":"Lebenslauf","nav.cta":"Kontakt aufnehmen","nav.language":"Sprache",
+    "mob.home":"Start","mob.work":"Arbeiten","mob.resume":"Lebenslauf","mob.contact":"Kontakt",
+    "work.title":"Arbeiten","work.all":"Alle","work.empty":"In dieser Kategorie gibt es noch keine Projekte.",
+    "cat.ux":"UX-Design","cat.brand":"Marken- & Grafikdesign",
+    "p.zeitguard.long":"ZeitGuard — Studierenden helfen, Prokrastination zu überwinden",
+    "p.steps.long":"Steps — Reiseerinnerungen festhalten",
+    "p.modulor.long":"Modulor Go — Das Automatenerlebnis neu gedacht",
+    "p.touchgo.long":"Ein Krankenhaus-Navigationssystem für alle",
+    "p.srh":"SRH Wald-Klinikum Gera — Krankenhausleitsystem",
+    "p.timeline":"Timeline OS — Betriebssystemdesign",
+    "p.workflow":"WorkFlow — Büro-Suite",
+    "p.zeitguard":"ZeitGuard — Zeitmanagement-App",
+    "p.steps":"Steps — Reiseaufzeichnungs- und Planungs-App",
+    "p.tv":"Timeline OS — TV-Betriebssystem",
+    "p.modulor":"modulor — Automaten-App",
+    "p.edurino":"Edurino — POS-Display-System für den Einzelhandel",
+    "p.muscat":"Muscat Metro — Konzeptdesign",
+    "p.bkas":"Unsere Berliner Kunstsaison",
+    "d.2023.03":"März 2023","d.2023.11":"November 2023","d.2024.02":"Februar 2024","d.2024.04":"April 2024",
+    "d.2024.11":"November 2024","d.2025.01":"Januar 2025","d.2025.06":"Juni 2025",
+    "footer.copy":"© 2026 Dongjie Ma. Berlin, Deutschland."
+  }
+};
+
+var LANG_META = {
+  zh: { label:"中文",    html:"zh-CN" },
+  en: { label:"English", html:"en" },
+  de: { label:"Deutsch", html:"de" }
+};
+
+function detectLang() {
+  var params = new URLSearchParams(window.location.search);
+  var urlLang = params.get('lang');
+  if (urlLang && T[urlLang]) return urlLang;
+  var browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
+  if (browserLang.startsWith("de")) return "de";
+  if (browserLang.startsWith("zh")) return "zh";
+  return "en";
+}
+
+var currentLang = detectLang();
+
+/* 站内链接带上当前语言 */
+function updateLangLinks(lang) {
+  document.querySelectorAll('a[href^="index.html"], a[href^="resume.html"], a[href^="work.html"]').forEach(function(a) {
+    var url = new URL(a.getAttribute('href'), window.location.href);
+    url.searchParams.set('lang', lang);
+    a.setAttribute('href', url.pathname.split('/').pop() + url.search + url.hash);
+  });
+}
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  document.documentElement.lang = LANG_META[lang].html;
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n");
+    if (T[lang][k] != null) el.textContent = T[lang][k];
+  });
+  document.getElementById("langBtnLabel").textContent = LANG_META[lang].label;
+  document.querySelectorAll(".lang-option").forEach(function(o) { o.classList.toggle("active", o.dataset.lang === lang); });
+  document.querySelectorAll(".drawer-lang-pill").forEach(function(b) { b.classList.toggle("active", b.dataset.lang === lang); });
+  closeLangDropdown();
+  updateLangLinks(lang);
+}
+
+/* ── Lang dropdown ── */
+var langBtn = document.getElementById("langBtn");
+var langDropdown = document.getElementById("langDropdown");
+
+function closeLangDropdown() {
+  langDropdown.classList.remove("open");
+  langBtn.classList.remove("open");
+  langBtn.setAttribute("aria-expanded","false");
+}
+
+langBtn.addEventListener("click", function(e) {
+  e.stopPropagation();
+  if (langDropdown.classList.contains("open")) { closeLangDropdown(); }
+  else { langDropdown.classList.add("open"); langBtn.classList.add("open"); langBtn.setAttribute("aria-expanded","true"); }
+});
+document.querySelectorAll(".lang-option").forEach(function(o) {
+  o.addEventListener("click", function() { setLang(this.dataset.lang); });
+  o.addEventListener("keydown", function(e) { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); setLang(this.dataset.lang); } });
+});
+document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+  b.addEventListener("click", function() { setLang(this.dataset.lang); });
+});
+document.addEventListener("click", function(e) {
+  if (!document.getElementById("langSwitcher").contains(e.target)) closeLangDropdown();
+});
+
+/* ── Hamburger ── */
+var hamburger = document.getElementById("hamburger");
+var drawer = document.getElementById("nav-drawer");
+hamburger.addEventListener("click", function() {
+  if (drawer.classList.contains("open")) { closeDrawer(); }
+  else { drawer.classList.add("open"); hamburger.classList.add("open"); hamburger.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; closeLangDropdown(); }
+});
+function closeDrawer() {
+  drawer.classList.remove("open"); hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded","false"); document.body.style.overflow="";
+}
+window.addEventListener("resize", function() { if (window.innerWidth >= 768) closeDrawer(); });
+
+/* ── 分类筛选 ── */
+var featured = document.getElementById("workFeatured");
+var cards = document.querySelectorAll(".w-card");
+var emptyMsg = document.getElementById("workEmpty");
+
+document.querySelectorAll(".work-tab").forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    var f = this.dataset.filter;
+    document.querySelectorAll(".work-tab").forEach(function(t) { t.classList.toggle("active", t === tab); });
+    featured.classList.toggle("is-hidden", f !== "all");
+    var shown = 0;
+    cards.forEach(function(c) {
+      var match = f === "all" || c.dataset.cat === f;
+      c.classList.toggle("is-hidden", !match);
+      if (match) shown++;
+    });
+    emptyMsg.style.display = shown ? "none" : "block";
+  });
+});
+
+/* ── 网格 / 列表切换 ── */
+var grid = document.getElementById("workGrid");
+document.querySelectorAll(".view-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll(".view-btn").forEach(function(b) { b.classList.toggle("active", b === btn); });
+    grid.classList.toggle("list-view", btn.dataset.view === "list");
+  });
+});
+
+/* ── 前景图滚动放大 ── */
+var scrollZoomImgs = document.querySelectorAll('.scroll-zoom-img');
+function updateZoom() {
+  scrollZoomImgs.forEach(function(img) {
+    var rect = img.closest('.w-thumb').getBoundingClientRect();
+    var progress = Math.max(0, Math.min(1, 1 - rect.top / window.innerHeight));
+    var scale = 0.85 + progress * 0.2;
+    var blur = Math.round(progress * 40);
+    var alpha = (progress * 0.25).toFixed(2);
+    img.style.transform = img.dataset.absolute === 'true'
+      ? 'translate(-50%, -50%) scale(' + scale + ')'
+      : 'scale(' + scale + ')';
+    img.style.filter = img.dataset.shadow !== 'false'
+      ? 'drop-shadow(0px ' + blur + 'px ' + blur + 'px rgba(0,0,0,' + alpha + '))'
+      : 'none';
+  });
+}
+window.addEventListener('scroll', updateZoom);
+
+setLang(currentLang);
+updateZoom();
+</script>
+</body>
+</html>
