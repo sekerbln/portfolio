@@ -271,6 +271,12 @@ hr.sec-div { border: none; border-top: 1px solid var(--border); }
   }
 }
 
+/* ══════════ 阿拉伯语（从右往左）：全站共用 ══════════ */
+[dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+[dir="rtl"] .lang-check { margin-left: 0; margin-right: auto; }
+html[lang="ar"] body,
+html[lang="ar"] button { font-family: 'Geist', 'Noto Sans Arabic', 'Helvetica Neue', sans-serif; }
+
 /* ════════════════════════════
    TABLET 768–1199px
 ════════════════════════════ */

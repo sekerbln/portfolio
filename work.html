@@ -6,7 +6,7 @@
   <title>Dongjie Ma — 作品</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -177,6 +177,13 @@
 
       .work-grid { grid-template-columns: 1fr; row-gap: 40px; }
     }
+
+    /* ══════════ 阿拉伯语（从右往左）══════════
+       网格和弹性布局会自动镜像，这里处理字体和写死左右方向的地方 */
+    html[lang="ar"] body, html[lang="ar"] body * {
+      font-family: 'Geist', 'Noto Sans Arabic', 'Helvetica Neue', sans-serif;
+      letter-spacing: 0 !important;              /* 阿拉伯字母是连写的，不能加字距 */
+    }
   </style>
 </head>
 <body>
@@ -208,6 +215,8 @@
           <div class="lang-option" data-lang="de" role="option" tabindex="0">
             <span>Deutsch</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg>
           </div>
+          <div class="lang-option" data-lang="tr" role="option" tabindex="0"><span>Türkçe</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="ar" role="option" tabindex="0"><span>العربية</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
         </div>
       </div>
       <a class="nav-btn-solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
@@ -229,6 +238,8 @@
       <button class="drawer-lang-pill active" data-lang="zh">中文</button>
       <button class="drawer-lang-pill" data-lang="en">English</button>
       <button class="drawer-lang-pill" data-lang="de">Deutsch</button>
+      <button class="drawer-lang-pill" data-lang="tr">Türkçe</button>
+      <button class="drawer-lang-pill" data-lang="ar">العربية</button>
     </div>
   </div>
   <div class="nav-drawer-actions">
@@ -319,7 +330,7 @@
   <!-- data-cat="ux" 或 "brand"，筛选按钮靠它工作。日期留空的卡片请补上 -->
   <section class="work-grid" id="workGrid">
 
-    <a class="w-card" data-cat="ux" href="#">
+    <a class="w-card" data-cat="ux" href="project-srh.html">
       <div class="w-thumb" style="background-color: #D7EDF8;">
         <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/srh-cover.png" style="height: 55%; object-fit: contain;" />
       </div>
@@ -437,81 +448,204 @@
 <script>
 /* ══ TRANSLATIONS ══ */
 var T = {
-  zh: {
-    "nav.work":"作品","nav.contact":"联系","nav.resume":"简历","nav.cta":"联系我","nav.language":"语言",
-    "mob.home":"主页","mob.work":"作品","mob.resume":"简历","mob.contact":"联系",
-    "work.title":"作品","work.all":"全部","work.empty":"这个分类下暂时没有作品。",
-    "cat.ux":"UX 设计","cat.brand":"品牌与平面",
-    "p.zeitguard.long":"ZeitGuard — 帮助学生克服拖延症",
-    "p.steps.long":"Steps — 记录旅行足迹",
-    "p.modulor.long":"Modulor Go 改革自助售货体验",
-    "p.touchgo.long":"为所有人设计的医院导航系统",
-    "p.srh":"SRH Wald-Klinikum Gera 医院导视系统",
-    "p.timeline":"Timeline OS 操作系统设计",
-    "p.workflow":"WorkFlow 办公套件",
-    "p.zeitguard":"ZeitGuard 时间管理应用",
-    "p.steps":"Steps 旅行记录与规划应用",
-    "p.tv":"Timeline OS 电视操作系统",
-    "p.modulor":"modulor 自动售货应用",
-    "p.edurino":"Edurino 零售 POS 系统设计",
-    "p.muscat":"Muscat Metro 马斯喀特地铁概念设计",
-    "p.bkas":"我们的柏林艺术季",
-    "d.2023.03":"2023年3月","d.2023.11":"2023年11月","d.2024.02":"2024年2月","d.2024.04":"2024年4月",
-    "d.2024.11":"2024年11月","d.2025.01":"2025年1月","d.2025.06":"2025年6月",
-    "footer.copy":"© 2026 Dongjie Ma. Berlin, Germany."
+  "zh": {
+    "nav.work": "作品",
+    "nav.contact": "联系",
+    "nav.resume": "简历",
+    "nav.cta": "联系我",
+    "nav.language": "语言",
+    "mob.home": "主页",
+    "mob.work": "作品",
+    "mob.resume": "简历",
+    "mob.contact": "联系",
+    "work.title": "作品",
+    "work.all": "全部",
+    "work.empty": "这个分类下暂时没有作品。",
+    "cat.ux": "UX 设计",
+    "cat.brand": "品牌与平面",
+    "p.zeitguard.long": "ZeitGuard — 帮助学生克服拖延症",
+    "p.steps.long": "Steps — 记录旅行足迹",
+    "p.modulor.long": "Modulor Go 改革自助售货体验",
+    "p.touchgo.long": "为所有人设计的医院导航系统",
+    "p.srh": "SRH Wald-Klinikum Gera 医院导视系统",
+    "p.timeline": "Timeline OS 操作系统设计",
+    "p.workflow": "WorkFlow 办公套件",
+    "p.zeitguard": "ZeitGuard 时间管理应用",
+    "p.steps": "Steps 旅行记录与规划应用",
+    "p.tv": "Timeline OS 电视操作系统",
+    "p.modulor": "modulor 自动售货应用",
+    "p.edurino": "Edurino 零售 POS 系统设计",
+    "p.muscat": "Muscat Metro 马斯喀特地铁概念设计",
+    "p.bkas": "我们的柏林艺术季",
+    "d.2023.03": "2023年3月",
+    "d.2023.11": "2023年11月",
+    "d.2024.02": "2024年2月",
+    "d.2024.04": "2024年4月",
+    "d.2024.11": "2024年11月",
+    "d.2025.01": "2025年1月",
+    "d.2025.06": "2025年6月",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Germany."
   },
-  en: {
-    "nav.work":"Work","nav.contact":"Contact","nav.resume":"Résumé","nav.cta":"Get in touch","nav.language":"Language",
-    "mob.home":"Home","mob.work":"Work","mob.resume":"Résumé","mob.contact":"Contact",
-    "work.title":"Work","work.all":"All","work.empty":"No projects in this category yet.",
-    "cat.ux":"UX Design","cat.brand":"Brand & Graphic",
-    "p.zeitguard.long":"ZeitGuard — Helping students overcome procrastination",
-    "p.steps.long":"Steps — Record your travel journey",
-    "p.modulor.long":"Modulor Go — Reinventing the vending experience",
-    "p.touchgo.long":"A hospital navigation system designed for everyone",
-    "p.srh":"SRH Wald-Klinikum Gera — Hospital Wayfinding System",
-    "p.timeline":"Timeline OS — Operating System Design",
-    "p.workflow":"WorkFlow — Office Suite",
-    "p.zeitguard":"ZeitGuard — Time Management App",
-    "p.steps":"Steps — Travel Tracking & Planning App",
-    "p.tv":"Timeline OS — TV Operating System",
-    "p.modulor":"modulor — Vending Machine App",
-    "p.edurino":"Edurino — Retail POS Display System",
-    "p.muscat":"Muscat Metro — Concept Design",
-    "p.bkas":"Our Berlin Art Season",
-    "d.2023.03":"March 2023","d.2023.11":"November 2023","d.2024.02":"February 2024","d.2024.04":"April 2024",
-    "d.2024.11":"November 2024","d.2025.01":"January 2025","d.2025.06":"June 2025",
-    "footer.copy":"© 2026 Dongjie Ma. Berlin, Germany."
+  "en": {
+    "nav.work": "Work",
+    "nav.contact": "Contact",
+    "nav.resume": "Résumé",
+    "nav.cta": "Get in touch",
+    "nav.language": "Language",
+    "mob.home": "Home",
+    "mob.work": "Work",
+    "mob.resume": "Résumé",
+    "mob.contact": "Contact",
+    "work.title": "Work",
+    "work.all": "All",
+    "work.empty": "No projects in this category yet.",
+    "cat.ux": "UX Design",
+    "cat.brand": "Brand & Graphic",
+    "p.zeitguard.long": "ZeitGuard — Helping students overcome procrastination",
+    "p.steps.long": "Steps — Record your travel journey",
+    "p.modulor.long": "Modulor Go — Reinventing the vending experience",
+    "p.touchgo.long": "A hospital navigation system designed for everyone",
+    "p.srh": "SRH Wald-Klinikum Gera — Hospital Wayfinding System",
+    "p.timeline": "Timeline OS — Operating System Design",
+    "p.workflow": "WorkFlow — Office Suite",
+    "p.zeitguard": "ZeitGuard — Time Management App",
+    "p.steps": "Steps — Travel Tracking & Planning App",
+    "p.tv": "Timeline OS — TV Operating System",
+    "p.modulor": "modulor — Vending Machine App",
+    "p.edurino": "Edurino — Retail POS Display System",
+    "p.muscat": "Muscat Metro — Concept Design",
+    "p.bkas": "Our Berlin Art Season",
+    "d.2023.03": "March 2023",
+    "d.2023.11": "November 2023",
+    "d.2024.02": "February 2024",
+    "d.2024.04": "April 2024",
+    "d.2024.11": "November 2024",
+    "d.2025.01": "January 2025",
+    "d.2025.06": "June 2025",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Germany."
   },
-  de: {
-    "nav.work":"Arbeiten","nav.contact":"Kontakt","nav.resume":"Lebenslauf","nav.cta":"Kontakt aufnehmen","nav.language":"Sprache",
-    "mob.home":"Start","mob.work":"Arbeiten","mob.resume":"Lebenslauf","mob.contact":"Kontakt",
-    "work.title":"Arbeiten","work.all":"Alle","work.empty":"In dieser Kategorie gibt es noch keine Projekte.",
-    "cat.ux":"UX-Design","cat.brand":"Marken- & Grafikdesign",
-    "p.zeitguard.long":"ZeitGuard — Studierenden helfen, Prokrastination zu überwinden",
-    "p.steps.long":"Steps — Reiseerinnerungen festhalten",
-    "p.modulor.long":"Modulor Go — Das Automatenerlebnis neu gedacht",
-    "p.touchgo.long":"Ein Krankenhaus-Navigationssystem für alle",
-    "p.srh":"SRH Wald-Klinikum Gera — Krankenhausleitsystem",
-    "p.timeline":"Timeline OS — Betriebssystemdesign",
-    "p.workflow":"WorkFlow — Büro-Suite",
-    "p.zeitguard":"ZeitGuard — Zeitmanagement-App",
-    "p.steps":"Steps — Reiseaufzeichnungs- und Planungs-App",
-    "p.tv":"Timeline OS — TV-Betriebssystem",
-    "p.modulor":"modulor — Automaten-App",
-    "p.edurino":"Edurino — POS-Display-System für den Einzelhandel",
-    "p.muscat":"Muscat Metro — Konzeptdesign",
-    "p.bkas":"Unsere Berliner Kunstsaison",
-    "d.2023.03":"März 2023","d.2023.11":"November 2023","d.2024.02":"Februar 2024","d.2024.04":"April 2024",
-    "d.2024.11":"November 2024","d.2025.01":"Januar 2025","d.2025.06":"Juni 2025",
-    "footer.copy":"© 2026 Dongjie Ma. Berlin, Deutschland."
+  "de": {
+    "nav.work": "Arbeiten",
+    "nav.contact": "Kontakt",
+    "nav.resume": "Lebenslauf",
+    "nav.cta": "Kontakt aufnehmen",
+    "nav.language": "Sprache",
+    "mob.home": "Start",
+    "mob.work": "Arbeiten",
+    "mob.resume": "Lebenslauf",
+    "mob.contact": "Kontakt",
+    "work.title": "Arbeiten",
+    "work.all": "Alle",
+    "work.empty": "In dieser Kategorie gibt es noch keine Projekte.",
+    "cat.ux": "UX-Design",
+    "cat.brand": "Marken- & Grafikdesign",
+    "p.zeitguard.long": "ZeitGuard — Studierenden helfen, Prokrastination zu überwinden",
+    "p.steps.long": "Steps — Reiseerinnerungen festhalten",
+    "p.modulor.long": "Modulor Go — Das Automatenerlebnis neu gedacht",
+    "p.touchgo.long": "Ein Krankenhaus-Navigationssystem für alle",
+    "p.srh": "SRH Wald-Klinikum Gera — Krankenhausleitsystem",
+    "p.timeline": "Timeline OS — Betriebssystemdesign",
+    "p.workflow": "WorkFlow — Büro-Suite",
+    "p.zeitguard": "ZeitGuard — Zeitmanagement-App",
+    "p.steps": "Steps — Reiseaufzeichnungs- und Planungs-App",
+    "p.tv": "Timeline OS — TV-Betriebssystem",
+    "p.modulor": "modulor — Automaten-App",
+    "p.edurino": "Edurino — POS-Display-System für den Einzelhandel",
+    "p.muscat": "Muscat Metro — Konzeptdesign",
+    "p.bkas": "Unsere Berliner Kunstsaison",
+    "d.2023.03": "März 2023",
+    "d.2023.11": "November 2023",
+    "d.2024.02": "Februar 2024",
+    "d.2024.04": "April 2024",
+    "d.2024.11": "November 2024",
+    "d.2025.01": "Januar 2025",
+    "d.2025.06": "Juni 2025",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Deutschland."
+  },
+  "tr": {
+    "nav.work": "Projeler",
+    "nav.contact": "İletişim",
+    "nav.resume": "Özgeçmiş",
+    "nav.cta": "İletişime geç",
+    "nav.language": "Dil",
+    "mob.home": "Ana sayfa",
+    "mob.work": "Projeler",
+    "mob.resume": "Özgeçmiş",
+    "mob.contact": "İletişim",
+    "work.title": "Projeler",
+    "work.all": "Tümü",
+    "work.empty": "Bu kategoride henüz proje yok.",
+    "cat.ux": "UX Tasarımı",
+    "cat.brand": "Marka ve Grafik",
+    "p.zeitguard.long": "ZeitGuard — Öğrencilerin erteleme alışkanlığını yenmesine yardımcı oluyor",
+    "p.steps.long": "Steps — Seyahat yolculuğunuzu kaydedin",
+    "p.modulor.long": "Modulor Go — Otomat deneyimini yeniden düşünmek",
+    "p.touchgo.long": "Herkes için tasarlanmış bir hastane yön bulma sistemi",
+    "p.srh": "SRH Wald-Klinikum Gera — Hastane Yönlendirme Sistemi",
+    "p.timeline": "Timeline OS — İşletim Sistemi Tasarımı",
+    "p.workflow": "WorkFlow — Ofis Paketi",
+    "p.zeitguard": "ZeitGuard — Zaman Yönetimi Uygulaması",
+    "p.steps": "Steps — Seyahat Kaydı ve Planlama Uygulaması",
+    "p.tv": "Timeline OS — TV İşletim Sistemi",
+    "p.modulor": "modulor — Otomat Uygulaması",
+    "p.edurino": "Edurino — Perakende POS Ekran Sistemi",
+    "p.muscat": "Muscat Metro — Konsept Tasarım",
+    "p.bkas": "Berlin Sanat Sezonumuz",
+    "d.2023.03": "Mart 2023",
+    "d.2023.11": "Kasım 2023",
+    "d.2024.02": "Şubat 2024",
+    "d.2024.04": "Nisan 2024",
+    "d.2024.11": "Kasım 2024",
+    "d.2025.01": "Ocak 2025",
+    "d.2025.06": "Haziran 2025",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Almanya."
+  },
+  "ar": {
+    "nav.work": "الأعمال",
+    "nav.contact": "تواصل",
+    "nav.resume": "السيرة الذاتية",
+    "nav.cta": "تواصل معي",
+    "nav.language": "اللغة",
+    "mob.home": "الرئيسية",
+    "mob.work": "الأعمال",
+    "mob.resume": "السيرة الذاتية",
+    "mob.contact": "تواصل",
+    "work.title": "الأعمال",
+    "work.all": "الكل",
+    "work.empty": "لا توجد مشاريع في هذه الفئة بعد.",
+    "cat.ux": "تصميم UX",
+    "cat.brand": "العلامات التجارية والجرافيك",
+    "p.zeitguard.long": "ZeitGuard — مساعدة الطلاب على التغلّب على التسويف",
+    "p.steps.long": "Steps — وثّق رحلاتك",
+    "p.modulor.long": "Modulor Go — إعادة ابتكار تجربة آلات البيع",
+    "p.touchgo.long": "نظام إرشاد للمستشفى مصمَّم للجميع",
+    "p.srh": "SRH Wald-Klinikum Gera — نظام إرشاد المستشفى",
+    "p.timeline": "Timeline OS — تصميم نظام تشغيل",
+    "p.workflow": "WorkFlow — حزمة برامج مكتبية",
+    "p.zeitguard": "ZeitGuard — تطبيق لإدارة الوقت",
+    "p.steps": "Steps — تطبيق لتوثيق الرحلات وتخطيطها",
+    "p.tv": "Timeline OS — نظام تشغيل للتلفاز",
+    "p.modulor": "modulor — تطبيق لآلات البيع",
+    "p.edurino": "Edurino — نظام عرض لنقاط البيع",
+    "p.muscat": "Muscat Metro — تصميم مفاهيمي",
+    "p.bkas": "موسمنا الفني في برلين",
+    "d.2023.03": "مارس 2023",
+    "d.2023.11": "نوفمبر 2023",
+    "d.2024.02": "فبراير 2024",
+    "d.2024.04": "أبريل 2024",
+    "d.2024.11": "نوفمبر 2024",
+    "d.2025.01": "يناير 2025",
+    "d.2025.06": "يونيو 2025",
+    "footer.copy": "© 2026 Dongjie Ma. برلين، ألمانيا."
   }
 };
 
 var LANG_META = {
   zh: { label:"中文",    html:"zh-CN" },
   en: { label:"English", html:"en" },
-  de: { label:"Deutsch", html:"de" }
+  de: { label:"Deutsch", html:"de" },
+  tr: { label:"Türkçe",  html:"tr" },
+  ar: { label:"العربية", html:"ar", dir:"rtl" }
 };
 
 function detectLang() {
@@ -521,6 +655,8 @@ function detectLang() {
   var browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
   if (browserLang.startsWith("de")) return "de";
   if (browserLang.startsWith("zh")) return "zh";
+  if (browserLang.startsWith("tr")) return "tr";
+  if (browserLang.startsWith("ar")) return "ar";
   return "en";
 }
 
@@ -539,6 +675,7 @@ function setLang(lang) {
   if (!T[lang]) return;
   currentLang = lang;
   document.documentElement.lang = LANG_META[lang].html;
+  document.documentElement.dir = LANG_META[lang].dir || "ltr";   /* 阿拉伯语从右往左 */
   document.querySelectorAll("[data-i18n]").forEach(function(el) {
     var k = el.getAttribute("data-i18n");
     if (T[lang][k] != null) el.textContent = T[lang][k];

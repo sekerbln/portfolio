@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRH Wald-Klinikum Gera — Dongjie Ma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ══════════ HEADER ══════════ */
+    .p-header {
+      max-width: 900px; margin: 0 auto;
+      padding: 72px var(--page-px) 40px;
+      text-align: center;
+    }
+    .p-meta { display: flex; justify-content: center; gap: 12px; font-size: 13px; color: var(--text-faint); margin-bottom: 20px; }
+    .p-meta .p-meta-cat { color: var(--text); font-weight: 500; }
+    .p-title {
+      font-size: 48px; font-weight: 500; line-height: 1.15;
+      letter-spacing: -.025em; color: var(--text);
+    }
+
+    /* ══════════ HERO ══════════ */
+    .p-hero {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 var(--page-px);
+    }
+    .p-hero-media {
+      aspect-ratio: 16 / 9;
+      border-radius: 14px; overflow: hidden;
+      background: #D7EDF8;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .p-hero-media img { height: 72%; object-fit: contain; }
+
+    .p-byline {
+      max-width: 1100px; margin: 0 auto;
+      padding: 20px var(--page-px) 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: var(--text-muted);
+    }
+    .p-byline strong { color: var(--text); font-weight: 500; margin-right: 10px; }
+    .p-share {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Geist', sans-serif; font-size: 13px; color: var(--text-muted);
+      padding: 6px 10px; border-radius: 6px; transition: background .15s, color .15s;
+    }
+    .p-share:hover { background: var(--gray-100); color: var(--text); }
+    .p-share svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ══════════ BODY LAYOUT ══════════ */
+    .p-body {
+      max-width: 1400px; margin: 0 auto;
+      padding: 72px var(--page-px) 0;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 680px) 220px;
+      justify-content: space-between;
+      column-gap: 40px;
+    }
+
+    /* 左侧目录 */
+    .p-toc { position: sticky; top: 88px; align-self: start; }
+    .p-toc-label { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+    .p-toc ol { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .p-toc a { font-size: 13px; color: var(--text-faint); line-height: 1.4; transition: color .15s; }
+    .p-toc a:hover { color: var(--text-muted); }
+    .p-toc a.active { color: var(--text); }
+
+    /* 正文 */
+    .p-content { min-width: 0; grid-column: 2; }
+    .p-content > section { scroll-margin-top: 88px; margin-bottom: 72px; }
+
+    .p-content h2 {
+      font-size: 26px; font-weight: 500; letter-spacing: -.015em;
+      line-height: 1.3; color: var(--text); margin-bottom: 20px;
+    }
+    .p-content h3 {
+      font-size: 18px; font-weight: 500; color: var(--text);
+      margin: 36px 0 12px;
+    }
+    .p-content p {
+      font-size: 17px; line-height: 1.75; color: var(--text);
+      margin-bottom: 18px;
+    }
+    .p-content ul { margin: 0 0 18px 20px; }
+    .p-content li { font-size: 17px; line-height: 1.75; margin-bottom: 6px; }
+
+    .p-lead { font-size: 20px !important; line-height: 1.6 !important; }
+
+    /* 占位文本：之后替换成真实内容 */
+    .todo {
+      background: #FFF6D6; border-radius: 4px; padding: 0 4px;
+      color: #7A5B00;
+    }
+
+    /* ══════════ 加宽块（跳出正文栏） ══════════ */
+    .p-wide {
+      grid-column: 1 / -1;
+      width: 100%; max-width: 1100px;
+      margin: 0 auto 72px;
+    }
+    .p-wide-caption { font-size: 13px; color: var(--text-faint); margin-top: 12px; text-align: center; }
+
+    /* 视频 */
+    .p-video {
+      aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+      background: #000;
+    }
+    .p-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 图片占位 */
+    .p-media {
+      aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-400); font-size: 13px;
+    }
+    .p-media.tall { aspect-ratio: 4 / 3; }
+    .p-media img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* 左右对比 */
+    .p-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .p-compare-label { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+
+    /* 三个功能卡 */
+    .p-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .p-feature-media {
+      aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden;
+      background: #EAF4FB; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-400); font-size: 13px;
+    }
+    .p-feature-title { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+    .p-feature-text { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+
+    /* 数据块 */
+    .p-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .p-stat { padding: 32px 24px; }
+    .p-stat + .p-stat { border-left: 1px solid var(--border); }
+    .p-stat-num { font-size: 40px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 6px; }
+    .p-stat-label { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* 引用 */
+    .p-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 30px; line-height: 1.35; letter-spacing: -.01em;
+      color: var(--text); padding: 8px 0 8px 24px;
+      border-left: 2px solid var(--text); margin: 32px 0;
+    }
+
+    /* 项目信息表 */
+    .p-facts {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 20px 32px; padding: 28px 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin: 8px 0 40px;
+    }
+    .p-fact-label { font-size: 12px; color: var(--text-faint); margin-bottom: 4px; }
+    .p-fact-value { font-size: 15px; color: var(--text); line-height: 1.5; }
+
+    /* ══════════ RELATED ══════════ */
+    .p-related {
+      max-width: 1600px; margin: 48px auto 0;
+      padding: 64px var(--page-px) 96px;
+      border-top: 1px solid var(--border);
+    }
+    .p-related-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .p-related-title { font-size: 24px; font-weight: 500; letter-spacing: -.01em; }
+    .p-related-more { font-size: 14px; color: var(--text-muted); }
+    .p-related-more:hover { color: var(--text); }
+    .p-related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .r-card:hover .r-thumb { opacity: .88; }
+    .r-thumb {
+      aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; transition: opacity .2s; position: relative;
+    }
+    .r-title { font-size: 16px; font-weight: 500; margin-bottom: 6px; line-height: 1.4; }
+    .r-meta { font-size: 13px; color: var(--text-faint); }
+
+    /* ══════════ TABLET ══════════ */
+    @media (max-width: 1199px) {
+      .p-body { grid-template-columns: 200px minmax(0, 1fr); }
+      .p-content { grid-column: 2; }
+    }
+
+    /* ══════════ MOBILE ══════════ */
+    @media (max-width: 767px) {
+      .p-header { padding: 48px var(--page-px) 28px; }
+      .p-title { font-size: 32px; }
+      .p-body { grid-template-columns: 1fr; padding-top: 40px; }
+      .p-toc { display: none; }
+      .p-content { grid-column: 1; }
+      .p-content p, .p-content li { font-size: 16px; }
+      .p-lead { font-size: 18px !important; }
+      .p-compare, .p-features, .p-related-grid { grid-template-columns: 1fr; }
+      .p-stats { grid-template-columns: 1fr; }
+      .p-stat + .p-stat { border-left: none; border-top: 1px solid var(--border); }
+      .p-facts { grid-template-columns: 1fr; }
+      .p-quote { font-size: 24px; }
+      .p-related { padding-bottom: 140px; }
+    }
+
+    /* ══════════ 用户画像 ══════════ */
+    .p-personas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .p-persona-img {
+      aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden;
+      background: var(--gray-100) center / cover no-repeat;
+      margin-bottom: 14px;
+    }
+    .p-persona-name { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+    .p-persona-meta { font-size: 13px; color: var(--text-faint); margin-bottom: 8px; }
+    .p-persona-text { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+
+    /* ══════════ 洞察列表 ══════════ */
+    .p-insights { list-style: none !important; margin: 24px 0 0 !important; border-top: 1px solid var(--border); }
+    .p-insights li {
+      display: grid; grid-template-columns: 40px 1fr;
+      padding: 16px 0; border-bottom: 1px solid var(--border); margin: 0 !important;
+    }
+    .p-insights li span:first-child { color: var(--text-faint); font-size: 14px; padding-top: 3px; }
+
+    /* ══════════ 图片块（导出图片后自动显示，缺图时显示灰底） ══════════ */
+    .p-img {
+      aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+      background: var(--gray-100) center / cover no-repeat;
+    }
+    .p-img.contain { background-size: contain; background-color: #F4F9FD; }
+    .p-img.phone { aspect-ratio: 390 / 844; background-size: cover; }
+    .p-stack { display: flex; flex-direction: column; gap: 40px; }
+
+    /* ══════════ 配色 ══════════ */
+    .p-swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 28px; }
+    .p-swatches.six { grid-template-columns: repeat(6, 1fr); }
+    .p-swatch-chip { aspect-ratio: 1 / 1; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; }
+    .p-swatches.six .p-swatch-chip { aspect-ratio: 1 / 1.2; }
+    .p-swatch-name { font-size: 13px; font-weight: 500; }
+    .p-swatch-hex { font-size: 12px; color: var(--text-faint); font-family: ui-monospace, monospace; }
+
+    /* ══════════ 字体展示 ══════════ */
+    .p-type {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 28px; margin: 20px 0 8px;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+    }
+    .p-type-sample { font-size: 56px; line-height: 1; letter-spacing: -.02em; }
+    .p-type-weights { font-size: 14px; color: var(--text-muted); text-align: right; line-height: 1.8; }
+
+    /* ══════════ 迭代对比 ══════════ */
+    .p-compare.phones { max-width: 760px; margin: 0 auto; gap: 40px; }
+
+    @media (max-width: 767px) {
+      .p-personas { grid-template-columns: 1fr; }
+      .p-swatches.six { grid-template-columns: repeat(3, 1fr); }
+      .p-type { flex-direction: column; align-items: flex-start; }
+      .p-type-weights { text-align: left; }
+      .p-compare.phones { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+
+    /* ══════════ 功能卡片（与站内卡片同一风格） ══════════ */
+    .fc-head { margin-bottom: 28px; }
+    .fc-title { font-size: 24px; font-weight: 500; letter-spacing: -.01em; margin-bottom: 8px; }
+    .fc-desc { font-size: 16px; line-height: 1.6; color: var(--text-muted); }
+    .fc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .fc-card {
+      display: block; text-align: left; background: none; border: none; padding: 0;
+      font-family: 'Geist', sans-serif; color: var(--text); cursor: pointer;
+    }
+    .fc-thumb {
+      aspect-ratio: 4 / 3; border-radius: 10px;
+      background: var(--gray-100) center / cover no-repeat;
+      margin-bottom: 16px; transition: opacity .2s;
+    }
+    .fc-card:hover .fc-thumb { opacity: .88; }
+
+    /* 图框内：左上角图标 + 从右侧滑入的产品图 */
+    .fc-thumb { position: relative; overflow: hidden; }
+    .fc-icon {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--white); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .fc-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .fc-product {
+      position: absolute; right: 0; bottom: 0;
+      height: 88%; width: auto; max-width: none;
+      transform: translateX(100%);          /* 初始藏在图框右边外面 */
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fc-product { transform: none !important; }
+    }
+    .fc-name { font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+    .fc-meta { display: flex; gap: 10px; font-size: 13px; color: var(--text-faint); margin-bottom: 10px; }
+    .fc-meta span:first-child { color: var(--text); font-weight: 500; }
+    .fc-text { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 14px; }
+    .fc-link { font-size: 14px; color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+    .fc-card:hover .fc-link { color: var(--text-muted); border-color: var(--text-muted); }
+
+        /* ══════════ 功能流程弹窗 ══════════ */
+    .fm-backdrop {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(13,13,13,.28);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .fm-backdrop.open { opacity: 1; pointer-events: auto; }
+    .fm-card {
+      width: min(1160px, 100%); max-height: calc(100vh - 48px); overflow-y: auto;
+      background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.12);
+      transform: translateY(12px); transition: transform .25s;
+    }
+    .fm-backdrop.open .fm-card { transform: none; }
+
+    .fm-top {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px 16px 28px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--white); z-index: 1;
+    }
+    .fm-tabs { display: flex; gap: 22px; flex-wrap: wrap; }
+    .fm-tab {
+      font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text-faint);
+      background: none; border: none; padding: 4px 0; cursor: pointer; transition: color .15s;
+    }
+    .fm-tab:hover { color: var(--text-muted); }
+    .fm-tab.active { color: var(--text); font-weight: 500; }
+    .fm-close, .fm-ctrl {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid var(--border); background: var(--white); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: border-color .15s, opacity .15s;
+    }
+    .fm-close:hover, .fm-ctrl:hover { border-color: var(--text); }
+    .fm-ctrl:disabled { opacity: .35; cursor: default; border-color: var(--border); }
+    .fm-close svg, .fm-ctrl svg { width: 14px; height: 14px; fill: none; stroke: var(--text); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .fm-main { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 40px; padding: 32px 28px 28px; }
+    .fm-title { font-size: 28px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 12px; }
+    .fm-scenario { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+    .fm-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .fm-head-text { min-width: 0; }
+    .fm-icon {
+      width: 56px; height: 56px; flex-shrink: 0; border-radius: 14px; overflow: hidden;
+      background: var(--white); border: 1px solid var(--border);
+    }
+    .fm-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .fm-icon img[hidden], .fm-icon[hidden] { display: none; }
+    .fm-label {
+      display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 2px 9px; margin-right: 8px;
+    }
+
+    .fm-steps { list-style: none; border-top: 1px solid var(--border); }
+    .fm-step {
+      position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 10px;
+      width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+      font-family: 'Geist', sans-serif; font-size: 15px; line-height: 1.5; color: var(--text-faint);
+      padding: 14px 0; border-bottom: 1px solid var(--border); transition: color .2s;
+    }
+    .fm-step:hover { color: var(--text-muted); }
+    .fm-step-num { font-size: 13px; padding-top: 2px; }
+    .fm-step.seen { color: var(--text-muted); }
+    .fm-step.active { color: var(--text); }
+    .fm-step.active .fm-step-num { font-weight: 500; }
+    /* 当前步骤底部的进度线 */
+    .fm-step::after {
+      content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 0;
+      background: var(--text);
+    }
+    .fm-step.active.playing::after { animation: fmProgress var(--fm-dur, 3500ms) linear forwards; }
+    .fm-step.active:not(.playing)::after { width: 100%; }
+    @keyframes fmProgress { from { width: 0; } to { width: 100%; } }
+
+    .fm-result {
+      font-size: 15px; line-height: 1.6; color: var(--text);
+      background: var(--gray-50); border-radius: 10px; padding: 14px 16px; margin-top: 16px;
+      display: none;
+    }
+    .fm-result.show { display: block; }
+    .fm-controls { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
+    .fm-replay {
+      margin-left: 8px; background: none; border: none; cursor: pointer; padding: 0 0 1px;
+      font-family: 'Geist', sans-serif; font-size: 14px; color: var(--text); border-bottom: 1px solid var(--text);
+    }
+
+    .fm-stage { min-width: 0; --fm-stage-bg: #F7F7F7; }   /* 素材区灰底，改这里 */
+
+    /* 图片步骤 / 视频步骤 二选一显示 */
+    .fm-device { display: none; }
+    .fm-stage.is-video .fm-img { display: none; }
+    .fm-stage.is-video .fm-device { display: flex; }
+
+    .fm-device {
+      height: min(560px, calc(100vh - 220px)); min-height: 320px;
+      border-radius: 12px; background: var(--fm-stage-bg);
+      align-items: center; justify-content: center; padding: 40px 0;
+    }
+
+    /* 设备区按自身尺寸缩放外框 */
+    .fm-device { container-type: size; }
+    .fm-device .tablet { display: none; }
+    .fm-device.is-tablet .tablet { display: block; }
+    .fm-device.is-tablet .iphone { display: none; }
+
+    /* ── 白色平板外框（纯 CSS）──
+       屏幕比例 2338 × 1872，边框 = 宽度的 3%；外框按设备区的宽高自动取较小值 */
+    .tablet {
+      position: relative;
+      width: min(90cqw, calc(84cqh * 1.2305));
+      padding: 3%;
+      background: #FFFFFF;
+      border-radius: 5% / 6.15%;
+      box-shadow:
+        0 0 0 1px #E3E3E0,
+        inset 0 0 0 1px #F2F2F0,
+        0 18px 40px rgba(0,0,0,.10);
+    }
+    .tablet-cam {
+      position: absolute; top: 1.5%; left: 50%; transform: translate(-50%, -50%);
+      width: .9%; aspect-ratio: 1; border-radius: 50%;
+      background: #D6D6D3; box-shadow: inset 0 0 0 1px #C8C8C5;
+    }
+    .tablet-screen {
+      position: relative; width: 100%; aspect-ratio: 2338 / 1872;
+      border-radius: 2% / 2.5%; overflow: hidden; background: #111;
+    }
+    .tablet-screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tablet-screen .iphone-slide { object-fit: cover; }
+    .tablet-screen.has-video .iphone-ph { display: none; }
+
+    /* ── iPhone 13 Pro 外框（纯 CSS）──
+       屏幕 390 × 844，机身边框按比例加宽，所有尺寸用百分比，随高度缩放 */
+    .iphone {
+      position: relative; height: 100%; aspect-ratio: 402 / 856;
+      background: #0d0d0d;
+      border-radius: 13.4% / 6.3%;
+      padding: 1.5%;
+      box-shadow:
+        inset 0 0 0 1px #3a3a3a,
+        0 16px 36px rgba(0,0,0,.14);
+    }
+    .iphone-screen {
+      position: relative; width: 100%; height: 100%;
+      border-radius: 12% / 5.6%; overflow: hidden; background: #000;
+    }
+    .iphone-screen video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    /* 图片轮播步骤：两层图片叠在屏幕里，交叉淡入 */
+    .iphone-slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity .5s;
+    }
+    .iphone-slide.show { opacity: 1; }
+    .iphone-screen.is-slides video { visibility: hidden; }
+    /* 刘海 */
+    .iphone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 39%; height: 3.6%;
+      background: #0d0d0d;
+      border-radius: 0 0 22% 22% / 0 0 60% 60%;
+    }
+    /* 没有视频时的占位文字 */
+    .iphone-ph {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #6b6b6b; text-align: center; padding: 0 12%;
+    }
+    .iphone-screen.has-video .iphone-ph { display: none; }
+    /* 侧边按键 */
+    .iphone-btn { position: absolute; width: .7%; background: #2a2a2a; border-radius: 2px; }
+    .iphone-btn-mute    { left: -.7%; top: 16%;   height: 3.6%; }
+    .iphone-btn-volup   { left: -.7%; top: 23%;   height: 7%; }
+    .iphone-btn-voldown { left: -.7%; top: 31.5%; height: 7%; }
+    .iphone-btn-power   { right: -.7%; top: 25%;   height: 11%; }
+    .fm-img {
+      position: relative; height: min(560px, calc(100vh - 220px)); min-height: 320px;
+      border-radius: 12px; background: var(--fm-stage-bg) center / contain no-repeat;
+      background-origin: content-box;   /* 配合 padding，让图片缩在留白里面 */
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .25s;
+    }
+    .fm-img.fading { opacity: 0; }
+    .fm-img-ph { font-size: 13px; color: var(--gray-400); }
+    .fm-img.has-img .fm-img-ph { display: none; }
+
+    body.fm-locked { overflow: hidden; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fm-backdrop, .fm-card, .fm-img { transition: none; }
+      .fm-step.active.playing::after { animation: none; width: 100%; }
+    }
+
+    @media (max-width: 767px) {
+      .fc-grid { grid-template-columns: 1fr; gap: 40px; }
+      .fm-backdrop { padding: 0; align-items: flex-end; }
+      .fm-card { border-radius: 16px 16px 0 0; max-height: 92vh; }
+      .fm-top { padding: 12px 12px 12px 20px; }
+      .fm-tabs { gap: 14px; }
+      .fm-tab { font-size: 14px; }
+      .fm-main { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+      .fm-stage { order: -1; }
+      .fm-img, .fm-device { height: 52vh; min-height: 300px; }
+      .fm-title { font-size: 22px; }
+    }
+
+
+    .fm-current { display: none; }
+
+    /* ══════════ 流程弹窗 · 手机端 ══════════
+       一屏放下：标签栏 → 标题 → 素材（占满剩余高度）→ 分段进度条 → 当前步骤 → 按钮 */
+    @media (max-width: 767px) {
+      .fm-backdrop { padding: 0; align-items: flex-end; }
+      .fm-card {
+        height: 94vh; height: 94dvh; max-height: none;
+        border-radius: 16px 16px 0 0; border-bottom: none;
+        display: flex; flex-direction: column; overflow: hidden;
+      }
+      .fm-top { flex-shrink: 0; padding: 10px 10px 10px 16px; gap: 12px; }
+      .fm-tabs {
+        flex-wrap: nowrap; overflow-x: auto; gap: 18px;
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .fm-tabs::-webkit-scrollbar { display: none; }
+      .fm-tab { white-space: nowrap; font-size: 14px; }
+
+      .fm-main {
+        flex: 1; min-height: 0;
+        display: flex; flex-direction: column; gap: 14px;
+        padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+      }
+      .fm-side { display: contents; }          /* 让左栏里的元素直接参与排序 */
+
+      .fm-head    { order: 1; margin-bottom: 0; gap: 12px; align-items: center; }
+      .fm-stage   { order: 2; flex: 1; min-height: 180px; }
+      .fm-steps   { order: 3; }
+      .fm-current { order: 4; }
+      .fm-result  { order: 5; margin-top: 0; }
+      .fm-controls{ order: 6; margin-top: 0; }
+
+      .fm-icon { width: 44px; height: 44px; border-radius: 11px; }
+      .fm-title { font-size: 20px; margin-bottom: 4px; }
+      .fm-scenario { font-size: 13px; line-height: 1.5;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .fm-label { padding: 1px 7px; font-size: 10px; }
+
+      .fm-img, .fm-device { height: 100%; min-height: 0; }
+      .fm-device { padding: 16px 0; }
+
+      /* 步骤列表变成分段进度条 */
+      .fm-steps { display: flex; gap: 4px; border-top: none; }
+      .fm-steps li { flex: 1; }
+      .fm-step {
+        display: block; height: 3px; padding: 0; border: none; border-radius: 2px;
+        background: var(--gray-200); font-size: 0; overflow: hidden;
+      }
+      .fm-step > span { display: none; }
+      .fm-step.seen, .fm-step.active:not(.playing) { background: var(--text); }
+      .fm-step::after { top: 0; bottom: 0; height: auto; }
+
+      .fm-current { display: grid; grid-template-columns: 28px 1fr; gap: 8px;
+        font-size: 15px; line-height: 1.5; color: var(--text); min-height: 45px; }
+      .fm-current-num { font-size: 13px; color: var(--text-faint); padding-top: 2px; }
+
+      .fm-result { padding: 10px 14px; font-size: 14px; }
+      .fm-main.has-result .fm-current { display: none; }
+      .fm-controls { justify-content: flex-start; }
+    }
+
+
+    /* ══════════ Touch & Go 界面分区讲解 ══════════ */
+    .tg-explorer {
+      display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 40px; align-items: center;
+    }
+    .tg-list { list-style: none; border-top: 1px solid var(--border); }
+    .tg-item {
+      position: relative; display: grid; grid-template-columns: 32px 1fr; gap: 8px;
+      width: 100%; text-align: start; background: none; border: none; cursor: pointer;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+      font-family: 'Geist', sans-serif; color: var(--text-faint); transition: color .2s;
+    }
+    .tg-item:hover { color: var(--text-muted); }
+    .tg-item.active { color: var(--text); }
+    .tg-item-num { font-size: 13px; padding-top: 3px; }
+    .tg-item-title { display: block; font-size: 18px; font-weight: 500; }
+    .tg-item-detail {
+      display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s;
+    }
+    .tg-item-inner { overflow: hidden; min-height: 0; }
+    .tg-item.active .tg-item-detail { grid-template-rows: 1fr; }
+    .tg-item-text { display: block; font-size: 15px; line-height: 1.6; color: var(--text-muted); padding-top: 8px; }
+    .tg-chips { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; padding-bottom: 2px; }
+    .tg-chips:empty { display: none; }
+    .tg-chip {
+      font-size: 12px; color: #3F7FBF; background: #EAF4FB;
+      border-radius: 999px; padding: 3px 10px; white-space: nowrap;
+    }
+    /* 自动演示时的进度线 */
+    .tg-item::after {
+      content: ""; position: absolute; inset-inline-start: 0; bottom: -1px;
+      height: 1px; width: 0; background: var(--text);
+    }
+    .tg-item.active::after { width: 100%; }
+    .tg-item.active.playing::after { animation: fmProgress var(--tg-dur, 3500ms) linear forwards; }
+
+    .tg-stage { background: #F7F7F7; border-radius: 12px; padding: 40px; min-width: 0; }
+    .tg-tablet {
+      position: relative; padding: 3%; background: #fff;
+      border-radius: 5% / 6.15%;
+      box-shadow: 0 0 0 1px #E3E3E0, inset 0 0 0 1px #F2F2F0, 0 18px 40px rgba(0,0,0,.10);
+      direction: ltr;                              /* 截图本身不镜像 */
+    }
+    .tg-cam {
+      position: absolute; top: 1.5%; left: 50%; transform: translate(-50%, -50%);
+      width: .9%; aspect-ratio: 1; border-radius: 50%; background: #D6D6D3;
+    }
+    .tg-screen {
+      position: relative; aspect-ratio: 2338 / 1872; overflow: hidden;
+      border-radius: 2% / 2.5%;
+      background: #D7EDF8 center / cover no-repeat;
+    }
+    .tg-ph {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #6F9CC7;
+    }
+    .tg-screen.has-img .tg-ph { display: none; }
+    .tg-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: none;
+    }
+    .tg-screen.has-video .tg-video { display: block; }
+    .tg-screen.has-video .tg-ph { display: none; }
+
+    .tg-zone {
+      position: absolute; padding: 0; border: none; cursor: pointer;
+      background: transparent; transition: background .3s, box-shadow .3s;
+    }
+    .tg-screen.has-active .tg-zone { background: rgba(13,13,13,.42); }
+    .tg-screen.has-active .tg-zone.active { background: transparent; box-shadow: inset 0 0 0 3px #5E9BD6; }
+    .tg-zone-tag {
+      position: absolute; top: 10px; right: 10px;
+      font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500; line-height: 1;
+      color: #3F7FBF; background: #fff; border-radius: 999px; padding: 5px 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12); transition: background .3s, color .3s;
+    }
+    .tg-zone[data-zone="top"] .tg-zone-tag { top: 50%; transform: translateY(-50%); padding: 3px 7px; font-size: 11px; }
+    .tg-zone.active .tg-zone-tag { background: #5E9BD6; color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tg-zone, .tg-item-detail, .tg-zone-tag { transition: none; }
+      .tg-item.active.playing::after { animation: none; width: 100%; }
+    }
+    @media (max-width: 767px) {
+      .tg-explorer { grid-template-columns: 1fr; gap: 20px; }
+      .tg-stage { order: -1; padding: 20px 12px; }
+      .tg-zone-tag { top: 6px; right: 6px; font-size: 10px; padding: 3px 6px; }
+      .tg-zone[data-zone="top"] .tg-zone-tag { padding: 1px 5px; font-size: 9px; }
+      .tg-item-title { font-size: 16px; }
+      .tg-item-text { font-size: 14px; }
+    }
+
+    /* ══════════ 阿拉伯语（从右往左）══════════
+       网格和弹性布局会自动镜像，这里只处理写死了左右方向的地方 */
+    html[lang="ar"] body, html[lang="ar"] button { font-family: 'Geist', 'Noto Sans Arabic', 'Helvetica Neue', sans-serif; }
+    html[lang="ar"] .p-title, html[lang="ar"] .p-quote { font-family: 'Noto Sans Arabic', 'Geist', sans-serif; letter-spacing: 0; }
+    [dir="rtl"] .p-content ul { margin: 0 20px 18px 0; }
+    [dir="rtl"] .p-quote { border-left: none; border-right: 2px solid var(--text); padding: 8px 24px 8px 0; }
+    [dir="rtl"] .p-byline strong { margin-right: 0; margin-left: 10px; }
+    [dir="rtl"] .fc-card, [dir="rtl"] .fm-step { text-align: right; }
+    [dir="rtl"] .fc-icon { left: auto; right: 16px; }
+    [dir="rtl"] .fc-product { right: auto; left: 0; }
+    [dir="rtl"] .fm-label { margin-right: 0; margin-left: 8px; }
+    [dir="rtl"] .fm-replay { margin-left: 0; margin-right: 8px; }
+    [dir="rtl"] .fm-step::after { left: auto; right: 0; }
+    [dir="rtl"] .fm-ctrl svg { transform: scaleX(-1); }       /* 上一步/下一步箭头翻转 */
+    [dir="rtl"] .p-related-more { direction: rtl; }
+    /* 设备外框里的界面保持原样，不镜像 */
+    [dir="rtl"] .fm-device, [dir="rtl"] .p-swatches, [dir="rtl"] .p-type-sample { direction: ltr; }
+    [dir="rtl"] .p-type-weights { text-align: left; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="nav-logo" href="index.html">Dongjie</a>
+      <ul class="nav-links">
+        <li><a href="work.html" class="active" data-i18n="nav.work">作品</a></li>
+        <li><a href="resume.html" data-i18n="nav.resume">简历</a></li>
+        <li><a href="index.html#contact" data-i18n="nav.contact">联系</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-btn-label" id="langBtnLabel">中文</span>
+          <svg class="lang-btn-caret" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="listbox">
+          <div class="lang-option active" data-lang="zh" role="option" tabindex="0"><span>中文</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="en" role="option" tabindex="0"><span>English</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="de" role="option" tabindex="0"><span>Deutsch</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="tr" role="option" tabindex="0"><span>Türkçe</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="ar" role="option" tabindex="0"><span>العربية</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+        </div>
+      </div>
+      <a class="nav-btn-solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a class="nav-drawer-link active" href="work.html" onclick="closeDrawer()" data-i18n="nav.work">作品</a>
+  <a class="nav-drawer-link" href="resume.html" onclick="closeDrawer()" data-i18n="nav.resume">简历</a>
+  <a class="nav-drawer-link" href="index.html#contact" onclick="closeDrawer()" data-i18n="nav.contact">联系</a>
+  <div class="drawer-lang-section">
+    <div class="drawer-lang-label" data-i18n="nav.language">语言</div>
+    <div class="drawer-lang-pills">
+      <button class="drawer-lang-pill active" data-lang="zh">中文</button>
+      <button class="drawer-lang-pill" data-lang="en">English</button>
+      <button class="drawer-lang-pill" data-lang="de">Deutsch</button>
+      <button class="drawer-lang-pill" data-lang="tr">Türkçe</button>
+      <button class="drawer-lang-pill" data-lang="ar">العربية</button>
+    </div>
+  </div>
+  <div class="nav-drawer-actions">
+    <a class="nav-drawer-btn solid" href="index.html#contact" data-i18n="nav.cta">联系我</a>
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="p-header">
+  <div class="p-meta">
+    <span data-i18n="p.date">2024年4月</span>
+    <span class="p-meta-cat" data-i18n="p.cat">UX 设计</span>
+    <span data-i18n="p.type">案例研究</span>
+  </div>
+  <h1 class="p-title" data-i18n="p.title">SRH Wald-Klinikum Gera<br>医院导视系统</h1>
+</header>
+
+<div class="p-hero">
+  <div class="p-hero-media">
+    <img src="images/srh-cover.png" alt="SRH Wald-Klinikum Gera Navigation Solutions" />
+  </div>
+</div>
+
+<div class="p-byline">
+  <div><strong>Dongjie Ma</strong><span data-i18n="p.role">UX / UI 设计</span></div>
+  <button class="p-share" id="shareBtn">
+    <svg viewBox="0 0 16 16"><path d="M10 2h4v4"/><path d="M14 2L7 9"/><path d="M12 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4"/></svg>
+    <span data-i18n="p.share">分享</span>
+  </button>
+</div>
+
+<!-- ══════════ BODY ══════════ -->
+<div class="p-body">
+
+  <aside class="p-toc">
+    <div class="p-toc-label" data-i18n="toc.label">目录</div>
+    <ol>
+      <li><a href="#overview"  data-i18n="toc.overview">概览</a></li>
+      <li><a href="#challenge" data-i18n="toc.challenge">挑战</a></li>
+      <li><a href="#users"     data-i18n="toc.users">用户</a></li>
+      <li><a href="#solution"  data-i18n="toc.solution">解决方案</a></li>
+      <li><a href="#flows"     data-i18n="toc.flows">用户流程</a></li>
+      <li><a href="#visual"    data-i18n="toc.visual">视觉设计</a></li>
+      <li><a href="#iteration" data-i18n="toc.iteration">迭代</a></li>
+      <li><a href="#reflection" data-i18n="toc.reflection">反思</a></li>
+    </ol>
+  </aside>
+
+  <article class="p-content">
+    <section id="overview">
+      <p class="p-lead" data-i18n="ov.lead">为 SRH Wald-Klinikum Gera 的每一位访客提供数字导航，尤其是那些不太熟悉科技产品的人。</p>
+      <p data-i18n="ov.p1">医院由多栋建筑组成，第一次来的人很难找到要去的科室和服务。这个项目设计了三个相互配合的产品：Navigator 应用、院内的 Touch & Go 触摸屏，以及无需下载的 Scan & Go 网页导航。</p>
+      <div class="p-facts">
+        <div><div class="p-fact-label" data-i18n="f.role.l">角色</div><div class="p-fact-value" data-i18n="f.role.v">UX / UI 设计、视觉设计</div></div>
+        <div><div class="p-fact-label" data-i18n="f.deliv.l">交付</div><div class="p-fact-value" data-i18n="f.deliv.v">Navigator 应用、Touch & Go 触摸屏、Scan & Go 网页</div></div>
+        <div><div class="p-fact-label" data-i18n="f.time.l">时间</div><div class="p-fact-value" data-i18n="f.time.v">2023 年 10 月至 2024 年 2 月</div></div>
+        <div><div class="p-fact-label" data-i18n="f.tools.l">工具</div><div class="p-fact-value">Figma</div></div>
+      </div>
+    </section>
+
+    <section id="challenge">
+      <h2 data-i18n="ch.h">挑战</h2>
+      <p data-i18n="ch.p1">项目目标是为访客提供一张数字地图，让他们更方便地使用医院的各项服务，获得更好的就医体验。而访客的情况各不相同，所以我们需要为不同类型的访客定制更合适的体验。</p>
+      <p data-i18n="ch.p2">从用户研究中，我们总结出三条核心洞察：</p>
+      <ul class="p-insights">
+        <li><span>01</span><span data-i18n="ch.i1">用户希望在医院里快速找到目的地。</span></li>
+        <li><span>02</span><span data-i18n="ch.i2">用户希望了解医院提供的服务和设施。</span></li>
+        <li><span>03</span><span data-i18n="ch.i3">很多老年人不擅长使用智能手机。</span></li>
+      </ul>
+    </section>
+
+    <section id="users">
+      <h2 data-i18n="us.h">用户</h2>
+      <p data-i18n="us.p1">目标人群几乎是每一位来医院的人：大多数人使用智能手机，但也有老年人和其他不会或不方便使用智能手机的人。我们用两个用户画像来代表这两端。</p>
+    </section>
+  </article>
+
+  <div class="p-wide">
+    <div class="p-personas">
+      <div>
+        <div class="p-persona-img" style="background-image: url('images/srh/persona-freema.png');"></div>
+        <div class="p-persona-name">Freema</div>
+        <div class="p-persona-meta" data-i18n="ps.f.meta">女性 · 35 岁</div>
+        <div class="p-persona-text" data-i18n="ps.f.text">来看望在 Wald-Klinikum 住院的家人，开车前来。</div>
+      </div>
+      <div>
+        <div class="p-persona-img" style="background-image: url('images/srh/persona-steffan.png');"></div>
+        <div class="p-persona-name">Steffan</div>
+        <div class="p-persona-meta" data-i18n="ps.s.meta">男性 · 67 岁</div>
+        <div class="p-persona-text" data-i18n="ps.s.text">来 Wald-Klinikum 赴约看诊，乘坐公共交通。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-wide">
+    <div class="p-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/LnMyK80yp30" title="SRH Wald-Klinikum Gera Navigation Solutions"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="p-wide-caption" data-i18n="vid.cap">系统演示视频</div>
+  </div>
+
+  <article class="p-content">
+    <section id="solution">
+      <h2 data-i18n="so.h">解决方案</h2>
+      <p data-i18n="so.p1">核心思路是：为每一位访客提供数字导航方案，尤其照顾不熟悉科技产品的人，同时提升使用医院服务的效率。我们没有只做一个应用，而是为不同情境设计了三个入口。</p>
+    </section>
+  </article>
+
+  <div class="p-wide">
+    <div class="fc-head">
+      <div class="fc-title" data-i18n="fc.title">三个入口，同一套导航</div>
+      <p class="fc-desc" data-i18n="fc.desc">每个产品对应一种到访情境。点开卡片，看看它是怎样一步步工作的。</p>
+    </div>
+    <div class="fc-grid">
+      <button class="fc-card" data-index="0">
+        <div class="fc-thumb">
+          <img class="fc-product" src="images/srh/product-navigator.png" alt="" onerror="this.style.display='none'" />
+          <div class="fc-icon"><img src="images/srh/icon-navigator.png" alt="Navigator" onerror="this.style.display='none'" /></div>
+        </div>
+        <div class="fc-name">Navigator</div>
+        <div class="fc-meta"><span>App</span><span data-i18n="fc.count">5 个步骤</span></div>
+        <p class="fc-text" data-i18n="so.nav"></p>
+        <span class="fc-link"><span data-i18n="fc.view">查看流程</span> →</span>
+      </button>
+      <button class="fc-card" data-index="1">
+        <div class="fc-thumb">
+          <img class="fc-product" src="images/srh/product-touchgo.png" alt="" onerror="this.style.display='none'" />
+          <div class="fc-icon"><img src="images/srh/icon-touchgo.png" alt="Touch & Go" onerror="this.style.display='none'" /></div>
+        </div>
+        <div class="fc-name">Touch & Go</div>
+        <div class="fc-meta"><span>Kiosk</span><span data-i18n="fc.count">5 个步骤</span></div>
+        <p class="fc-text" data-i18n="so.tg"></p>
+        <span class="fc-link"><span data-i18n="fc.view">查看流程</span> →</span>
+      </button>
+      <button class="fc-card" data-index="2">
+        <div class="fc-thumb">
+          <img class="fc-product" src="images/srh/product-scango.png" alt="" onerror="this.style.display='none'" />
+          <div class="fc-icon"><img src="images/srh/icon-scango.png" alt="Scan & Go" onerror="this.style.display='none'" /></div>
+        </div>
+        <div class="fc-name">Scan & Go</div>
+        <div class="fc-meta"><span>Web</span><span data-i18n="fc.count3">3 个步骤</span></div>
+        <p class="fc-text" data-i18n="so.sg"></p>
+        <span class="fc-link"><span data-i18n="fc.view">查看流程</span> →</span>
+      </button>
+    </div>
+  </div>
+
+  <article class="p-content">
+    <section>
+      <h3>Touch & Go</h3>
+      <p data-i18n="tg.p1">Touch & Go 是一个固定不动的导航站。用户在医院墙上就能找到多块屏幕并开始导航，不需要下载任何应用，对不使用智能设备的人也很友好。导航结果会生成一个二维码，扫码后在手机浏览器里打开，这就衔接到了 Scan & Go。</p>
+      <p data-i18n="tg.p2">界面分成三个区域：顶栏告诉用户当前位置，也就是导航的起点；左侧是信息区，显示操作提示和固定的设置按钮；右侧是操作区，用户在这里完成所有操作。</p>
+    </section>
+  </article>
+
+  <!-- ══════════ Touch & Go 界面分区讲解（可交互） ══════════ -->
+  <div class="p-wide">
+    <div class="tg-explorer" id="tgExplorer">
+      <ol class="tg-list">
+        <li>
+          <button class="tg-item" data-zone="top">
+            <span class="tg-item-num">01</span>
+            <span class="tg-item-body">
+              <span class="tg-item-title" data-i18n="tgz.top.h"></span>
+              <span class="tg-item-detail"><span class="tg-item-inner">
+                <span class="tg-item-text" data-i18n="tgz.top.p"></span>
+                <span class="tg-chips"><span class="tg-chip">Your Location</span><span class="tg-chip">Hauptgebäude</span><span class="tg-chip">Mutter-Kind-Zentrum</span><span class="tg-chip">Thu 01/18 10:35</span></span>
+                </span></span>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button class="tg-item" data-zone="left">
+            <span class="tg-item-num">02</span>
+            <span class="tg-item-body">
+              <span class="tg-item-title" data-i18n="tgz.left.h"></span>
+              <span class="tg-item-detail"><span class="tg-item-inner">
+                <span class="tg-item-text" data-i18n="tgz.left.p"></span>
+                <span class="tg-chips"><span class="tg-chip">Search</span><span class="tg-chip">Please select any feature</span><span class="tg-chip">DE / EN</span><span class="tg-chip">Help</span><span class="tg-chip">Emergency</span></span>
+                </span></span>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button class="tg-item" data-zone="right">
+            <span class="tg-item-num">03</span>
+            <span class="tg-item-body">
+              <span class="tg-item-title" data-i18n="tgz.right.h"></span>
+              <span class="tg-item-detail"><span class="tg-item-inner">
+                <span class="tg-item-text" data-i18n="tgz.right.p"></span>
+                <span class="tg-chips"><span class="tg-chip">Map and Navigation</span><span class="tg-chip">Doctor Information</span><span class="tg-chip">Service Facilities</span></span>
+                </span></span>
+            </span>
+          </button>
+        </li>
+      </ol>
+
+      <div class="tg-stage">
+        <div class="tg-tablet">
+          <span class="tg-cam"></span>
+          <div class="tg-screen" id="tgScreen">
+            <span class="tg-ph" data-i18n="tgz.ph">Touch & Go 主界面截图</span>
+            <video class="tg-video" id="tgVideo" muted loop playsinline preload="metadata"></video>
+            <!-- 三个区域的位置按屏幕百分比设置 -->
+            <button class="tg-zone" data-zone="top"   style="left:0;     top:0;    width:100%;  height:6.5%;"  aria-label="Top"><span class="tg-zone-tag">01</span></button>
+            <button class="tg-zone" data-zone="left"  style="left:0;     top:6.5%; width:60.2%; height:93.5%;" aria-label="Left"><span class="tg-zone-tag">02</span></button>
+            <button class="tg-zone" data-zone="right" style="left:60.2%; top:6.5%; width:39.8%; height:93.5%;" aria-label="Right"><span class="tg-zone-tag">03</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-wide-caption" data-i18n="tg.cap">Touch & Go 主界面</div>
+  </div>
+
+  <article class="p-content">
+    <section id="flows">
+      <h2 data-i18n="fl.h">用户流程与信息架构</h2>
+      <p data-i18n="fl.p1">三个产品各自有独立的用户流程，但共享同一套建筑、楼层和科室的信息结构，让用户无论从哪个入口进入，看到的信息都是一致的。</p>
+    </section>
+  </article>
+
+  <div class="p-wide">
+    <div class="p-stack">
+      <div>
+        <div class="p-img contain" style="background-image: url('images/srh/flow-navigator.png');"></div>
+        <div class="p-wide-caption">Navigator</div>
+      </div>
+      <div>
+        <div class="p-img contain" style="background-image: url('images/srh/flow-touchgo.png');"></div>
+        <div class="p-wide-caption">Touch & Go</div>
+      </div>
+      <div>
+        <div class="p-img contain" style="background-image: url('images/srh/flow-scango.png');"></div>
+        <div class="p-wide-caption">Scan & Go</div>
+      </div>
+    </div>
+  </div>
+
+  <article class="p-content">
+    <section id="visual">
+      <h2 data-i18n="vi.h">视觉设计</h2>
+      <h3 data-i18n="vi.h1">主色</h3>
+      <p data-i18n="vi.p1">以 SRH Gesundheit 的品牌蓝为基调，降低饱和度，得到一种温和安静的天蓝色。</p>
+      <div class="p-swatches">
+        <div><div class="p-swatch-chip" style="background:#5E9BD6"></div><div class="p-swatch-name">NaviBlue</div><div class="p-swatch-hex">#5E9BD6</div></div>
+        <div><div class="p-swatch-chip" style="background:#D7EDF8"></div><div class="p-swatch-name">LightBlue</div><div class="p-swatch-hex">#D7EDF8</div></div>
+        <div><div class="p-swatch-chip" style="background:#FFFFFF"></div><div class="p-swatch-name">White</div><div class="p-swatch-hex">#FFFFFF</div></div>
+      </div>
+
+      <h3 data-i18n="vi.h2">辅助色</h3>
+      <p data-i18n="vi.p2">辅助色来自医院现有的室内导视系统，每栋建筑一个颜色，让屏幕上看到的和走廊里的指示牌保持统一。</p>
+      <div class="p-swatches six">
+        <div><div class="p-swatch-chip" style="background:#F25F1F"></div><div class="p-swatch-name">HauptOrange</div><div class="p-swatch-hex">#F25F1F</div></div>
+        <div><div class="p-swatch-chip" style="background:#60C545"></div><div class="p-swatch-name">WaldGreen</div><div class="p-swatch-hex">#60C545</div></div>
+        <div><div class="p-swatch-chip" style="background:#E9A21A"></div><div class="p-swatch-name">ParkYellow</div><div class="p-swatch-hex">#E9A21A</div></div>
+        <div><div class="p-swatch-chip" style="background:#49A3DD"></div><div class="p-swatch-name">DiagnostikBlue</div><div class="p-swatch-hex">#49A3DD</div></div>
+        <div><div class="p-swatch-chip" style="background:#6F58AD"></div><div class="p-swatch-name">OperationsLila</div><div class="p-swatch-hex">#6F58AD</div></div>
+        <div><div class="p-swatch-chip" style="background:#717171"></div><div class="p-swatch-name">AndereGray</div><div class="p-swatch-hex">#717171</div></div>
+      </div>
+
+      <h3 data-i18n="vi.h3">字体</h3>
+      <p data-i18n="vi.p3">Neue Montreal 有多个字重，现代的无衬线造型在不同尺寸的设备上都清晰利落。</p>
+      <div class="p-type">
+        <div class="p-type-sample">Aa</div>
+        <div class="p-type-weights">Neue Montreal<br>Bold · Regular · Light</div>
+      </div>
+    </section>
+  </article>
+
+  <div class="p-wide">
+    <div class="p-img contain" style="background-image: url('images/srh/ui-elements.png');"></div>
+    <div class="p-wide-caption" data-i18n="vi.cap">UI 组件</div>
+  </div>
+
+  <article class="p-content">
+    <section id="iteration">
+      <h2 data-i18n="it.h">迭代</h2>
+      <p data-i18n="it.p1">Navigator 首页经历了一次重要改版。早期版本用大面积橙色突出当前位置；新版本换成了更平静的天蓝色，并围绕"很多老年人不擅长使用智能手机"这条洞察做了调整：</p>
+      <ul>
+        <li data-i18n="it.l1">增加了调整字号的按钮，方便视力不好的用户。</li>
+        <li data-i18n="it.l2">增加了语音输入，用户可以直接说"我想吃午饭"。</li>
+        <li data-i18n="it.l3">用"建议 / 新闻 / 预约"标签和横向卡片，把更多服务信息放到首页。</li>
+        <li data-i18n="it.l4">保留了各栋建筑的颜色方块，和院内指示牌一一对应。</li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="p-wide">
+    <div class="p-compare phones">
+      <div>
+        <div class="p-compare-label" data-i18n="cmp.before">早期版本</div>
+        <div class="p-img phone" style="background-image: url('images/srh/home-v1.png');"></div>
+      </div>
+      <div>
+        <div class="p-compare-label" data-i18n="cmp.after">改版后</div>
+        <div class="p-img phone" style="background-image: url('images/srh/home-v2.png');"></div>
+      </div>
+    </div>
+  </div>
+
+  <article class="p-content">
+    <section id="reflection">
+      <h2 data-i18n="re.h">反思</h2>
+      <p><span class="todo" data-i18n="re.p1">写一两段：这个项目让你学到了什么，如果有用户测试或老师的反馈也可以写在这里，以及如果重做一次你会改变什么。</span></p>
+    </section>
+  </article>
+
+</div>
+
+<!-- ══════════ RELATED ══════════ -->
+<section class="p-related">
+  <div class="p-related-head">
+    <div class="p-related-title" data-i18n="rel.h">更多作品</div>
+    <a class="p-related-more" href="work.html"><span data-i18n="rel.all">查看全部</span> ›</a>
+  </div>
+  <div class="p-related-grid">
+    <a class="r-card" href="#">
+      <div class="r-thumb" style="background-image: url('images/zeitguard-bg.png'); background-size: cover; background-position: center;">
+        <img src="images/zeitguard-casecover.png" style="max-height: 85%; max-width: 85%; object-fit: contain;" />
+      </div>
+      <div class="r-title" data-i18n="rel.1">ZeitGuard 时间管理应用</div>
+      <div class="r-meta" data-i18n="cat.ux">UX 设计</div>
+    </a>
+    <a class="r-card" href="#">
+      <div class="r-thumb" style="background-color: #F5F5F5;">
+        <img src="images/timeline-cover.png" style="height: 85%; object-fit: contain;" />
+      </div>
+      <div class="r-title" data-i18n="rel.2">Timeline OS 操作系统设计</div>
+      <div class="r-meta" data-i18n="cat.ux">UX 设计</div>
+    </a>
+    <a class="r-card" href="#">
+      <div class="r-thumb" style="background-image: url('images/mm-casebg.png'); background-size: cover; background-position: center;"></div>
+      <div class="r-title" data-i18n="rel.3">Muscat Metro 马斯喀特地铁概念设计</div>
+      <div class="r-meta" data-i18n="cat.ux">UX 设计</div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ 功能流程弹窗 ══════════ -->
+<div class="fm-backdrop" id="fmBackdrop" aria-hidden="true">
+  <div class="fm-card" role="dialog" aria-modal="true" aria-labelledby="fmTitle">
+    <div class="fm-top">
+      <div class="fm-tabs" role="tablist">
+        <button class="fm-tab" data-index="0">Navigator</button>
+        <button class="fm-tab" data-index="1">Touch & Go</button>
+        <button class="fm-tab" data-index="2">Scan & Go</button>
+      </div>
+      <button class="fm-close" id="fmClose" aria-label="Close">
+        <svg viewBox="0 0 16 16"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+      </button>
+    </div>
+
+    <div class="fm-main">
+      <div class="fm-side">
+        <div class="fm-head">
+          <div class="fm-icon"><img id="fmIcon" alt="" /></div>
+          <div class="fm-head-text">
+            <h3 class="fm-title" id="fmTitle"></h3>
+            <p class="fm-scenario"><span class="fm-label" data-i18n="fc.scenario">场景</span><span id="fmScenario"></span></p>
+          </div>
+        </div>
+        <ol class="fm-steps" id="fmSteps"></ol>
+        <p class="fm-current" id="fmCurrent" aria-live="polite"><span class="fm-current-num" id="fmCurrentNum"></span><span id="fmCurrentText"></span></p>
+        <div class="fm-result" id="fmResult"></div>
+        <div class="fm-controls">
+          <button class="fm-ctrl" id="fmPrev" aria-label="Previous step"><svg viewBox="0 0 16 16"><polyline points="10 3 5 8 10 13"/></svg></button>
+          <button class="fm-ctrl" id="fmNext" aria-label="Next step"><svg viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg></button>
+          <button class="fm-replay" id="fmReplay" data-i18n="fc.replay">重新播放</button>
+        </div>
+      </div>
+      <div class="fm-stage" id="fmStage">
+        <div class="fm-img" id="fmImg"><span class="fm-img-ph" id="fmImgPh"></span></div>
+
+        <!-- 视频步骤：iPhone 13 Pro 外框 -->
+        <div class="fm-device" id="fmDevice">
+          <!-- Touch & Go：白色平板外框，屏幕 2338 × 1872 -->
+          <div class="tablet">
+            <span class="tablet-cam"></span>
+            <div class="tablet-screen" id="fmTabletScreen"></div>
+          </div>
+          <div class="iphone">
+            <span class="iphone-btn iphone-btn-mute"></span>
+            <span class="iphone-btn iphone-btn-volup"></span>
+            <span class="iphone-btn iphone-btn-voldown"></span>
+            <span class="iphone-btn iphone-btn-power"></span>
+            <div class="iphone-screen" id="fmPhoneScreen">
+              <video id="fmVideo" muted playsinline preload="auto"></video>
+              <img class="iphone-slide" id="fmSlideA" alt="" />
+              <img class="iphone-slide" id="fmSlideB" alt="" />
+              <span class="iphone-ph" id="fmVideoPh"></span>
+              <span class="iphone-notch"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile capsule nav -->
+<div class="contact-footer">
+  <nav class="capsule-nav" aria-label="页面导航">
+    <a class="capsule-link" href="index.html" data-i18n="mob.home">主页</a>
+    <a class="capsule-link capsule-link--active" href="work.html" data-i18n="mob.work">作品</a>
+    <a class="capsule-link" href="resume.html" data-i18n="mob.resume">简历</a>
+    <a class="capsule-link" href="index.html#contact" data-i18n="mob.contact">联系</a>
+  </nav>
+</div>
+
+<footer class="site-footer">
+  <p data-i18n="footer.copy">© 2026 Dongjie Ma. Berlin, Germany.</p>
+</footer>
+
+<script>
+/* ══ TRANSLATIONS ══
+   带 <br> 的条目用 innerHTML 渲染（见 HTML_KEYS） */
+var HTML_KEYS = ["p.title"];
+
+var T = {
+  "zh": {
+    "nav.work": "作品",
+    "nav.contact": "联系",
+    "nav.resume": "简历",
+    "nav.cta": "联系我",
+    "nav.language": "语言",
+    "mob.home": "主页",
+    "mob.work": "作品",
+    "mob.resume": "简历",
+    "mob.contact": "联系",
+    "p.date": "2024年4月",
+    "p.cat": "UX 设计",
+    "p.type": "案例研究",
+    "p.title": "SRH Wald-Klinikum Gera<br>医院导视系统",
+    "p.role": "UX / UI 设计",
+    "p.share": "分享",
+    "p.copied": "链接已复制",
+    "toc.label": "目录",
+    "toc.overview": "概览",
+    "toc.challenge": "挑战",
+    "toc.users": "用户",
+    "toc.solution": "解决方案",
+    "toc.flows": "用户流程",
+    "toc.visual": "视觉设计",
+    "toc.iteration": "迭代",
+    "toc.reflection": "反思",
+    "ov.lead": "为 SRH Wald-Klinikum Gera 的每一位访客提供数字导航，尤其是那些不太熟悉科技产品的人。",
+    "ov.p1": "医院由多栋建筑组成，第一次来的人很难找到要去的科室和服务。这个项目设计了三个相互配合的产品：Navigator 应用、院内的 Touch & Go 触摸屏，以及无需下载的 Scan & Go 网页导航。",
+    "f.role.l": "角色",
+    "f.role.v": "UX / UI 设计、视觉设计",
+    "f.deliv.l": "交付",
+    "f.deliv.v": "Navigator 应用、Touch & Go 触摸屏、Scan & Go 网页",
+    "f.time.l": "时间",
+    "f.time.v": "2023 年 10 月至 2024 年 2 月",
+    "f.tools.l": "工具",
+    "ch.h": "挑战",
+    "ch.p1": "项目目标是为访客提供一张数字地图，让他们更方便地使用医院的各项服务，获得更好的就医体验。而访客的情况各不相同，所以我们需要为不同类型的访客定制更合适的体验。",
+    "ch.p2": "从用户研究中，我们总结出三条核心洞察：",
+    "ch.i1": "用户希望在医院里快速找到目的地。",
+    "ch.i2": "用户希望了解医院提供的服务和设施。",
+    "ch.i3": "很多老年人不擅长使用智能手机。",
+    "us.h": "用户",
+    "us.p1": "目标人群几乎是每一位来医院的人：大多数人使用智能手机，但也有老年人和其他不会或不方便使用智能手机的人。我们用两个用户画像来代表这两端。",
+    "ps.f.meta": "女性 · 35 岁",
+    "ps.f.text": "来看望在 Wald-Klinikum 住院的家人，开车前来。",
+    "ps.s.meta": "男性 · 67 岁",
+    "ps.s.text": "来 Wald-Klinikum 赴约看诊，乘坐公共交通。",
+    "vid.cap": "系统演示视频",
+    "so.h": "解决方案",
+    "so.p1": "核心思路是：为每一位访客提供数字导航方案，尤其照顾不熟悉科技产品的人，同时提升使用医院服务的效率。我们没有只做一个应用，而是为不同情境设计了三个入口。",
+    "so.nav": "通过个性化设置提供智能建议，让医院导航和服务信息更全面、更容易获取。适配各种尺寸的移动设备。",
+    "so.tg": "固定在院内多处墙面上的交互屏，为不使用智能设备的人提供导航和服务信息。",
+    "so.sg": "扫描导视牌或 Touch & Go 屏幕上的二维码，就能在手机上立即获得导航路线，无需提前下载应用。",
+    "tg.p1": "Touch & Go 是一个固定不动的导航站。用户在医院墙上就能找到多块屏幕并开始导航，不需要下载任何应用，对不使用智能设备的人也很友好。导航结果会生成一个二维码，扫码后在手机浏览器里打开，这就衔接到了 Scan & Go。",
+    "tg.p2": "界面分成三个区域，各有分工。点击或把鼠标移到下面截图的区域上，看看每一部分的作用。",
+    "tg.cap": "Touch & Go 主界面",
+    "fl.h": "用户流程与信息架构",
+    "fl.p1": "三个产品各自有独立的用户流程，但共享同一套建筑、楼层和科室的信息结构，让用户无论从哪个入口进入，看到的信息都是一致的。",
+    "vi.h": "视觉设计",
+    "vi.h1": "主色",
+    "vi.h2": "辅助色",
+    "vi.h3": "字体",
+    "vi.p1": "以 SRH Gesundheit 的品牌蓝为基调，降低饱和度，得到一种温和安静的天蓝色。",
+    "vi.p2": "辅助色来自医院现有的室内导视系统，每栋建筑一个颜色，让屏幕上看到的和走廊里的指示牌保持统一。",
+    "vi.p3": "Neue Montreal 有多个字重，现代的无衬线造型在不同尺寸的设备上都清晰利落。",
+    "vi.cap": "UI 组件",
+    "it.h": "迭代",
+    "it.p1": "Navigator 首页经历了一次重要改版。早期版本用大面积橙色突出当前位置；新版本换成了更平静的天蓝色，并围绕“很多老年人不擅长使用智能手机”这条洞察做了调整：",
+    "it.l1": "增加了调整字号的按钮，方便视力不好的用户。",
+    "it.l2": "增加了语音输入，用户可以直接说“我想吃午饭”。",
+    "it.l3": "用“建议 / 新闻 / 预约”标签和横向卡片，把更多服务信息放到首页。",
+    "it.l4": "保留了各栋建筑的颜色方块，和院内指示牌一一对应。",
+    "cmp.before": "早期版本",
+    "cmp.after": "改版后",
+    "re.h": "反思",
+    "re.p1": "写一两段：这个项目让你学到了什么，如果有用户测试或老师的反馈也可以写在这里，以及如果重做一次你会改变什么。",
+    "rel.h": "更多作品",
+    "rel.all": "查看全部",
+    "rel.1": "ZeitGuard 时间管理应用",
+    "rel.2": "Timeline OS 操作系统设计",
+    "rel.3": "Muscat Metro 马斯喀特地铁概念设计",
+    "cat.ux": "UX 设计",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Germany.",
+    "fc.title": "三个入口，同一套导航",
+    "fc.desc": "每个产品对应一种到访情境。点开卡片，看看它是怎样一步步工作的。",
+    "fc.view": "查看流程",
+    "fc.count": "5 个步骤",
+    "fc.scenario": "场景",
+    "fc.replay": "重新播放",
+    "fc.img": "步骤 {n} 图片",
+    "fc.nav.q": "来看望住在 Haus am Wald 的家人，第一次来医院。",
+    "fc.nav.s1": "选择你的身份：看医生、探望病人，或是医护人员",
+    "fc.nav.s2": "定位当前位置，比如 Gera Klinikum 公交站",
+    "fc.nav.s3": "首页根据你所在的位置给出建议",
+    "fc.nav.s4": "搜索或用语音说出目的地",
+    "fc.nav.s5": "按建筑、楼层、科室逐级找到目的地，开始导航",
+    "fc.nav.r": "到达 Haus am Wald 的病房。",
+    "fc.tg.q": "没有智能手机，需要找到科室。",
+    "fc.tg.s1": "在院内墙上的屏幕前点击开始，可以切换德语或英语",
+    "fc.tg.s2": "顶栏显示当前位置，作为导航的起点",
+    "fc.tg.s3": "在右侧操作区选择：地图与导航、医生信息或服务设施",
+    "fc.tg.s4": "选择建筑和楼层，在平面图上查看科室位置",
+    "fc.tg.s5": "导航结果生成二维码，用手机扫一下就能把路线带走",
+    "fc.tg.r": "路线显示在屏幕上，随时可以点“帮助”或“紧急呼叫”。",
+    "fc.sg.q": "在 Mutter-Kind-Zentrum，想去 Kultur-Café。",
+    "fc.sg.s1": "扫描导视牌或 Touch & Go 屏幕上的二维码",
+    "fc.sg.s2": "手机浏览器打开 Scan & Go，起点和终点已自动填好",
+    "fc.sg.s3": "跟着导航，到达目的地",
+    "fc.sg.r": "到达 Kultur-Café，全程不需要下载应用。",
+    "fc.vid": "步骤 {n} 视频",
+    "fc.count3": "3 个步骤",
+    "tgz.ph": "Touch & Go 主界面截图",
+    "tgz.top.h": "顶栏",
+    "tgz.top.p": "告诉用户当前所在的位置，也就是导航的起点。建筑和区域可以在这里切换，右侧显示日期和时间。",
+    "tgz.left.h": "左侧信息区",
+    "tgz.left.p": "显示操作提示和固定的设置按钮。时间、搜索框和“请选择一项功能继续”的提示放在中间，语言切换、帮助和紧急呼叫固定在底部，随时都能找到。",
+    "tgz.right.h": "右侧操作区",
+    "tgz.right.p": "用户在这里完成所有操作。三个大按钮对应三项核心功能：地图与导航、医生信息和服务设施。"
+  },
+  "en": {
+    "nav.work": "Work",
+    "nav.contact": "Contact",
+    "nav.resume": "Résumé",
+    "nav.cta": "Get in touch",
+    "nav.language": "Language",
+    "mob.home": "Home",
+    "mob.work": "Work",
+    "mob.resume": "Résumé",
+    "mob.contact": "Contact",
+    "p.date": "April 2024",
+    "p.cat": "UX Design",
+    "p.type": "Case Study",
+    "p.title": "SRH Wald-Klinikum Gera<br>Hospital Wayfinding System",
+    "p.role": "UX / UI Design",
+    "p.share": "Share",
+    "p.copied": "Link copied",
+    "toc.label": "Contents",
+    "toc.overview": "Overview",
+    "toc.challenge": "Challenge",
+    "toc.users": "Users",
+    "toc.solution": "Solution",
+    "toc.flows": "User flows",
+    "toc.visual": "Visual design",
+    "toc.iteration": "Iteration",
+    "toc.reflection": "Reflection",
+    "ov.lead": "Digital navigation for every visitor to SRH Wald-Klinikum Gera — especially those who aren't familiar with technology.",
+    "ov.p1": "The hospital spans several buildings, and first-time visitors struggle to find departments and services. The project consists of three connected products: the Navigator app, Touch & Go screens inside the clinic, and Scan & Go, a web navigation that needs no download.",
+    "f.role.l": "Role",
+    "f.role.v": "UX / UI design, visual design",
+    "f.deliv.l": "Deliverables",
+    "f.deliv.v": "Navigator app, Touch & Go kiosk, Scan & Go web",
+    "f.time.l": "Timeline",
+    "f.time.v": "October 2023 – February 2024",
+    "f.tools.l": "Tools",
+    "ch.h": "Challenge",
+    "ch.p1": "The goal was to give visitors a digital map so they can access the hospital's services more conveniently and have a better hospital experience. Since visitors differ widely, the experience had to be tailored to different groups.",
+    "ch.p2": "User research led to three core insights:",
+    "ch.i1": "Users want to quickly find their destination within the hospital.",
+    "ch.i2": "Users want to know about the services and facilities the hospital provides.",
+    "ch.i3": "Many seniors are not proficient with smartphones.",
+    "us.h": "Users",
+    "us.p1": "The target group is almost anyone visiting the hospital: most people use smartphones, but there are also elderly people and others who don't have one or aren't comfortable using it. Two personas represent both ends.",
+    "ps.f.meta": "Female · 35",
+    "ps.f.text": "Visiting a family member hospitalised at Wald-Klinikum. Arrives by car.",
+    "ps.s.meta": "Male · 67",
+    "ps.s.text": "Attending an appointment at Wald-Klinikum. Uses public transport.",
+    "vid.cap": "System demo video",
+    "so.h": "Solution",
+    "so.p1": "The core idea: provide digital navigation for every visitor, with special care for those less familiar with technology, while making hospital services more efficient to use. Instead of a single app, we designed three entry points for different situations.",
+    "so.nav": "Gives smart suggestions based on personal settings, making navigation and service information more complete and easier to reach. Designed for mobile devices of all sizes.",
+    "so.tg": "Interactive screens fixed on several walls of the clinic, providing navigation and service information for people who don't use smart devices.",
+    "so.sg": "Scan a navigation sign or the QR code on a Touch & Go screen to get the route on your phone instantly — no app download required.",
+    "tg.p1": "Touch & Go is a fixed navigation station. Visitors find screens on the hospital walls and start navigating right away — no app needed, which also makes it friendly for people who don't use smart devices. The result generates a QR code that opens in the phone's browser, handing off to Scan & Go.",
+    "tg.p2": "The interface is split into three zones, each with its own job. Tap or hover over the screenshot below to see what each part does.",
+    "tg.cap": "Touch & Go main screen",
+    "fl.h": "User flows & information architecture",
+    "fl.p1": "Each product has its own user flow, but all three share one structure of buildings, floors and departments, so the information stays consistent whichever entry point a visitor uses.",
+    "vi.h": "Visual design",
+    "vi.h1": "Primary colours",
+    "vi.h2": "Secondary colours",
+    "vi.h3": "Typography",
+    "vi.p1": "SRH Gesundheit's brand blue is the base tone, with its saturation reduced to a gentle, calm sky blue.",
+    "vi.p2": "Secondary colours come from the hospital's existing indoor wayfinding system — one colour per building — so what visitors see on screen matches the signs in the corridors.",
+    "vi.p3": "Neue Montreal's range of weights and modern sans-serif form keep things clear and polished across devices of all sizes.",
+    "vi.cap": "UI elements",
+    "it.h": "Iteration",
+    "it.p1": "The Navigator home screen went through a major redesign. The early version used a large orange area to highlight the current location; the new one switches to a calmer sky blue and responds to the insight that many seniors struggle with smartphones:",
+    "it.l1": "A text-size toggle for users with weaker eyesight.",
+    "it.l2": "Voice input — users can simply say “I want to have lunch”.",
+    "it.l3": "Suggestions / News / Appointments tabs with horizontal cards bring more services onto the home screen.",
+    "it.l4": "The colour-coded building tiles stay, matching the signs inside the clinic.",
+    "cmp.before": "Early version",
+    "cmp.after": "Redesign",
+    "re.h": "Reflection",
+    "re.p1": "Write a paragraph or two: what you learned, any feedback from users or tutors, and what you would change next time.",
+    "rel.h": "More work",
+    "rel.all": "View all",
+    "rel.1": "ZeitGuard — Time Management App",
+    "rel.2": "Timeline OS — Operating System Design",
+    "rel.3": "Muscat Metro — Concept Design",
+    "cat.ux": "UX Design",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Germany.",
+    "fc.title": "Three entry points, one navigation system",
+    "fc.desc": "Each product fits a different visiting situation. Open a card to see how it works step by step.",
+    "fc.view": "View flow",
+    "fc.count": "5 steps",
+    "fc.scenario": "Scenario",
+    "fc.replay": "Replay",
+    "fc.img": "Step {n} image",
+    "fc.nav.q": "First visit to the hospital, to see a family member in Haus am Wald.",
+    "fc.nav.s1": "Choose who you are: seeing a doctor, visiting a patient, or staff",
+    "fc.nav.s2": "Detect your current location, for example the Gera Klinikum bus stop",
+    "fc.nav.s3": "The home screen suggests places based on where you are",
+    "fc.nav.s4": "Search or speak your destination",
+    "fc.nav.s5": "Drill down by building, floor and department, then start navigating",
+    "fc.nav.r": "Arrived at the ward in Haus am Wald.",
+    "fc.tg.q": "No smartphone, needs to find a department.",
+    "fc.tg.s1": "Tap to start at a screen on the clinic wall, in German or English",
+    "fc.tg.s2": "The top bar shows your current location as the starting point",
+    "fc.tg.s3": "Choose on the right: map & navigation, doctor information, or services",
+    "fc.tg.s4": "Pick a building and floor to see departments on the floor plan",
+    "fc.tg.s5": "The result becomes a QR code — scan it to take the route with you",
+    "fc.tg.r": "The route is on screen; help and emergency call are always one tap away.",
+    "fc.sg.q": "At Mutter-Kind-Zentrum, heading to Kultur-Café.",
+    "fc.sg.s1": "Scan the QR code on a sign or a Touch & Go screen",
+    "fc.sg.s2": "Scan & Go opens in the browser with start and destination filled in",
+    "fc.sg.s3": "Follow the navigation to your destination",
+    "fc.sg.r": "Arrived at Kultur-Café — without downloading anything.",
+    "fc.vid": "Step {n} video",
+    "fc.count3": "3 steps",
+    "tgz.ph": "Touch & Go main screen",
+    "tgz.top.h": "Top bar",
+    "tgz.top.p": "Tells users where they are right now — the starting point of the navigation. Buildings and areas can be switched here, with the date and time on the right.",
+    "tgz.left.h": "Information area",
+    "tgz.left.p": "Shows operation hints and fixed setting buttons. Time, search and the prompt to select a feature sit in the middle; language, help and emergency call stay fixed at the bottom, always within reach.",
+    "tgz.right.h": "Command area",
+    "tgz.right.p": "Where users complete every action. Three large buttons lead to the three core features: map and navigation, doctor information, and service facilities."
+  },
+  "de": {
+    "nav.work": "Arbeiten",
+    "nav.contact": "Kontakt",
+    "nav.resume": "Lebenslauf",
+    "nav.cta": "Kontakt aufnehmen",
+    "nav.language": "Sprache",
+    "mob.home": "Start",
+    "mob.work": "Arbeiten",
+    "mob.resume": "Lebenslauf",
+    "mob.contact": "Kontakt",
+    "p.date": "April 2024",
+    "p.cat": "UX-Design",
+    "p.type": "Fallstudie",
+    "p.title": "SRH Wald-Klinikum Gera<br>Krankenhausleitsystem",
+    "p.role": "UX / UI Design",
+    "p.share": "Teilen",
+    "p.copied": "Link kopiert",
+    "toc.label": "Inhalt",
+    "toc.overview": "Überblick",
+    "toc.challenge": "Herausforderung",
+    "toc.users": "Nutzer:innen",
+    "toc.solution": "Lösung",
+    "toc.flows": "User Flows",
+    "toc.visual": "Visuelles Design",
+    "toc.iteration": "Iteration",
+    "toc.reflection": "Reflexion",
+    "ov.lead": "Digitale Navigation für alle Besucher:innen des SRH Wald-Klinikums Gera – besonders für Menschen, die mit Technik wenig vertraut sind.",
+    "ov.p1": "Das Klinikum besteht aus mehreren Gebäuden, und wer zum ersten Mal kommt, findet Abteilungen und Services nur schwer. Das Projekt umfasst drei verbundene Produkte: die Navigator-App, Touch & Go-Bildschirme im Haus und Scan & Go, eine Web-Navigation ohne Download.",
+    "f.role.l": "Rolle",
+    "f.role.v": "UX / UI Design, visuelles Design",
+    "f.deliv.l": "Ergebnisse",
+    "f.deliv.v": "Navigator-App, Touch & Go-Terminal, Scan & Go-Web",
+    "f.time.l": "Zeitraum",
+    "f.time.v": "Oktober 2023 – Februar 2024",
+    "f.tools.l": "Tools",
+    "ch.h": "Herausforderung",
+    "ch.p1": "Ziel war eine digitale Karte, mit der Besucher:innen die Angebote des Klinikums bequemer nutzen und einen besseren Aufenthalt erleben. Da die Besucher:innen sehr unterschiedlich sind, musste das Erlebnis auf verschiedene Gruppen zugeschnitten werden.",
+    "ch.p2": "Aus der Nutzerforschung ergaben sich drei zentrale Erkenntnisse:",
+    "ch.i1": "Nutzer:innen wollen ihr Ziel im Klinikum schnell finden.",
+    "ch.i2": "Nutzer:innen wollen wissen, welche Services und Einrichtungen es gibt.",
+    "ch.i3": "Viele ältere Menschen sind im Umgang mit Smartphones nicht geübt.",
+    "us.h": "Nutzer:innen",
+    "us.p1": "Zielgruppe ist praktisch jede Person, die das Klinikum besucht: Die meisten nutzen ein Smartphone, aber es gibt auch ältere Menschen und andere, die keins haben oder sich damit schwertun. Zwei Personas stehen für diese beiden Enden.",
+    "ps.f.meta": "Weiblich · 35",
+    "ps.f.text": "Besucht ein Familienmitglied, das im Wald-Klinikum stationär liegt. Kommt mit dem Auto.",
+    "ps.s.meta": "Männlich · 67",
+    "ps.s.text": "Hat einen Termin im Wald-Klinikum. Fährt mit öffentlichen Verkehrsmitteln.",
+    "vid.cap": "Demo-Video des Systems",
+    "so.h": "Lösung",
+    "so.p1": "Die Kernidee: digitale Navigation für alle Besucher:innen, mit besonderer Rücksicht auf weniger technikaffine Menschen, und dabei eine effizientere Nutzung der Klinik-Services. Statt einer einzigen App haben wir drei Zugänge für unterschiedliche Situationen gestaltet.",
+    "so.nav": "Gibt auf Basis persönlicher Einstellungen smarte Vorschläge und macht Navigation und Serviceinformationen umfassender und leichter zugänglich. Für Mobilgeräte aller Größen gestaltet.",
+    "so.tg": "Interaktive Bildschirme an mehreren Wänden der Klinik, die Menschen ohne Smartphone Navigation und Serviceinformationen bieten.",
+    "so.sg": "Leitschild oder QR-Code auf einem Touch & Go-Bildschirm scannen und die Route sofort auf dem Handy erhalten – ohne vorherigen App-Download.",
+    "tg.p1": "Touch & Go ist eine fest installierte Navigationsstation. Besucher:innen finden die Bildschirme an den Wänden des Klinikums und können sofort loslegen – ohne App, also auch für Menschen ohne Smartphone geeignet. Das Ergebnis erzeugt einen QR-Code, der im Browser des Handys geöffnet wird und an Scan & Go übergibt.",
+    "tg.p2": "Die Oberfläche ist in drei Bereiche mit klaren Aufgaben gegliedert. Tippe auf den Screenshot unten oder fahre mit der Maus darüber, um zu sehen, was jeder Bereich macht.",
+    "tg.cap": "Touch & Go-Startbildschirm",
+    "fl.h": "User Flows & Informationsarchitektur",
+    "fl.p1": "Jedes Produkt hat einen eigenen User Flow, aber alle drei teilen dieselbe Struktur aus Gebäuden, Etagen und Abteilungen – so bleiben die Informationen gleich, egal über welchen Zugang man einsteigt.",
+    "vi.h": "Visuelles Design",
+    "vi.h1": "Primärfarben",
+    "vi.h2": "Sekundärfarben",
+    "vi.h3": "Typografie",
+    "vi.p1": "Das Markenblau von SRH Gesundheit bildet die Basis; die Sättigung wurde zu einem sanften, ruhigen Himmelblau reduziert.",
+    "vi.p2": "Die Sekundärfarben stammen aus dem bestehenden Leitsystem im Haus – eine Farbe pro Gebäude –, damit Bildschirm und Beschilderung auf den Fluren übereinstimmen.",
+    "vi.p3": "Neue Montreal bietet mehrere Schriftschnitte; die moderne serifenlose Form wirkt auf Geräten jeder Größe klar und aufgeräumt.",
+    "vi.cap": "UI-Elemente",
+    "it.h": "Iteration",
+    "it.p1": "Der Startbildschirm des Navigators wurde grundlegend überarbeitet. Die frühe Version hob den Standort mit einer großen orangen Fläche hervor; die neue setzt auf ein ruhigeres Himmelblau und reagiert auf die Erkenntnis, dass viele ältere Menschen mit Smartphones Mühe haben:",
+    "it.l1": "Ein Schalter für die Schriftgröße für Menschen mit schwächerem Sehvermögen.",
+    "it.l2": "Spracheingabe – man kann einfach sagen „Ich möchte zu Mittag essen“.",
+    "it.l3": "Tabs für Vorschläge / News / Termine mit horizontalen Karten holen mehr Services auf den Startbildschirm.",
+    "it.l4": "Die farbcodierten Gebäudekacheln bleiben und entsprechen der Beschilderung im Haus.",
+    "cmp.before": "Frühe Version",
+    "cmp.after": "Überarbeitung",
+    "re.h": "Reflexion",
+    "re.p1": "Ein bis zwei Absätze: Was hast du gelernt, welches Feedback gab es von Nutzer:innen oder Dozierenden, und was würdest du beim nächsten Mal anders machen?",
+    "rel.h": "Weitere Arbeiten",
+    "rel.all": "Alle anzeigen",
+    "rel.1": "ZeitGuard — Zeitmanagement-App",
+    "rel.2": "Timeline OS — Betriebssystemdesign",
+    "rel.3": "Muscat Metro — Konzeptdesign",
+    "cat.ux": "UX-Design",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Deutschland.",
+    "fc.title": "Drei Zugänge, ein Navigationssystem",
+    "fc.desc": "Jedes Produkt passt zu einer anderen Besuchssituation. Öffne eine Karte und sieh Schritt für Schritt, wie es funktioniert.",
+    "fc.view": "Ablauf ansehen",
+    "fc.count": "5 Schritte",
+    "fc.scenario": "Szenario",
+    "fc.replay": "Erneut abspielen",
+    "fc.img": "Bild zu Schritt {n}",
+    "fc.nav.q": "Erster Besuch im Klinikum, um ein Familienmitglied im Haus am Wald zu sehen.",
+    "fc.nav.s1": "Wähle aus, wer du bist: Arzttermin, Patientenbesuch oder Personal",
+    "fc.nav.s2": "Der aktuelle Standort wird erkannt, z. B. die Bushaltestelle Gera Klinikum",
+    "fc.nav.s3": "Der Startbildschirm macht Vorschläge passend zu deinem Standort",
+    "fc.nav.s4": "Ziel suchen oder per Sprache sagen",
+    "fc.nav.s5": "Über Gebäude, Etage und Abteilung zum Ziel und die Navigation starten",
+    "fc.nav.r": "Auf der Station im Haus am Wald angekommen.",
+    "fc.tg.q": "Kein Smartphone, muss eine Abteilung finden.",
+    "fc.tg.s1": "An einem Bildschirm an der Wand antippen und starten – auf Deutsch oder Englisch",
+    "fc.tg.s2": "Die obere Leiste zeigt den aktuellen Standort als Startpunkt",
+    "fc.tg.s3": "Rechts auswählen: Karte und Navigation, Arztinformation oder Serviceeinrichtungen",
+    "fc.tg.s4": "Gebäude und Etage wählen und die Abteilung auf dem Grundriss sehen",
+    "fc.tg.s5": "Das Ergebnis wird zum QR-Code – scannen und die Route mitnehmen",
+    "fc.tg.r": "Die Route steht auf dem Bildschirm; Hilfe und Notruf sind immer nur einen Tipp entfernt.",
+    "fc.sg.q": "Im Mutter-Kind-Zentrum, auf dem Weg zum Kultur-Café.",
+    "fc.sg.s1": "QR-Code auf einem Leitschild oder Touch & Go-Bildschirm scannen",
+    "fc.sg.s2": "Scan & Go öffnet sich im Browser, Start und Ziel sind schon ausgefüllt",
+    "fc.sg.s3": "Der Navigation folgen und ans Ziel kommen",
+    "fc.sg.r": "Im Kultur-Café angekommen – ganz ohne App-Download.",
+    "fc.vid": "Video zu Schritt {n}",
+    "fc.count3": "3 Schritte",
+    "tgz.ph": "Screenshot des Touch & Go-Startbildschirms",
+    "tgz.top.h": "Obere Leiste",
+    "tgz.top.p": "Zeigt den aktuellen Standort – den Startpunkt der Navigation. Gebäude und Bereiche lassen sich hier wechseln, rechts stehen Datum und Uhrzeit.",
+    "tgz.left.h": "Infobereich",
+    "tgz.left.p": "Zeigt Bedienhinweise und feste Einstellungsknöpfe. Uhrzeit, Suche und die Aufforderung, eine Funktion zu wählen, stehen in der Mitte; Sprache, Hilfe und Notruf sind unten fest verankert und immer erreichbar.",
+    "tgz.right.h": "Bedienbereich",
+    "tgz.right.p": "Hier erledigen Nutzer:innen alle Aktionen. Drei große Schaltflächen führen zu den drei Kernfunktionen: Karte und Navigation, Arztinformationen und Serviceeinrichtungen."
+  },
+  "tr": {
+    "nav.work": "Projeler",
+    "nav.contact": "İletişim",
+    "nav.resume": "Özgeçmiş",
+    "nav.cta": "İletişime geç",
+    "nav.language": "Dil",
+    "mob.home": "Ana sayfa",
+    "mob.work": "Projeler",
+    "mob.resume": "Özgeçmiş",
+    "mob.contact": "İletişim",
+    "p.date": "Nisan 2024",
+    "p.cat": "UX Tasarımı",
+    "p.type": "Vaka Çalışması",
+    "p.title": "SRH Wald-Klinikum Gera<br>Hastane Yönlendirme Sistemi",
+    "p.role": "UX / UI Tasarımı",
+    "p.share": "Paylaş",
+    "p.copied": "Bağlantı kopyalandı",
+    "toc.label": "İçindekiler",
+    "toc.overview": "Genel bakış",
+    "toc.challenge": "Zorluk",
+    "toc.users": "Kullanıcılar",
+    "toc.solution": "Çözüm",
+    "toc.flows": "Kullanıcı akışları",
+    "toc.visual": "Görsel tasarım",
+    "toc.iteration": "Yineleme",
+    "toc.reflection": "Değerlendirme",
+    "ov.lead": "SRH Wald-Klinikum Gera'yı ziyaret eden herkes için dijital yön bulma — özellikle teknolojiye pek alışkın olmayanlar için.",
+    "ov.p1": "Hastane birden fazla binaya yayılıyor ve ilk kez gelen ziyaretçiler bölümleri ve hizmetleri bulmakta zorlanıyor. Proje birbirine bağlı üç üründen oluşuyor: Navigator uygulaması, klinik içindeki Touch & Go ekranları ve indirme gerektirmeyen web tabanlı yön bulma aracı Scan & Go.",
+    "f.role.l": "Rol",
+    "f.role.v": "UX / UI tasarımı, görsel tasarım",
+    "f.deliv.l": "Çıktılar",
+    "f.deliv.v": "Navigator uygulaması, Touch & Go kiosku, Scan & Go web",
+    "f.time.l": "Süre",
+    "f.time.v": "Ekim 2023 – Şubat 2024",
+    "f.tools.l": "Araçlar",
+    "ch.h": "Zorluk",
+    "ch.p1": "Amaç, ziyaretçilere hastanenin hizmetlerine daha rahat ulaşmalarını ve daha iyi bir hastane deneyimi yaşamalarını sağlayan dijital bir harita sunmaktı. Ziyaretçiler birbirinden çok farklı olduğu için deneyimin farklı gruplara göre uyarlanması gerekiyordu.",
+    "ch.p2": "Kullanıcı araştırması üç temel içgörüye ulaştı:",
+    "ch.i1": "Kullanıcılar hastane içinde gidecekleri yeri hızlıca bulmak istiyor.",
+    "ch.i2": "Kullanıcılar hastanenin sunduğu hizmetler ve olanaklar hakkında bilgi almak istiyor.",
+    "ch.i3": "Birçok yaşlı kişi akıllı telefon kullanmakta zorlanıyor.",
+    "us.h": "Kullanıcılar",
+    "us.p1": "Hedef kitle neredeyse hastaneyi ziyaret eden herkes: çoğu kişi akıllı telefon kullanıyor, ancak telefonu olmayan ya da kullanmakta zorlanan yaşlılar ve başkaları da var. İki persona bu iki ucu temsil ediyor.",
+    "ps.f.meta": "Kadın · 35",
+    "ps.f.text": "Wald-Klinikum'da yatan bir aile üyesini ziyaret ediyor. Arabayla geliyor.",
+    "ps.s.meta": "Erkek · 67",
+    "ps.s.text": "Wald-Klinikum'da bir randevusu var. Toplu taşıma kullanıyor.",
+    "vid.cap": "Sistem tanıtım videosu",
+    "so.h": "Çözüm",
+    "so.p1": "Temel fikir: teknolojiye daha az aşina olanları özellikle gözeterek her ziyaretçiye dijital yön bulma sunmak ve hastane hizmetlerinin daha verimli kullanılmasını sağlamak. Tek bir uygulama yerine farklı durumlar için üç giriş noktası tasarladık.",
+    "so.nav": "Kişisel ayarlara göre akıllı öneriler sunarak yön bulma ve hizmet bilgilerini daha kapsamlı ve kolay ulaşılır hale getirir. Her boyuttaki mobil cihaz için tasarlandı.",
+    "so.tg": "Kliniğin birçok duvarına sabitlenmiş etkileşimli ekranlar; akıllı cihaz kullanmayanlara yön bulma ve hizmet bilgisi sunar.",
+    "so.sg": "Bir yönlendirme tabelasını veya Touch & Go ekranındaki QR kodu tarayın, rota anında telefonunuzda açılsın — uygulama indirmeye gerek yok.",
+    "tg.p1": "Touch & Go sabit bir yön bulma istasyonudur. Ziyaretçiler hastane duvarlarındaki ekranları bulup hemen yola çıkabilir — uygulama gerekmez, bu da onu akıllı cihaz kullanmayanlar için de uygun kılar. Sonuç, telefonun tarayıcısında açılan bir QR kod oluşturur ve süreci Scan & Go'ya devreder.",
+    "tg.p2": "Arayüz, her birinin kendi görevi olan üç bölgeye ayrılır. Her bölümün ne işe yaradığını görmek için aşağıdaki ekran görüntüsüne dokunun ya da imleci üzerine getirin.",
+    "tg.cap": "Touch & Go ana ekranı",
+    "fl.h": "Kullanıcı akışları ve bilgi mimarisi",
+    "fl.p1": "Her ürünün kendi kullanıcı akışı var, ancak üçü de aynı bina, kat ve bölüm yapısını paylaşıyor; böylece ziyaretçi hangi giriş noktasını kullanırsa kullansın bilgiler tutarlı kalıyor.",
+    "vi.h": "Görsel tasarım",
+    "vi.h1": "Ana renkler",
+    "vi.h2": "İkincil renkler",
+    "vi.h3": "Tipografi",
+    "vi.p1": "Temel ton SRH Gesundheit'ın kurumsal mavisi; doygunluğu azaltılarak yumuşak, sakin bir gök mavisine dönüştürüldü.",
+    "vi.p2": "İkincil renkler hastanenin mevcut iç mekân yönlendirme sisteminden geliyor — her binaya bir renk — böylece ziyaretçilerin ekranda gördüğü, koridorlardaki tabelalarla örtüşüyor.",
+    "vi.p3": "Neue Montreal'in farklı ağırlıkları ve modern sans-serif formu, her boyuttaki cihazda okunaklı ve düzenli bir görünüm sağlıyor.",
+    "vi.cap": "Arayüz öğeleri",
+    "it.h": "Yineleme",
+    "it.p1": "Navigator ana ekranı kapsamlı bir yeniden tasarımdan geçti. İlk sürüm mevcut konumu vurgulamak için geniş turuncu bir alan kullanıyordu; yenisi daha sakin bir gök mavisine geçiyor ve birçok yaşlının akıllı telefonla zorlandığı içgörüsüne yanıt veriyor:",
+    "it.l1": "Görme gücü zayıf kullanıcılar için yazı boyutu düğmesi.",
+    "it.l2": "Sesli giriş — kullanıcılar sadece “Öğle yemeği yemek istiyorum” diyebilir.",
+    "it.l3": "Yatay kartlarla Öneriler / Haberler / Randevular sekmeleri daha fazla hizmeti ana ekrana taşıyor.",
+    "it.l4": "Renk kodlu bina kutucukları korunuyor ve klinik içindeki tabelalarla eşleşiyor.",
+    "cmp.before": "İlk sürüm",
+    "cmp.after": "Yeniden tasarım",
+    "re.h": "Değerlendirme",
+    "re.p1": "Bir iki paragraf yazın: neler öğrendiniz, kullanıcılardan veya hocalardan gelen geri bildirimler ve bir dahaki sefere neyi farklı yapardınız.",
+    "rel.h": "Diğer projeler",
+    "rel.all": "Tümünü gör",
+    "rel.1": "ZeitGuard — Zaman Yönetimi Uygulaması",
+    "rel.2": "Timeline OS — İşletim Sistemi Tasarımı",
+    "rel.3": "Muscat Metro — Konsept Tasarım",
+    "cat.ux": "UX Tasarımı",
+    "footer.copy": "© 2026 Dongjie Ma. Berlin, Almanya.",
+    "fc.title": "Üç giriş noktası, tek yön bulma sistemi",
+    "fc.desc": "Her ürün farklı bir ziyaret durumuna uyuyor. Adım adım nasıl çalıştığını görmek için bir karta tıklayın.",
+    "fc.view": "Akışı gör",
+    "fc.count": "5 adım",
+    "fc.count3": "3 adım",
+    "fc.scenario": "Senaryo",
+    "fc.replay": "Tekrar oynat",
+    "fc.img": "{n}. adım görseli",
+    "fc.vid": "{n}. adım videosu",
+    "fc.nav.q": "Hastaneye ilk ziyaret; Haus am Wald'daki bir aile üyesini görmeye geliyor.",
+    "fc.nav.s1": "Kim olduğunuzu seçin: doktora geliyorum, hasta ziyaret ediyorum ya da personelim",
+    "fc.nav.s2": "Mevcut konumunuz algılanır, örneğin Gera Klinikum otobüs durağı",
+    "fc.nav.s3": "Ana ekran bulunduğunuz yere göre öneriler sunar",
+    "fc.nav.s4": "Gideceğiniz yeri arayın ya da sesle söyleyin",
+    "fc.nav.s5": "Bina, kat ve bölüm seçerek ilerleyin, ardından navigasyonu başlatın",
+    "fc.nav.r": "Haus am Wald'daki servise varıldı.",
+    "fc.tg.q": "Akıllı telefonu yok, bir bölümü bulması gerekiyor.",
+    "fc.tg.s1": "Klinik duvarındaki bir ekrana dokunarak Almanca veya İngilizce başlayın",
+    "fc.tg.s2": "Üst çubuk mevcut konumunuzu başlangıç noktası olarak gösterir",
+    "fc.tg.s3": "Sağ taraftan seçin: harita ve navigasyon, doktor bilgileri veya hizmetler",
+    "fc.tg.s4": "Kat planında bölümleri görmek için bina ve kat seçin",
+    "fc.tg.s5": "Sonuç bir QR koda dönüşür — tarayın ve rotayı yanınızda götürün",
+    "fc.tg.r": "Rota ekranda; yardım ve acil çağrı her zaman bir dokunuş uzağınızda.",
+    "fc.sg.q": "Mutter-Kind-Zentrum'da, Kultur-Café'ye gidiyor.",
+    "fc.sg.s1": "Bir tabeladaki veya Touch & Go ekranındaki QR kodu tarayın",
+    "fc.sg.s2": "Scan & Go tarayıcıda açılır, başlangıç ve varış noktası hazır",
+    "fc.sg.s3": "Navigasyonu takip ederek hedefe ulaşın",
+    "fc.sg.r": "Kultur-Café'ye varıldı — hiçbir şey indirmeden.",
+    "tgz.ph": "Touch & Go ana ekran görüntüsü",
+    "tgz.top.h": "Üst çubuk",
+    "tgz.top.p": "Kullanıcıya şu an nerede olduğunu, yani navigasyonun başlangıç noktasını gösterir. Bina ve alanlar buradan değiştirilebilir; tarih ve saat sağda yer alır.",
+    "tgz.left.h": "Bilgi alanı",
+    "tgz.left.p": "İşlem ipuçlarını ve sabit ayar düğmelerini gösterir. Saat, arama ve bir özellik seçme uyarısı ortada; dil, yardım ve acil çağrı ise altta sabittir, her an ulaşılabilir.",
+    "tgz.right.h": "İşlem alanı",
+    "tgz.right.p": "Kullanıcılar tüm işlemleri burada yapar. Üç büyük düğme üç temel özelliğe götürür: harita ve navigasyon, doktor bilgileri ve hizmet olanakları."
+  },
+  "ar": {
+    "nav.work": "الأعمال",
+    "nav.contact": "تواصل",
+    "nav.resume": "السيرة الذاتية",
+    "nav.cta": "تواصل معي",
+    "nav.language": "اللغة",
+    "mob.home": "الرئيسية",
+    "mob.work": "الأعمال",
+    "mob.resume": "السيرة الذاتية",
+    "mob.contact": "تواصل",
+    "p.date": "أبريل 2024",
+    "p.cat": "تصميم تجربة المستخدم",
+    "p.type": "دراسة حالة",
+    "p.title": "SRH Wald-Klinikum Gera<br>نظام إرشاد المستشفى",
+    "p.role": "تصميم UX / UI",
+    "p.share": "مشاركة",
+    "p.copied": "تم نسخ الرابط",
+    "toc.label": "المحتويات",
+    "toc.overview": "نظرة عامة",
+    "toc.challenge": "التحدي",
+    "toc.users": "المستخدمون",
+    "toc.solution": "الحل",
+    "toc.flows": "مسارات المستخدم",
+    "toc.visual": "التصميم البصري",
+    "toc.iteration": "التطوير",
+    "toc.reflection": "تأملات",
+    "ov.lead": "إرشاد رقمي لكل زائر في مستشفى SRH Wald-Klinikum Gera — خصوصًا لمن لا يألفون التقنية.",
+    "ov.p1": "يمتد المستشفى على عدة مبانٍ، ويجد الزوار لأول مرة صعوبة في الوصول إلى الأقسام والخدمات. يتكوّن المشروع من ثلاثة منتجات مترابطة: تطبيق Navigator، وشاشات Touch & Go داخل المستشفى، وScan & Go، وهو إرشاد عبر الويب لا يحتاج إلى تنزيل.",
+    "f.role.l": "الدور",
+    "f.role.v": "تصميم UX / UI، تصميم بصري",
+    "f.deliv.l": "المخرجات",
+    "f.deliv.v": "تطبيق Navigator، كشك Touch & Go، موقع Scan & Go",
+    "f.time.l": "المدة",
+    "f.time.v": "أكتوبر 2023 – فبراير 2024",
+    "f.tools.l": "الأدوات",
+    "ch.h": "التحدي",
+    "ch.p1": "كان الهدف تزويد الزوار بخريطة رقمية تسهّل وصولهم إلى خدمات المستشفى وتمنحهم تجربة أفضل. ولأن الزوار يختلفون كثيرًا، كان لا بد من تكييف التجربة لتناسب فئات مختلفة.",
+    "ch.p2": "أسفرت أبحاث المستخدمين عن ثلاث رؤى أساسية:",
+    "ch.i1": "يريد المستخدمون الوصول إلى وجهتهم داخل المستشفى بسرعة.",
+    "ch.i2": "يريد المستخدمون معرفة الخدمات والمرافق التي يقدمها المستشفى.",
+    "ch.i3": "كثير من كبار السن لا يُجيدون استخدام الهواتف الذكية.",
+    "us.h": "المستخدمون",
+    "us.p1": "الفئة المستهدفة هي تقريبًا كل من يزور المستشفى: معظم الناس يستخدمون الهواتف الذكية، لكن هناك أيضًا كبار السن وآخرون لا يملكون هاتفًا ذكيًا أو لا يرتاحون لاستخدامه. تمثّل شخصيتان افتراضيتان هذين الطرفين.",
+    "ps.f.meta": "أنثى · 35",
+    "ps.f.text": "تزور أحد أفراد عائلتها المقيم في Wald-Klinikum. تأتي بالسيارة.",
+    "ps.s.meta": "ذكر · 67",
+    "ps.s.text": "لديه موعد في Wald-Klinikum. يستخدم المواصلات العامة.",
+    "vid.cap": "فيديو عرض النظام",
+    "so.h": "الحل",
+    "so.p1": "الفكرة الأساسية: توفير إرشاد رقمي لكل زائر، مع عناية خاصة بمن هم أقل إلمامًا بالتقنية، وجعل استخدام خدمات المستشفى أكثر كفاءة. بدلًا من تطبيق واحد، صمّمنا ثلاث نقاط دخول لمواقف مختلفة.",
+    "so.nav": "يقدّم اقتراحات ذكية بناءً على الإعدادات الشخصية، فيجعل معلومات الإرشاد والخدمات أشمل وأسهل وصولًا. مصمَّم للأجهزة المحمولة بجميع أحجامها.",
+    "so.tg": "شاشات تفاعلية مثبّتة على عدة جدران في المستشفى، تقدّم معلومات الإرشاد والخدمات لمن لا يستخدمون الأجهزة الذكية.",
+    "so.sg": "امسح لافتة إرشادية أو رمز QR على شاشة Touch & Go لتظهر الطريق على هاتفك فورًا — دون الحاجة إلى تنزيل أي تطبيق.",
+    "tg.p1": "Touch & Go محطة إرشاد ثابتة. يجد الزوار الشاشات على جدران المستشفى ويبدؤون فورًا — دون تطبيق، ما يجعلها مناسبة أيضًا لمن لا يستخدمون الأجهزة الذكية. تتحوّل النتيجة إلى رمز QR يُفتح في متصفح الهاتف لينتقل الزائر إلى Scan & Go.",
+    "tg.p2": "تنقسم الواجهة إلى ثلاث مناطق لكلٍّ منها مهمتها. المس لقطة الشاشة أدناه أو مرّر المؤشر فوقها لترى وظيفة كل جزء.",
+    "tg.cap": "الشاشة الرئيسية لـ Touch & Go",
+    "fl.h": "مسارات المستخدم وهيكلة المعلومات",
+    "fl.p1": "لكل منتج مسار مستخدم خاص به، لكن الثلاثة تتشارك بنية واحدة من المباني والطوابق والأقسام، فتبقى المعلومات متّسقة أيًّا كانت نقطة الدخول.",
+    "vi.h": "التصميم البصري",
+    "vi.h1": "الألوان الأساسية",
+    "vi.h2": "الألوان الثانوية",
+    "vi.h3": "الخطوط",
+    "vi.p1": "الأزرق المميّز لـ SRH Gesundheit هو اللون الأساسي، مع تقليل تشبّعه ليصبح أزرق سماويًا هادئًا ولطيفًا.",
+    "vi.p2": "الألوان الثانوية مأخوذة من نظام الإرشاد الداخلي الحالي في المستشفى — لون لكل مبنى — ليتطابق ما يراه الزوار على الشاشة مع اللافتات في الممرات.",
+    "vi.p3": "تنوّع أوزان خط Neue Montreal وشكله الحديث بلا زوائد يحافظان على الوضوح والأناقة على الأجهزة بجميع أحجامها.",
+    "vi.cap": "عناصر الواجهة",
+    "it.h": "التطوير",
+    "it.p1": "خضعت الشاشة الرئيسية لتطبيق Navigator لإعادة تصميم كبيرة. استخدمت النسخة الأولى مساحة برتقالية كبيرة لإبراز الموقع الحالي؛ أما الجديدة فتعتمد أزرق سماويًا أهدأ، وتستجيب لملاحظة أن كثيرًا من كبار السن يواجهون صعوبة مع الهواتف الذكية:",
+    "it.l1": "زر لتغيير حجم النص لضعاف البصر.",
+    "it.l2": "إدخال صوتي — يكفي أن يقول المستخدم «أريد تناول الغداء».",
+    "it.l3": "تبويبات الاقتراحات / الأخبار / المواعيد مع بطاقات أفقية تُظهر مزيدًا من الخدمات على الشاشة الرئيسية.",
+    "it.l4": "تبقى مربعات المباني الملوّنة كما هي، مطابِقةً للافتات داخل المستشفى.",
+    "cmp.before": "النسخة الأولى",
+    "cmp.after": "إعادة التصميم",
+    "re.h": "تأملات",
+    "re.p1": "اكتب فقرة أو فقرتين: ما الذي تعلّمته، وأي ملاحظات من المستخدمين أو المشرفين، وما الذي ستغيّره في المرة القادمة.",
+    "rel.h": "أعمال أخرى",
+    "rel.all": "عرض الكل",
+    "rel.1": "ZeitGuard — تطبيق لإدارة الوقت",
+    "rel.2": "Timeline OS — تصميم نظام تشغيل",
+    "rel.3": "Muscat Metro — تصميم مفاهيمي",
+    "cat.ux": "تصميم تجربة المستخدم",
+    "footer.copy": "© 2026 Dongjie Ma. برلين، ألمانيا.",
+    "fc.title": "ثلاث نقاط دخول، نظام إرشاد واحد",
+    "fc.desc": "كل منتج يناسب موقف زيارة مختلفًا. افتح بطاقة لترى كيف يعمل خطوة بخطوة.",
+    "fc.view": "عرض المسار",
+    "fc.count": "5 خطوات",
+    "fc.count3": "3 خطوات",
+    "fc.scenario": "السيناريو",
+    "fc.replay": "إعادة التشغيل",
+    "fc.img": "صورة الخطوة {n}",
+    "fc.vid": "فيديو الخطوة {n}",
+    "fc.nav.q": "الزيارة الأولى للمستشفى لرؤية أحد أفراد العائلة في Haus am Wald.",
+    "fc.nav.s1": "اختر صفتك: موعد مع طبيب، أو زيارة مريض، أو من الطاقم",
+    "fc.nav.s2": "يُحدَّد موقعك الحالي، مثل محطة حافلات Gera Klinikum",
+    "fc.nav.s3": "تقترح الشاشة الرئيسية أماكن بناءً على موقعك",
+    "fc.nav.s4": "ابحث عن وجهتك أو قُلها صوتيًا",
+    "fc.nav.s5": "تنقّل حسب المبنى والطابق والقسم، ثم ابدأ الإرشاد",
+    "fc.nav.r": "تم الوصول إلى الجناح في Haus am Wald.",
+    "fc.tg.q": "لا يملك هاتفًا ذكيًا، ويحتاج إلى الوصول إلى قسم ما.",
+    "fc.tg.s1": "المس الشاشة على جدار المستشفى للبدء، بالألمانية أو الإنجليزية",
+    "fc.tg.s2": "يعرض الشريط العلوي موقعك الحالي كنقطة انطلاق",
+    "fc.tg.s3": "اختر من الجهة اليمنى: الخريطة والإرشاد، أو معلومات الأطباء، أو الخدمات",
+    "fc.tg.s4": "اختر المبنى والطابق لترى الأقسام على المخطط",
+    "fc.tg.s5": "تتحوّل النتيجة إلى رمز QR — امسحه وخذ الطريق معك",
+    "fc.tg.r": "الطريق معروض على الشاشة؛ والمساعدة ونداء الطوارئ على بُعد لمسة دائمًا.",
+    "fc.sg.q": "في Mutter-Kind-Zentrum، متجهًا إلى Kultur-Café.",
+    "fc.sg.s1": "امسح رمز QR على لافتة أو على شاشة Touch & Go",
+    "fc.sg.s2": "يُفتح Scan & Go في المتصفح، ونقطتا البداية والوجهة معبّأتان مسبقًا",
+    "fc.sg.s3": "اتبع الإرشاد حتى تصل إلى وجهتك",
+    "fc.sg.r": "تم الوصول إلى Kultur-Café — دون تنزيل أي شيء.",
+    "tgz.ph": "لقطة الشاشة الرئيسية لـ Touch & Go",
+    "tgz.top.h": "الشريط العلوي",
+    "tgz.top.p": "يُعلم المستخدم بموقعه الحالي، أي نقطة انطلاق الإرشاد. يمكن تبديل المباني والمناطق من هنا، ويظهر التاريخ والوقت على الطرف الآخر.",
+    "tgz.left.h": "منطقة المعلومات",
+    "tgz.left.p": "تعرض تلميحات الاستخدام وأزرار الإعدادات الثابتة. الوقت والبحث ودعوة اختيار إحدى الوظائف في المنتصف، بينما تبقى اللغة والمساعدة ونداء الطوارئ ثابتة في الأسفل وفي المتناول دائمًا.",
+    "tgz.right.h": "منطقة التحكم",
+    "tgz.right.p": "هنا يُنجز المستخدم كل الإجراءات. ثلاثة أزرار كبيرة تقود إلى الوظائف الأساسية الثلاث: الخريطة والإرشاد، ومعلومات الأطباء، والمرافق الخدمية."
+  }
+};
+
+var LANG_META = {
+  zh: { label:"中文",    html:"zh-CN" },
+  en: { label:"English", html:"en" },
+  de: { label:"Deutsch", html:"de" },
+  tr: { label:"Türkçe",  html:"tr" },
+  ar: { label:"العربية", html:"ar", dir:"rtl" }
+};
+
+function detectLang() {
+  var urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang && T[urlLang]) return urlLang;
+  var b = (navigator.language || "zh").toLowerCase();
+  if (b.startsWith("de")) return "de";
+  if (b.startsWith("zh")) return "zh";
+  if (b.startsWith("tr")) return "tr";
+  if (b.startsWith("ar")) return "ar";
+  return "en";
+}
+
+var currentLang = detectLang();
+
+function updateLangLinks(lang) {
+  document.querySelectorAll('a[href$=".html"], a[href*=".html?"], a[href*=".html#"]').forEach(function(a) {
+    var url = new URL(a.getAttribute('href'), window.location.href);
+    url.searchParams.set('lang', lang);
+    a.setAttribute('href', url.pathname.split('/').pop() + url.search + url.hash);
+  });
+}
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  document.documentElement.lang = LANG_META[lang].html;
+  document.documentElement.dir = LANG_META[lang].dir || "ltr";   /* 阿拉伯语从右往左 */
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n");
+    if (T[lang][k] == null) return;
+    if (HTML_KEYS.indexOf(k) > -1) el.innerHTML = T[lang][k];
+    else el.textContent = T[lang][k];
+  });
+  document.getElementById("langBtnLabel").textContent = LANG_META[lang].label;
+  document.querySelectorAll(".lang-option").forEach(function(o) { o.classList.toggle("active", o.dataset.lang === lang); });
+  document.querySelectorAll(".drawer-lang-pill").forEach(function(b) { b.classList.toggle("active", b.dataset.lang === lang); });
+  closeLangDropdown();
+  updateLangLinks(lang);
+  if (typeof fcSlide === "function") fcSlide();
+  if (typeof fmBackdrop !== "undefined" && fmBackdrop.classList.contains("open")) fmRender();
+}
+
+/* ── Lang dropdown ── */
+var langBtn = document.getElementById("langBtn");
+var langDropdown = document.getElementById("langDropdown");
+function closeLangDropdown() {
+  langDropdown.classList.remove("open"); langBtn.classList.remove("open");
+  langBtn.setAttribute("aria-expanded","false");
+}
+langBtn.addEventListener("click", function(e) {
+  e.stopPropagation();
+  if (langDropdown.classList.contains("open")) closeLangDropdown();
+  else { langDropdown.classList.add("open"); langBtn.classList.add("open"); langBtn.setAttribute("aria-expanded","true"); }
+});
+document.querySelectorAll(".lang-option").forEach(function(o) {
+  o.addEventListener("click", function() { setLang(this.dataset.lang); });
+});
+document.querySelectorAll(".drawer-lang-pill").forEach(function(b) {
+  b.addEventListener("click", function() { setLang(this.dataset.lang); });
+});
+document.addEventListener("click", function(e) {
+  if (!document.getElementById("langSwitcher").contains(e.target)) closeLangDropdown();
+});
+
+/* ── Hamburger ── */
+var hamburger = document.getElementById("hamburger");
+var drawer = document.getElementById("nav-drawer");
+hamburger.addEventListener("click", function() {
+  if (drawer.classList.contains("open")) closeDrawer();
+  else { drawer.classList.add("open"); hamburger.classList.add("open"); hamburger.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; closeLangDropdown(); }
+});
+function closeDrawer() {
+  drawer.classList.remove("open"); hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded","false"); document.body.style.overflow="";
+}
+window.addEventListener("resize", function() { if (window.innerWidth >= 768) closeDrawer(); });
+
+/* ── 目录高亮：滚到哪一节，目录对应项变黑 ── */
+var tocLinks = document.querySelectorAll(".p-toc a");
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (!entry.isIntersecting) return;
+    tocLinks.forEach(function(a) {
+      a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+    });
+  });
+}, { rootMargin: "-30% 0px -60% 0px" });
+document.querySelectorAll(".p-content > section[id]").forEach(function(s) { observer.observe(s); });
+
+/* ── 分享：手机调起系统分享，电脑复制链接 ── */
+document.getElementById("shareBtn").addEventListener("click", function() {
+  var btnText = this.querySelector("span");
+  if (navigator.share) {
+    navigator.share({ title: document.title, url: location.href });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(location.href).then(function() {
+      btnText.textContent = T[currentLang]["p.copied"];
+      setTimeout(function() { btnText.textContent = T[currentLang]["p.share"]; }, 2000);
+    });
+  }
+});
+
+/* ── 功能卡片：产品图随滚动从右侧滑入 ──
+   卡片顶部进入屏幕底部时开始（藏在右侧外面），
+   滚到屏幕约 40% 高度时完全到位；三张卡片依次错开一点。 */
+var fcProducts = document.querySelectorAll(".fc-product");
+var fcReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function fcSlide() {
+  if (fcReduce) return;
+  var vh = window.innerHeight;
+  fcProducts.forEach(function(img, i) {
+    var rect = img.closest(".fc-thumb").getBoundingClientRect();
+    var start = vh;                 /* 进入屏幕底部 */
+    var end   = vh * 0.4;           /* 滑到屏幕 40% 处 */
+    var p = (start - rect.top) / (start - end) - i * 0.12;   /* i * 0.12 = 依次错开 */
+    p = Math.max(0, Math.min(1, p));
+    var eased = 1 - Math.pow(1 - p, 3);                       /* 先快后慢 */
+    var dir = document.documentElement.dir === "rtl" ? -1 : 1;     /* 阿拉伯语从左侧滑入 */
+    img.style.transform = "translateX(" + (dir * (1 - eased) * 100) + "%)";
+  });
+}
+window.addEventListener("scroll", fcSlide, { passive: true });
+window.addEventListener("resize", fcSlide);
+fcSlide();
+
+/* ── Touch & Go 界面分区讲解 ──
+   截图放在 images/srh/touchgo-screen.png（2338 × 1872）。
+   滚到屏幕里时自动轮流高亮三个区域；访客一旦自己点击或悬停就停止自动演示。 */
+(function() {
+  var TG_VIDEO = "images/srh/touchgo-screen.mp4";   /* 优先用视频 */
+  var TG_SHOT  = "images/srh/touchgo-screen.png";   /* 没有视频时用截图 */
+  var TG_DURATION = 3500;
+  var ZONES = ["top", "left", "right"];
+  var root = document.getElementById("tgExplorer");
+  if (!root) return;
+  var screen = document.getElementById("tgScreen");
+  var items = root.querySelectorAll(".tg-item");
+  var zones = root.querySelectorAll(".tg-zone");
+  var current = 0, timer = null, auto = true, started = false;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var video = document.getElementById("tgVideo");
+  var inView = false;
+
+  function loadShot() {
+    var test = new Image();
+    test.onload = function() { screen.style.backgroundImage = "url('" + TG_SHOT + "')"; screen.classList.add("has-img"); };
+    test.src = TG_SHOT;
+  }
+  video.addEventListener("loadeddata", function() {
+    screen.classList.add("has-video");
+    if (inView && !reduce) { var p = video.play(); if (p && p.catch) p.catch(function() {}); }
+  });
+  video.addEventListener("error", loadShot);      /* 视频不存在 → 退回截图 */
+  video.src = TG_VIDEO;
+
+  /* 只在这一块出现在屏幕里时播放视频 */
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        inView = e.isIntersecting;
+        if (!screen.classList.contains("has-video") || reduce) return;
+        if (inView) { var p = video.play(); if (p && p.catch) p.catch(function() {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.2 }).observe(screen);
+  }
+
+  function show(i, playing) {
+    current = i;
+    var key = ZONES[i];
+    screen.classList.add("has-active");
+    zones.forEach(function(z) { z.classList.toggle("active", z.dataset.zone === key); });
+    items.forEach(function(it) {
+      var on = it.dataset.zone === key;
+      it.classList.remove("playing");
+      it.classList.toggle("active", on);
+      it.setAttribute("aria-expanded", on ? "true" : "false");
+      if (on && playing) { void it.offsetWidth; it.style.setProperty("--tg-dur", TG_DURATION + "ms"); it.classList.add("playing"); }
+    });
+  }
+  function next() {
+    if (!auto) return;
+    show((current + 1) % ZONES.length, true);
+    timer = setTimeout(next, TG_DURATION);
+  }
+  function stopAuto() {
+    auto = false; clearTimeout(timer);
+    items.forEach(function(it) { it.classList.remove("playing"); });
+  }
+  function pick(key) { stopAuto(); show(ZONES.indexOf(key), false); }
+
+  items.forEach(function(it) { it.addEventListener("click", function() { pick(this.dataset.zone); }); });
+  zones.forEach(function(z) {
+    z.addEventListener("click", function() { pick(this.dataset.zone); });
+    z.addEventListener("mouseenter", function(e) { if (e.pointerType !== "touch") pick(this.dataset.zone); });
+  });
+
+  show(0, false);
+  if (reduce || !("IntersectionObserver" in window)) { auto = false; return; }
+  new IntersectionObserver(function(entries, obs) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting && !started && auto) {
+        started = true; obs.disconnect();
+        show(0, true); timer = setTimeout(next, TG_DURATION);
+      }
+    });
+  }, { threshold: 0.5 }).observe(root);
+})();
+
+/* ══════════ 功能流程弹窗 ══════════
+   每一步的素材放在 images/srh/steps/ 里：
+   - 图片步骤：tg-1.png … tg-5.png、sg-1.png … sg-5.png
+   - 视频步骤：nav-1.mp4 … nav-5.mp4（780 × 1688，放在 iPhone 外框里）
+   素材不存在时自动显示占位文字。 */
+var FM_ITEMS = [
+  { title: "Navigator",  key: "nav", steps: 5, icon: "icon-navigator.png", media: "video", ext: "mp4", device: "iphone",
+    /* 单独设置某一步：第 5 步用两张图片轮播，代替视频 */
+    stepOverrides: {
+      5: { type: "slides", files: ["nav-5a.png", "nav-5b.png"], interval: 2000, hold: 2000 }
+    }
+  },
+  { title: "Touch & Go", key: "tg", steps: 5, icon: "icon-touchgo.png",  media: "video", ext: "mp4", device: "tablet",
+    stepOverrides: {
+      5: { type: "slides", files: ["tg-5.png"], interval: 2000, hold: 2000 }
+    }
+  },
+  { title: "Scan & Go",  key: "sg", steps: 3, icon: "icon-scango.png",  media: "image", ext: "png",
+    imgInset: "12%"   /* 图片四周留白，数字越大图片越小 */
+  }
+];
+function fmCount() { return FM_ITEMS[fmIndex].steps || 5; }   /* 当前产品的步骤数 */
+var FM_DURATION = 3500;            /* 图片步骤停留的时间（毫秒）；视频步骤按视频长度 */
+var FM_DIR = "images/srh/steps/";
+
+var fmIndex = 0, fmStep = 0, fmTimer = null, fmLastFocus = null, fmAutoplay = false;
+var fmBackdrop = document.getElementById("fmBackdrop");
+var fmStage = document.getElementById("fmStage");
+var fmImg = document.getElementById("fmImg");
+var fmImgPh = document.getElementById("fmImgPh");
+var fmVideo = document.getElementById("fmVideo");
+var fmVideoPh = document.getElementById("fmVideoPh");
+var fmReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.documentElement.style.setProperty("--fm-dur", FM_DURATION + "ms");
+
+function fmText(k) { return T[currentLang][k] || ""; }
+function fmSrc() {
+  var item = FM_ITEMS[fmIndex];
+  return FM_DIR + item.key + "-" + (fmStep + 1) + "." + item.ext;
+}
+function fmPhText() { return fmText("fc.img").replace("{n}", fmStep + 1); }
+
+/* 当前步骤开始走进度线，duration 毫秒后进入下一步 */
+function fmStartTimer(duration) {
+  clearTimeout(fmTimer);
+  var current = document.querySelector(".fm-step.active");
+  if (!current) return;
+  current.style.setProperty("--fm-dur", duration + "ms");
+  current.classList.remove("playing"); void current.offsetWidth;
+  current.classList.add("playing");
+  fmTimer = setTimeout(fmAdvance, duration);
+}
+function fmAdvance() {
+  if (fmStep < fmCount() - 1) {
+    fmGoStep(fmStep + 1, true);
+  } else {
+    var current = document.querySelector(".fm-step.active");
+    if (current) current.classList.remove("playing");
+    document.getElementById("fmResult").classList.add("show");
+    document.querySelector(".fm-main").classList.add("has-result");
+  }
+}
+
+function fmShowImage() {
+  var src = fmSrc(), token = src;
+  fmImgPh.textContent = fmPhText();
+  fmImg.classList.add("fading");
+  fmImg.dataset.token = token;
+  var test = new Image();
+  test.onload = function() {
+    if (fmImg.dataset.token !== token) return;
+    fmImg.style.backgroundImage = "url('" + src + "')";
+    fmImg.classList.add("has-img"); fmImg.classList.remove("fading");
+  };
+  test.onerror = function() {
+    if (fmImg.dataset.token !== token) return;
+    fmImg.style.backgroundImage = "";
+    fmImg.classList.remove("has-img", "fading");
+  };
+  test.src = src;
+  if (fmAutoplay && !fmReduce) fmStartTimer(FM_DURATION);
+}
+
+/* 把唯一的视频播放器、轮播图和占位文字放进当前产品对应的外框里 */
+function fmMountDevice(device) {
+  var screen = document.getElementById(device === "tablet" ? "fmTabletScreen" : "fmPhoneScreen");
+  document.getElementById("fmDevice").classList.toggle("is-tablet", device === "tablet");
+  if (fmVideo.parentElement === screen) return;
+  var notch = screen.querySelector(".iphone-notch");
+  [fmVideo, fmSlideA, fmSlideB, fmVideoPh].forEach(function(el) {
+    if (notch) screen.insertBefore(el, notch); else screen.appendChild(el);
+  });
+  var other = document.getElementById(device === "tablet" ? "fmPhoneScreen" : "fmTabletScreen");
+  other.classList.remove("has-video", "is-slides");
+}
+
+var fmSlideA = document.getElementById("fmSlideA");
+var fmSlideB = document.getElementById("fmSlideB");
+var fmSlideTimer = null;
+
+function fmClearSlides() {
+  clearTimeout(fmSlideTimer);
+  fmSlideA.classList.remove("show"); fmSlideB.classList.remove("show");
+  fmSlideA.removeAttribute("src"); fmSlideB.removeAttribute("src");
+  fmVideo.parentElement.classList.remove("is-slides");
+}
+
+/* 图片轮播：第一张显示 interval 毫秒后淡入第二张，然后停住 */
+function fmShowSlides(cfg) {
+  var screen = fmVideo.parentElement;
+  fmVideo.pause(); fmVideo.removeAttribute("src"); fmVideo.load();
+  fmClearSlides();
+  screen.classList.add("is-slides");
+  screen.classList.remove("has-video");
+  fmVideoPh.textContent = fmText("fc.img").replace("{n}", fmStep + 1);
+
+  var token = FM_ITEMS[fmIndex].key + "-" + fmStep;
+  screen.dataset.token = token;
+  fmSlideA.onload = function() {
+    if (screen.dataset.token !== token) return;
+    screen.classList.add("has-video");          /* 隐藏占位文字 */
+    fmSlideA.classList.add("show");
+  };
+  fmSlideA.onerror = function() {};
+  fmSlideA.src = FM_DIR + cfg.files[0];
+  var hasSecond = cfg.files.length > 1;
+  if (hasSecond) fmSlideB.src = FM_DIR + cfg.files[1];
+
+  if (!hasSecond) {
+    /* 只有一张图：一直显示这一张 */
+  } else if (!fmReduce) {
+    fmSlideTimer = setTimeout(function() {
+      if (screen.dataset.token !== token) return;
+      fmSlideB.classList.add("show");
+    }, cfg.interval);
+  } else {
+    fmSlideB.classList.add("show");             /* 减少动态效果：直接显示第二张 */
+  }
+  if (fmAutoplay && !fmReduce) fmStartTimer(cfg.interval + cfg.hold);
+}
+
+function fmShowVideo() {
+  var override = (FM_ITEMS[fmIndex].stepOverrides || {})[fmStep + 1];
+  if (override && override.type === "slides") { fmShowSlides(override); return; }
+  fmClearSlides();
+  var src = fmSrc(), screen = fmVideo.parentElement;
+  fmVideoPh.textContent = fmText("fc.vid").replace("{n}", fmStep + 1);
+  screen.classList.remove("has-video");
+  fmVideo.pause();
+  fmVideo.loop = !fmAutoplay;            /* 手动查看时循环播放 */
+  fmVideo.dataset.token = src;
+  fmVideo.src = src;
+  fmVideo.load();
+}
+fmVideo.addEventListener("loadeddata", function() {
+  fmVideo.parentElement.classList.add("has-video");
+  if (fmReduce) return;                  /* 减少动态效果：停在第一帧 */
+  var p = fmVideo.play();
+  if (p && p.catch) p.catch(function() {});
+  if (fmAutoplay) fmStartTimer(Math.round(fmVideo.duration * 1000) || FM_DURATION);
+});
+fmVideo.addEventListener("error", function() {
+  if (fmVideo.parentElement.classList.contains("is-slides") || !fmVideo.getAttribute("src")) return;
+  fmVideo.parentElement.classList.remove("has-video");
+  if (fmAutoplay && !fmReduce) fmStartTimer(FM_DURATION);   /* 没有视频时按默认时长继续 */
+});
+
+function fmRenderSteps() {
+  var item = FM_ITEMS[fmIndex];
+  var ol = document.getElementById("fmSteps");
+  ol.innerHTML = "";
+  for (var i = 0; i < fmCount(); i++) {
+    var li = document.createElement("li");
+    var btn = document.createElement("button");
+    btn.className = "fm-step";
+    btn.dataset.step = i;
+    btn.innerHTML = '<span class="fm-step-num">' + String(i + 1).padStart(2, "0") + '</span><span></span>';
+    btn.lastChild.textContent = fmText("fc." + item.key + ".s" + (i + 1));
+    btn.addEventListener("click", function() { fmGoStep(parseInt(this.dataset.step, 10), false); });
+    li.appendChild(btn);
+    ol.appendChild(li);
+  }
+}
+
+function fmRender() {
+  var item = FM_ITEMS[fmIndex];
+  document.querySelectorAll(".fm-tab").forEach(function(t, i) {
+    t.classList.toggle("active", i === fmIndex);
+    t.setAttribute("aria-selected", i === fmIndex ? "true" : "false");
+  });
+  fmStage.classList.toggle("is-video", item.media === "video");
+  fmImg.style.padding = item.imgInset || "0";
+  fmMountDevice(item.device || "iphone");
+  document.getElementById("fmTitle").textContent = item.title;
+  var icon = document.getElementById("fmIcon");
+  icon.hidden = false;
+  icon.parentElement.hidden = false;
+  icon.onerror = function() { this.hidden = true; this.parentElement.hidden = true; };
+  icon.src = "images/srh/" + item.icon;
+  icon.alt = item.title;
+  document.getElementById("fmScenario").textContent = fmText("fc." + item.key + ".q");
+  document.getElementById("fmResult").textContent = fmText("fc." + item.key + ".r");
+  fmRenderSteps();
+  fmGoStep(fmStep, true);
+}
+
+function fmGoStep(n, autoplay) {
+  clearTimeout(fmTimer);
+  fmAutoplay = autoplay;
+  fmStep = Math.max(0, Math.min(fmCount() - 1, n));
+  document.querySelectorAll(".fm-step").forEach(function(b, i) {
+    b.classList.remove("active", "playing");
+    b.classList.toggle("seen", i < fmStep);
+    if (i === fmStep) b.classList.add("active");
+  });
+  document.getElementById("fmResult").classList.remove("show");
+  document.querySelector(".fm-main").classList.remove("has-result");
+  document.getElementById("fmCurrentNum").textContent = String(fmStep + 1).padStart(2, "0");
+  document.getElementById("fmCurrentText").textContent = fmText("fc." + FM_ITEMS[fmIndex].key + ".s" + (fmStep + 1));
+  document.getElementById("fmPrev").disabled = fmStep === 0;
+  document.getElementById("fmNext").disabled = fmStep === fmCount() - 1;
+  if (FM_ITEMS[fmIndex].media === "video") fmShowVideo();
+  else { fmVideo.pause(); fmClearSlides(); fmShowImage(); }
+}
+
+function fmOpen(i) {
+  fmIndex = i; fmStep = 0;
+  fmLastFocus = document.activeElement;
+  fmRender();
+  fmBackdrop.classList.add("open");
+  fmBackdrop.setAttribute("aria-hidden", "false");
+  document.body.classList.add("fm-locked");
+  document.getElementById("fmClose").focus();
+}
+function fmClose() {
+  clearTimeout(fmTimer);
+  fmVideo.pause();
+  fmClearSlides();
+  fmBackdrop.classList.remove("open");
+  fmBackdrop.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("fm-locked");
+  if (fmLastFocus) fmLastFocus.focus();
+}
+
+document.querySelectorAll(".fc-card").forEach(function(card) {
+  card.addEventListener("click", function() { fmOpen(parseInt(this.dataset.index, 10)); });
+});
+document.querySelectorAll(".fm-tab").forEach(function(tab) {
+  tab.addEventListener("click", function() { fmIndex = parseInt(this.dataset.index, 10); fmStep = 0; fmRender(); });
+});
+document.getElementById("fmClose").addEventListener("click", fmClose);
+document.getElementById("fmPrev").addEventListener("click", function() { fmGoStep(fmStep - 1, false); });
+document.getElementById("fmNext").addEventListener("click", function() { fmGoStep(fmStep + 1, false); });
+document.getElementById("fmReplay").addEventListener("click", function() { fmGoStep(0, true); });
+fmBackdrop.addEventListener("click", function(e) { if (e.target === fmBackdrop) fmClose(); });
+
+/* 手机上在图片 / 设备上左右滑动切换步骤（阿拉伯语方向相反） */
+var fmTouchX = null, fmTouchY = null;
+fmStage.addEventListener("touchstart", function(e) {
+  fmTouchX = e.touches[0].clientX; fmTouchY = e.touches[0].clientY;
+}, { passive: true });
+fmStage.addEventListener("touchend", function(e) {
+  if (fmTouchX === null) return;
+  var dx = e.changedTouches[0].clientX - fmTouchX;
+  var dy = e.changedTouches[0].clientY - fmTouchY;
+  fmTouchX = null;
+  if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;   /* 太短或主要是上下滑，忽略 */
+  var forward = dx < 0;
+  if (document.documentElement.dir === "rtl") forward = !forward;
+  fmGoStep(fmStep + (forward ? 1 : -1), false);
+});
+document.addEventListener("keydown", function(e) {
+  if (!fmBackdrop.classList.contains("open")) return;
+  if (e.key === "Escape") fmClose();
+  if (e.key === "ArrowLeft") fmGoStep(fmStep - 1, false);
+  if (e.key === "ArrowRight") fmGoStep(fmStep + 1, false);
+});
+
+setLang(currentLang);
+</script>
+</body>
+</html>

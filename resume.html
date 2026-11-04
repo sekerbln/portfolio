@@ -6,7 +6,7 @@
   <title>Dongjie Ma — 简历</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -129,6 +129,18 @@
       .edu-date { text-align: left; }
       .resume-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
     }
+
+    /* ══════════ 阿拉伯语（从右往左）══════════
+       网格和弹性布局会自动镜像，这里处理字体和写死左右方向的地方 */
+    html[lang="ar"] body, html[lang="ar"] body * {
+      font-family: 'Geist', 'Noto Sans Arabic', 'Helvetica Neue', sans-serif;
+      letter-spacing: 0 !important;              /* 阿拉伯字母是连写的，不能加字距 */
+    }
+    [dir="rtl"] .resume-pronoun { margin-left: 0; margin-right: 8px; }
+    [dir="rtl"] .exp-date, [dir="rtl"] .edu-date { text-align: left; }
+    @media (max-width: 767px) {
+      [dir="rtl"] .exp-date, [dir="rtl"] .edu-date { text-align: right; }
+    }
   </style>
 </head>
 <body>
@@ -171,6 +183,8 @@
               <polyline points="2 7 6 11 12 3"/>
             </svg>
           </div>
+          <div class="lang-option" data-lang="tr" role="option" tabindex="0"><span>Türkçe</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
+          <div class="lang-option" data-lang="ar" role="option" tabindex="0"><span>العربية</span><svg class="lang-check" viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div>
         </div>
       </div>
       <a class="nav-btn-download" href="Resume_en.pdf" download data-i18n="resume.download">下载 PDF</a>
@@ -193,6 +207,8 @@
       <button class="drawer-lang-pill active" data-lang="zh">中文</button>
       <button class="drawer-lang-pill"        data-lang="en">English</button>
       <button class="drawer-lang-pill"        data-lang="de">Deutsch</button>
+      <button class="drawer-lang-pill" data-lang="tr">Türkçe</button>
+      <button class="drawer-lang-pill" data-lang="ar">العربية</button>
     </div>
   </div>
   <div class="nav-drawer-actions">
@@ -327,7 +343,7 @@
 <div class="contact-footer">
   <nav class="capsule-nav" aria-label="页面导航">
     <a class="capsule-link" href="index.html" data-i18n="mob.home">主页</a>
-    <a class="capsule-link" href="index.html#work" data-i18n="mob.work">作品</a>
+    <a class="capsule-link" href="work.html" data-i18n="mob.work">作品</a>
     <a class="capsule-link capsule-link--active" href="resume.html" data-i18n="mob.resume">简历</a>
     <a class="capsule-link" href="index.html#contact" data-i18n="mob.contact">联系</a>
   </nav>
@@ -341,72 +357,263 @@
 <script>
 /* ══ TRANSLATIONS ══ */
 var T = {
-  zh: {
-    "nav.work":"作品","nav.about":"关于","nav.research":"研究","nav.contact":"联系","nav.resume":"简历","nav.cta":"联系我","nav.language":"语言",
-    "resume.tagline":"平面与 UX 设计师，拥有 5 年工作经验，专注于品牌设计与视觉识别。目前在柏林修读网页开发学士学位。",
-    "resume.download":"下载 PDF",
-    "resume.work":"工作经历","resume.edu":"教育背景","resume.skills":"技能",
-    "resume.back":"← 返回作品集",
-    "exp1.role":"中国品牌大使","exp1.desc":"负责中国市场营销内容本地化，维护公司网站内容。","exp1.date":"2025年4月 — 至今",
-    "exp2.role":"设计师","exp2.desc":"负责品牌标识设计与网站原型开发。","exp2.date":"2024年5月 — 2024年8月",
-    "exp3.role":"品牌与 UX 设计师","exp3.desc":"主导移动应用 UI/UX 原型设计，维护集团品牌视觉规范。","exp3.date":"2022年6月 — 2023年2月",
-    "exp4.role":"设计师兼社交媒体经理","exp4.desc":"为意大利家具品牌设计社交媒体内容及 3D 展台。","exp4.date":"2022年3月 — 2022年6月",
-    "exp5.role":"平面与 3D 设计师","exp5.desc":"参与应用界面设计、关键视觉制作及 3D 建模支持。","exp5.date":"2021年8月 — 2022年2月",
-    "exp6.role":"品牌设计师","exp6.desc":"负责管理大学整体视觉品牌形象与设计规范。","exp6.date":"2021年2月 — 2021年7月",
-    "edu1.degree":"网页开发学士（在读）","edu1.date":"至今",
-    "edu2.degree":"建筑工程学士","edu2.date":"2015年9月 — 2020年7月",
-    "skill.brand":"品牌标识","skill.visual":"视觉传达","skill.graphic":"平面设计",
-    "skill.proto":"原型设计","skill.ds":"设计系统","skill.web":"网页开发",
-    "skill.zh":"中文","skill.en":"英文","skill.de":"德文",
-    "mob.home":"主页","mob.work":"作品","mob.resume":"简历","mob.contact":"联系",
-    "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
+  "zh": {
+    "nav.work": "作品",
+    "nav.about": "关于",
+    "nav.research": "研究",
+    "nav.contact": "联系",
+    "nav.resume": "简历",
+    "nav.cta": "联系我",
+    "nav.language": "语言",
+    "resume.tagline": "平面与 UX 设计师，拥有 5 年工作经验，专注于品牌设计与视觉识别。目前在柏林修读网页开发学士学位。",
+    "resume.download": "下载 PDF",
+    "resume.work": "工作经历",
+    "resume.edu": "教育背景",
+    "resume.skills": "技能",
+    "resume.back": "← 返回作品集",
+    "exp1.role": "中国品牌大使",
+    "exp1.desc": "负责中国市场营销内容本地化，维护公司网站内容。",
+    "exp1.date": "2025年4月 — 至今",
+    "exp2.role": "设计师",
+    "exp2.desc": "负责品牌标识设计与网站原型开发。",
+    "exp2.date": "2024年5月 — 2024年8月",
+    "exp3.role": "品牌与 UX 设计师",
+    "exp3.desc": "主导移动应用 UI/UX 原型设计，维护集团品牌视觉规范。",
+    "exp3.date": "2022年6月 — 2023年2月",
+    "exp4.role": "设计师兼社交媒体经理",
+    "exp4.desc": "为意大利家具品牌设计社交媒体内容及 3D 展台。",
+    "exp4.date": "2022年3月 — 2022年6月",
+    "exp5.role": "平面与 3D 设计师",
+    "exp5.desc": "参与应用界面设计、关键视觉制作及 3D 建模支持。",
+    "exp5.date": "2021年8月 — 2022年2月",
+    "exp6.role": "品牌设计师",
+    "exp6.desc": "负责管理大学整体视觉品牌形象与设计规范。",
+    "exp6.date": "2021年2月 — 2021年7月",
+    "edu1.degree": "网页开发学士（在读）",
+    "edu1.date": "至今",
+    "edu2.degree": "建筑工程学士",
+    "edu2.date": "2015年9月 — 2020年7月",
+    "skill.brand": "品牌标识",
+    "skill.visual": "视觉传达",
+    "skill.graphic": "平面设计",
+    "skill.proto": "原型设计",
+    "skill.ds": "设计系统",
+    "skill.web": "网页开发",
+    "skill.zh": "中文",
+    "skill.en": "英文",
+    "skill.de": "德文",
+    "mob.home": "主页",
+    "mob.work": "作品",
+    "mob.resume": "简历",
+    "mob.contact": "联系",
+    "footer.copy": "© 2025 Dongjie Ma · Berlin, Germany"
   },
-  en: {
-    "nav.work":"Work","nav.about":"About","nav.research":"Research","nav.contact":"Contact","nav.resume":"Résumé","nav.cta":"Get in touch","nav.language":"Language",
-    "resume.tagline":"Graphic & UX Designer with 5 years of working experience, specialising in branding and visual identity. Currently pursuing a Bachelor's degree in Web Development in Berlin.",
-    "resume.download":"Download PDF",
-    "resume.work":"Work Experience","resume.edu":"Education","resume.skills":"Skills",
-    "resume.back":"← Back to portfolio",
-    "exp1.role":"Chinese Brand Ambassador","exp1.desc":"Managed marketing content localisation and maintained company website content.","exp1.date":"Apr 2025 — Present",
-    "exp2.role":"Designer","exp2.desc":"Prototyping and designing brand identity and websites.","exp2.date":"May 2024 — Aug 2024",
-    "exp3.role":"Brand and UX Designer","exp3.desc":"Led mobile application UI/UX prototyping and maintained group brand visual identity.","exp3.date":"Jun 2022 — Feb 2023",
-    "exp4.role":"Designer & Social Media Manager","exp4.desc":"Designed social media content and 3D exhibition stands for Italian furniture brands.","exp4.date":"Mar 2022 — Jun 2022",
-    "exp5.role":"Graphic and 3D Designer","exp5.desc":"Supported app interface design, created key visuals, and leveraged 3D modelling for project support.","exp5.date":"Aug 2021 — Feb 2022",
-    "exp6.role":"Brand Designer","exp6.desc":"Managed the university's overall visual brand image and design standards.","exp6.date":"Feb 2021 — Jul 2021",
-    "edu1.degree":"Bachelor of Web Development (Present)","edu1.date":"Present",
-    "edu2.degree":"Bachelor of Engineering in Architecture","edu2.date":"Sep 2015 — Jul 2020",
-    "skill.brand":"Brand Identity","skill.visual":"Visual Communication","skill.graphic":"Graphic Design",
-    "skill.proto":"Prototyping","skill.ds":"Design Systems","skill.web":"Web Development",
-    "skill.zh":"Chinese","skill.en":"English","skill.de":"German",
-    "mob.home":"Home","mob.work":"Work","mob.resume":"Résumé","mob.contact":"Contact",
-    "footer.copy":"© 2025 Dongjie Ma · Berlin, Germany"
+  "en": {
+    "nav.work": "Work",
+    "nav.about": "About",
+    "nav.research": "Research",
+    "nav.contact": "Contact",
+    "nav.resume": "Résumé",
+    "nav.cta": "Get in touch",
+    "nav.language": "Language",
+    "resume.tagline": "Graphic & UX Designer with 5 years of working experience, specialising in branding and visual identity. Currently pursuing a Bachelor's degree in Web Development in Berlin.",
+    "resume.download": "Download PDF",
+    "resume.work": "Work Experience",
+    "resume.edu": "Education",
+    "resume.skills": "Skills",
+    "resume.back": "← Back to portfolio",
+    "exp1.role": "Chinese Brand Ambassador",
+    "exp1.desc": "Managed marketing content localisation and maintained company website content.",
+    "exp1.date": "Apr 2025 — Present",
+    "exp2.role": "Designer",
+    "exp2.desc": "Prototyping and designing brand identity and websites.",
+    "exp2.date": "May 2024 — Aug 2024",
+    "exp3.role": "Brand and UX Designer",
+    "exp3.desc": "Led mobile application UI/UX prototyping and maintained group brand visual identity.",
+    "exp3.date": "Jun 2022 — Feb 2023",
+    "exp4.role": "Designer & Social Media Manager",
+    "exp4.desc": "Designed social media content and 3D exhibition stands for Italian furniture brands.",
+    "exp4.date": "Mar 2022 — Jun 2022",
+    "exp5.role": "Graphic and 3D Designer",
+    "exp5.desc": "Supported app interface design, created key visuals, and leveraged 3D modelling for project support.",
+    "exp5.date": "Aug 2021 — Feb 2022",
+    "exp6.role": "Brand Designer",
+    "exp6.desc": "Managed the university's overall visual brand image and design standards.",
+    "exp6.date": "Feb 2021 — Jul 2021",
+    "edu1.degree": "Bachelor of Web Development (Present)",
+    "edu1.date": "Present",
+    "edu2.degree": "Bachelor of Engineering in Architecture",
+    "edu2.date": "Sep 2015 — Jul 2020",
+    "skill.brand": "Brand Identity",
+    "skill.visual": "Visual Communication",
+    "skill.graphic": "Graphic Design",
+    "skill.proto": "Prototyping",
+    "skill.ds": "Design Systems",
+    "skill.web": "Web Development",
+    "skill.zh": "Chinese",
+    "skill.en": "English",
+    "skill.de": "German",
+    "mob.home": "Home",
+    "mob.work": "Work",
+    "mob.resume": "Résumé",
+    "mob.contact": "Contact",
+    "footer.copy": "© 2025 Dongjie Ma · Berlin, Germany"
   },
-  de: {
-    "nav.work":"Arbeiten","nav.about":"Über mich","nav.research":"Forschung","nav.contact":"Kontakt","nav.resume":"Lebenslauf","nav.cta":"Kontakt aufnehmen","nav.language":"Sprache",
-    "resume.tagline":"Grafik- und UX-Designer mit 5 Jahren Berufserfahrung, spezialisiert auf Branding und visuelle Identität. Derzeit absolviere ich meinen Bachelor in Web Development in Berlin.",
-    "resume.download":"PDF herunterladen",
-    "resume.work":"Berufserfahrung","resume.edu":"Ausbildung","resume.skills":"Fähigkeiten",
-    "resume.back":"← Zurück zum Portfolio",
-    "exp1.role":"Chinesischer Markenbotschafter","exp1.desc":"Verwaltung von Marketinginhalten für den chinesischen Markt und Pflege der Website-Inhalte.","exp1.date":"Apr 2025 — Heute",
-    "exp2.role":"Designer","exp2.desc":"Gestaltung der Markenidentität und Prototypenerstellung für Websites.","exp2.date":"Mai 2024 — Aug 2024",
-    "exp3.role":"Brand- und UX-Designer","exp3.desc":"Federführend beim UI/UX-Prototyping der mobilen App und Pflege der Markenidentität.","exp3.date":"Jun 2022 — Feb 2023",
-    "exp4.role":"Designer & Social-Media-Manager","exp4.desc":"Gestaltung von Social-Media-Posts und 3D-Messeständen für italienische Möbelmarken.","exp4.date":"Mär 2022 — Jun 2022",
-    "exp5.role":"Grafik- und 3D-Designer","exp5.desc":"App-UI-Design, Key-Visual-Erstellung und 3D-Modellierungs-Support.","exp5.date":"Aug 2021 — Feb 2022",
-    "exp6.role":"Brand Designer","exp6.desc":"Verwaltung des gesamten visuellen Markenauftritts und der Designstandards der Universität.","exp6.date":"Feb 2021 — Jul 2021",
-    "edu1.degree":"Bachelor of Web Development (laufend)","edu1.date":"Laufend",
-    "edu2.degree":"Bachelor of Engineering in Architektur","edu2.date":"Sep 2015 — Jul 2020",
-    "skill.brand":"Markenidentität","skill.visual":"Visuelle Kommunikation","skill.graphic":"Grafikdesign",
-    "skill.proto":"Prototyping","skill.ds":"Designsysteme","skill.web":"Webentwicklung",
-    "skill.zh":"Chinesisch","skill.en":"Englisch","skill.de":"Deutsch",
-    "mob.home":"Start","mob.work":"Arbeiten","mob.resume":"Lebenslauf","mob.contact":"Kontakt",
-    "footer.copy":"© 2025 Dongjie Ma · Berlin, Deutschland"
+  "de": {
+    "nav.work": "Arbeiten",
+    "nav.about": "Über mich",
+    "nav.research": "Forschung",
+    "nav.contact": "Kontakt",
+    "nav.resume": "Lebenslauf",
+    "nav.cta": "Kontakt aufnehmen",
+    "nav.language": "Sprache",
+    "resume.tagline": "Grafik- und UX-Designer mit 5 Jahren Berufserfahrung, spezialisiert auf Branding und visuelle Identität. Derzeit absolviere ich meinen Bachelor in Web Development in Berlin.",
+    "resume.download": "PDF herunterladen",
+    "resume.work": "Berufserfahrung",
+    "resume.edu": "Ausbildung",
+    "resume.skills": "Fähigkeiten",
+    "resume.back": "← Zurück zum Portfolio",
+    "exp1.role": "Chinesischer Markenbotschafter",
+    "exp1.desc": "Verwaltung von Marketinginhalten für den chinesischen Markt und Pflege der Website-Inhalte.",
+    "exp1.date": "Apr 2025 — Heute",
+    "exp2.role": "Designer",
+    "exp2.desc": "Gestaltung der Markenidentität und Prototypenerstellung für Websites.",
+    "exp2.date": "Mai 2024 — Aug 2024",
+    "exp3.role": "Brand- und UX-Designer",
+    "exp3.desc": "Federführend beim UI/UX-Prototyping der mobilen App und Pflege der Markenidentität.",
+    "exp3.date": "Jun 2022 — Feb 2023",
+    "exp4.role": "Designer & Social-Media-Manager",
+    "exp4.desc": "Gestaltung von Social-Media-Posts und 3D-Messeständen für italienische Möbelmarken.",
+    "exp4.date": "Mär 2022 — Jun 2022",
+    "exp5.role": "Grafik- und 3D-Designer",
+    "exp5.desc": "App-UI-Design, Key-Visual-Erstellung und 3D-Modellierungs-Support.",
+    "exp5.date": "Aug 2021 — Feb 2022",
+    "exp6.role": "Brand Designer",
+    "exp6.desc": "Verwaltung des gesamten visuellen Markenauftritts und der Designstandards der Universität.",
+    "exp6.date": "Feb 2021 — Jul 2021",
+    "edu1.degree": "Bachelor of Web Development (laufend)",
+    "edu1.date": "Laufend",
+    "edu2.degree": "Bachelor of Engineering in Architektur",
+    "edu2.date": "Sep 2015 — Jul 2020",
+    "skill.brand": "Markenidentität",
+    "skill.visual": "Visuelle Kommunikation",
+    "skill.graphic": "Grafikdesign",
+    "skill.proto": "Prototyping",
+    "skill.ds": "Designsysteme",
+    "skill.web": "Webentwicklung",
+    "skill.zh": "Chinesisch",
+    "skill.en": "Englisch",
+    "skill.de": "Deutsch",
+    "mob.home": "Start",
+    "mob.work": "Arbeiten",
+    "mob.resume": "Lebenslauf",
+    "mob.contact": "Kontakt",
+    "footer.copy": "© 2025 Dongjie Ma · Berlin, Deutschland"
+  },
+  "tr": {
+    "nav.work": "Projeler",
+    "nav.contact": "İletişim",
+    "nav.resume": "Özgeçmiş",
+    "nav.cta": "İletişime geç",
+    "nav.language": "Dil",
+    "mob.home": "Ana sayfa",
+    "mob.work": "Projeler",
+    "mob.resume": "Özgeçmiş",
+    "mob.contact": "İletişim",
+    "resume.tagline": "Marka ve görsel kimlik alanında uzmanlaşmış, 5 yıllık iş deneyimine sahip grafik ve UX tasarımcısı. Şu anda Berlin'de Web Geliştirme lisans eğitimimi sürdürüyorum.",
+    "resume.download": "PDF indir",
+    "resume.work": "İş Deneyimi",
+    "resume.edu": "Eğitim",
+    "resume.skills": "Yetenekler",
+    "exp1.role": "Çin Marka Elçisi",
+    "exp1.desc": "Pazarlama içeriklerinin yerelleştirilmesini yönettim ve şirket web sitesinin içeriğini güncel tuttum.",
+    "exp1.date": "Nis 2025 — Günümüz",
+    "exp2.role": "Tasarımcı",
+    "exp2.desc": "Marka kimliği ve web siteleri için tasarım ve prototip çalışmaları yaptım.",
+    "exp2.date": "May 2024 — Ağu 2024",
+    "exp3.role": "Marka ve UX Tasarımcısı",
+    "exp3.desc": "Mobil uygulamanın UI/UX prototiplemesine liderlik ettim ve grubun görsel marka kimliğini sürdürdüm.",
+    "exp3.date": "Haz 2022 — Şub 2023",
+    "exp4.role": "Tasarımcı ve Sosyal Medya Yöneticisi",
+    "exp4.desc": "İtalyan mobilya markaları için sosyal medya içerikleri ve 3D fuar standları tasarladım.",
+    "exp4.date": "Mar 2022 — Haz 2022",
+    "exp5.role": "Grafik ve 3D Tasarımcı",
+    "exp5.desc": "Uygulama arayüz tasarımına destek verdim, ana görseller hazırladım ve projelere 3D modelleme ile katkı sağladım.",
+    "exp5.date": "Ağu 2021 — Şub 2022",
+    "exp6.role": "Marka Tasarımcısı",
+    "exp6.desc": "Üniversitenin genel görsel marka imajını ve tasarım standartlarını yönettim.",
+    "exp6.date": "Şub 2021 — Tem 2021",
+    "edu1.degree": "Web Geliştirme Lisansı (devam ediyor)",
+    "edu1.date": "Günümüz",
+    "edu2.degree": "Mimarlık Mühendisliği Lisansı",
+    "edu2.date": "Eyl 2015 — Tem 2020",
+    "skill.brand": "Marka Kimliği",
+    "skill.visual": "Görsel İletişim",
+    "skill.graphic": "Grafik Tasarım",
+    "skill.proto": "Prototipleme",
+    "skill.ds": "Tasarım Sistemleri",
+    "skill.web": "Web Geliştirme",
+    "skill.zh": "Çince",
+    "skill.en": "İngilizce",
+    "skill.de": "Almanca",
+    "footer.copy": "© 2025 Dongjie Ma · Berlin, Almanya"
+  },
+  "ar": {
+    "nav.work": "الأعمال",
+    "nav.contact": "تواصل",
+    "nav.resume": "السيرة الذاتية",
+    "nav.cta": "تواصل معي",
+    "nav.language": "اللغة",
+    "mob.home": "الرئيسية",
+    "mob.work": "الأعمال",
+    "mob.resume": "السيرة الذاتية",
+    "mob.contact": "تواصل",
+    "resume.tagline": "مصمّم جرافيك وتجربة مستخدم بخبرة عملية تمتد 5 سنوات، متخصص في العلامات التجارية والهوية البصرية. أدرس حاليًا بكالوريوس تطوير الويب في برلين.",
+    "resume.download": "تنزيل PDF",
+    "resume.work": "الخبرة العملية",
+    "resume.edu": "التعليم",
+    "resume.skills": "المهارات",
+    "exp1.role": "سفير العلامة التجارية للسوق الصينية",
+    "exp1.desc": "أدرتُ توطين المحتوى التسويقي وحافظتُ على تحديث محتوى موقع الشركة.",
+    "exp1.date": "أبريل 2025 — حتى الآن",
+    "exp2.role": "مصمّم",
+    "exp2.desc": "تصميم الهوية التجارية والمواقع الإلكترونية وإعداد نماذجها الأولية.",
+    "exp2.date": "مايو 2024 — أغسطس 2024",
+    "exp3.role": "مصمّم علامة تجارية وتجربة مستخدم",
+    "exp3.desc": "قُدتُ إعداد النماذج الأولية لواجهة تطبيق الجوال وتجربة المستخدم، وحافظتُ على الهوية البصرية للمجموعة.",
+    "exp3.date": "يونيو 2022 — فبراير 2023",
+    "exp4.role": "مصمّم ومدير وسائل التواصل الاجتماعي",
+    "exp4.desc": "صمّمتُ محتوى وسائل التواصل الاجتماعي وأجنحة معارض ثلاثية الأبعاد لعلامات أثاث إيطالية.",
+    "exp4.date": "مارس 2022 — يونيو 2022",
+    "exp5.role": "مصمّم جرافيك وثلاثي الأبعاد",
+    "exp5.desc": "دعمتُ تصميم واجهات التطبيقات، وأعددتُ المرئيات الرئيسية، واستخدمتُ النمذجة ثلاثية الأبعاد لدعم المشاريع.",
+    "exp5.date": "أغسطس 2021 — فبراير 2022",
+    "exp6.role": "مصمّم علامة تجارية",
+    "exp6.desc": "أدرتُ الصورة البصرية العامة للجامعة ومعايير التصميم الخاصة بها.",
+    "exp6.date": "فبراير 2021 — يوليو 2021",
+    "edu1.degree": "بكالوريوس تطوير الويب (قيد الدراسة)",
+    "edu1.date": "حتى الآن",
+    "edu2.degree": "بكالوريوس الهندسة المعمارية",
+    "edu2.date": "سبتمبر 2015 — يوليو 2020",
+    "skill.brand": "الهوية التجارية",
+    "skill.visual": "التواصل البصري",
+    "skill.graphic": "التصميم الجرافيكي",
+    "skill.proto": "النماذج الأولية",
+    "skill.ds": "أنظمة التصميم",
+    "skill.web": "تطوير الويب",
+    "skill.zh": "الصينية",
+    "skill.en": "الإنجليزية",
+    "skill.de": "الألمانية",
+    "footer.copy": "© 2025 Dongjie Ma · برلين، ألمانيا"
   }
 };
 
 var LANG_META = {
   zh: { label:"中文",   html:"zh-CN" },
   en: { label:"English", html:"en" },
-  de: { label:"Deutsch", html:"de" }
+  de: { label:"Deutsch", html:"de" },
+  tr: { label:"Türkçe",  html:"tr" },
+  ar: { label:"العربية", html:"ar", dir:"rtl" }
 };
 
 function detectLang() {
@@ -417,6 +624,8 @@ function detectLang() {
   var browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
   if (browserLang.startsWith("de")) return "de";
   if (browserLang.startsWith("zh")) return "zh";
+  if (browserLang.startsWith("tr")) return "tr";
+  if (browserLang.startsWith("ar")) return "ar";
   return "en";
 }
 
@@ -426,6 +635,7 @@ function setLang(lang) {
   if (!T[lang]) return;
   currentLang = lang;
   document.documentElement.lang = LANG_META[lang].html;
+  document.documentElement.dir = LANG_META[lang].dir || "ltr";   /* 阿拉伯语从右往左 */
   document.querySelectorAll("[data-i18n]").forEach(function(el) {
     var k = el.getAttribute("data-i18n");
     if (T[lang][k] != null) el.textContent = T[lang][k];
