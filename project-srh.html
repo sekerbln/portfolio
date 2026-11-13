@@ -669,6 +669,86 @@
       .tg-item-text { font-size: 14px; }
     }
 
+
+    /* ══════════ 用户流程：地铁线路图 ══════════ */
+    .mm { border: 1px solid var(--border); border-radius: 16px; padding: 24px; min-width: 0; max-width: 100%; overflow: hidden; }
+    .p-wide:has(.mm), .p-wide:has(.bc) { min-width: 0; max-width: 100%; }
+    .bc { min-width: 0; max-width: 100%; }
+    .mm-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .mm-key { display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist', sans-serif; font-size: 14px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--white); color: var(--text-muted); cursor: pointer; transition: all .2s; }
+    .mm-key i { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
+    .mm-key:hover { color: var(--text); }
+    .mm-key.active { border-color: var(--text); color: var(--text); background: var(--gray-50); }
+    .mm-scroll { overflow-x: auto; margin: 0 -8px; padding: 0 8px; scrollbar-width: thin; }
+    .mm-svg { width: 100%; min-width: 960px; height: auto; display: block; font-family: 'Geist', 'Noto Sans Arabic', sans-serif; }
+    .mm-line { fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; cursor: pointer; transition: opacity .3s; }
+    .mm-st circle, .mm-st rect { fill: #fff; stroke-width: 3; transition: opacity .3s; }
+    .mm-st text { font-size: 15px; fill: var(--text); transition: opacity .3s; }
+    .mm-st.shared { cursor: pointer; }
+    .mm-st.shared rect { stroke: #0d0d0d; }
+    .mm-st.shared text { font-weight: 600; }
+    .mm-st.shared:hover rect, .mm-st.shared.on rect { fill: #0d0d0d; }
+    .mm-st.qr circle { stroke: #0d0d0d; stroke-width: 4; }
+    .mm-st.qr:hover circle, .mm-st.qr.on circle { fill: #0d0d0d; }
+    .mm-st.qr { cursor: pointer; }
+    .mm-seg { font-size: 12px; fill: var(--text-faint); font-style: italic; }
+    .mm-start { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+    .mm[data-line="nav"] [data-l]:not([data-l~="nav"]),
+    .mm[data-line="tg"] [data-l]:not([data-l~="tg"]),
+    .mm[data-line="sg"] [data-l]:not([data-l~="sg"]) { opacity: .12; }
+    .mm-panel { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; min-height: 96px; }
+    .mm-panel-h { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; margin-bottom: 10px; }
+    .mm-panel-h i { width: 22px; height: 6px; border-radius: 3px; display: inline-block; }
+    .mm-panel-tag { font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
+    .mm-panel p { font-size: 15px; line-height: 1.65; color: var(--text-muted); max-width: 720px; }
+    .mm-panel ol { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; counter-reset: mm; }
+    .mm-panel li { counter-increment: mm; font-size: 14px; line-height: 1.5; background: var(--gray-50); border-radius: 10px; padding: 12px; }
+    .mm-panel li::before { content: "0" counter(mm); display: block; font-size: 12px; color: var(--text-faint); margin-bottom: 4px; }
+    .mm-lines { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .mm-lines span { font-size: 12px; padding: 3px 10px; border-radius: 999px; color: #fff; }
+    .mm-more { margin-top: 4px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .mm-more summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; font-size: 15px; font-weight: 500; }
+    .mm-more summary::-webkit-details-marker { display: none; }
+    .mm-more[open] .rc-plus::after { transform: rotate(0); }
+    .mm-more .p-stack { padding-bottom: 24px; }
+    .rc-plus { position: relative; width: 14px; height: 14px; flex-shrink: 0; }
+    .rc-plus::before, .rc-plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--text); transition: transform .25s; }
+    .rc-plus::after { transform: rotate(90deg); }
+
+    /* 同一栋建筑，三处一致 */
+    .bc { border-radius: 16px; background: var(--gray-50); padding: 24px; --bc: #60C545; }
+    .bc-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .bc-chip { display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist', sans-serif; font-size: 14px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--white); cursor: pointer; color: var(--text-muted); transition: all .2s; }
+    .bc-chip i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .bc-chip.active { color: var(--text); border-color: var(--text); }
+    .bc-grid { display: grid; grid-template-columns: 0.8fr 1.3fr 1fr; gap: 20px; align-items: end; }
+    .bc-item { display: flex; flex-direction: column; gap: 10px; }
+    .bc-cap { font-size: 13px; color: var(--text-muted); text-align: center; }
+    .bc-color { background: var(--bc); transition: background .35s; }
+    .bc-app { background: #fff; border-radius: 22px; border: 6px solid #0d0d0d; padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; min-height: 220px; }
+    .bc-app-top { font-size: 12px; font-weight: 600; color: var(--text-faint); }
+    .bc-app-tile, .bc-app-row { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 10px; padding: 10px; font-size: 13px; font-weight: 500; }
+    .bc-sq { width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; }
+    .bc-chev { margin-left: auto; color: var(--text-faint); }
+    .bc-app-btn { margin-top: auto; border-radius: 999px; color: #fff; text-align: center; font-size: 13px; font-weight: 600; padding: 9px; }
+    .bc-kiosk { background: #fff; border: 10px solid #f1f1ee; border-radius: 12px; box-shadow: 0 0 0 1px var(--border); aspect-ratio: 2338 / 1872; display: flex; flex-direction: column; overflow: hidden; }
+    .bc-tabs { display: flex; gap: 4px; padding: 8px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .bc-tab { font-size: 10px; padding: 4px 8px; border-radius: 6px; background: var(--gray-100); color: var(--text-muted); white-space: nowrap; transition: background .35s, color .35s; }
+    .bc-tab.on { background: var(--bc); color: #fff; font-weight: 600; }
+    .bc-plan { flex: 1; margin: 10px; border-radius: 8px; background-image: linear-gradient(var(--gray-100) 1px, transparent 1px), linear-gradient(90deg, var(--gray-100) 1px, transparent 1px); background-size: 18px 18px; position: relative; display: flex; align-items: flex-end; padding: 10px; font-size: 12px; font-weight: 600; }
+    .bc-plan-b { position: absolute; left: 30%; top: 22%; width: 38%; height: 40%; border-radius: 6px; opacity: .85; }
+    .bc-plan .bc-name { position: relative; }
+    .bc-sign { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.08); padding: 0 18px 0 0; height: 86px; overflow: hidden; font-size: 18px; font-weight: 600; }
+    .bc-band { width: 18px; align-self: stretch; }
+    .bc-arrow { margin-left: auto; font-size: 26px; }
+    .bc-note { font-size: 12px; color: var(--text-faint); margin-top: 16px; }
+
+    @media (max-width: 767px) {
+      .mm, .bc { padding: 16px; }
+      .bc-grid { grid-template-columns: 1fr; }
+      .bc-app { max-width: 240px; margin: 0 auto; width: 100%; }
+    }
+
     /* ══════════ 阿拉伯语（从右往左）══════════
        网格和弹性布局会自动镜像，这里只处理写死了左右方向的地方 */
     html[lang="ar"] body, html[lang="ar"] button { font-family: 'Geist', 'Noto Sans Arabic', 'Helvetica Neue', sans-serif; }
@@ -779,7 +859,7 @@
       <li><a href="#flows"     data-i18n="toc.flows">用户流程</a></li>
       <li><a href="#visual"    data-i18n="toc.visual">视觉设计</a></li>
       <li><a href="#iteration" data-i18n="toc.iteration">迭代</a></li>
-      <li><a href="#reflection" data-i18n="toc.reflection">反思</a></li>
+<!-- 暂时隐藏：反思的目录链接 <li><a href="#reflection" data-i18n="toc.reflection">反思</a></li> -->
     </ol>
   </aside>
 
@@ -958,21 +1038,71 @@
   </article>
 
   <div class="p-wide">
-    <div class="p-stack">
-      <div>
-        <div class="p-img contain" style="background-image: url('images/srh/flow-navigator.png');"></div>
-        <div class="p-wide-caption">Navigator</div>
+    <div class="mm" id="metroMap" data-line="all">
+      <div class="mm-legend" id="mmLegend">
+        <button class="mm-key active" data-line="all"><span data-i18n="ia.all"></span></button>
+        <button class="mm-key" data-line="nav"><i style="background:#0d0d0d"></i>Navigator</button>
+        <button class="mm-key" data-line="tg"><i style="background:#5E9BD6"></i>Touch &amp; Go</button>
+        <button class="mm-key" data-line="sg"><i style="background:#E0457B"></i>Scan &amp; Go</button>
       </div>
-      <div>
-        <div class="p-img contain" style="background-image: url('images/srh/flow-touchgo.png');"></div>
-        <div class="p-wide-caption">Touch & Go</div>
-      </div>
-      <div>
-        <div class="p-img contain" style="background-image: url('images/srh/flow-scango.png');"></div>
-        <div class="p-wide-caption">Scan & Go</div>
-      </div>
+      <div class="mm-scroll"><svg class="mm-svg" id="mmSvg" viewBox="0 0 1420 380" dir="ltr" role="img" aria-label="Metro map of the three user flows"></svg></div>
+      <div class="mm-panel" id="mmPanel" aria-live="polite"></div>
     </div>
   </div>
+
+  <article class="p-content"><section>
+    <h3 data-i18n="bc.h"></h3>
+    <p data-i18n="bc.p"></p>
+  </section></article>
+
+  <div class="p-wide">
+    <div class="bc" id="bldCompare">
+      <div class="bc-chips" id="bcChips"></div>
+      <div class="bc-grid" dir="ltr">
+        <div class="bc-item">
+          <div class="bc-app">
+            <div class="bc-app-top">Navigator</div>
+            <div class="bc-app-tile"><span class="bc-sq bc-color"></span><span class="bc-name"></span><span class="bc-chev">›</span></div>
+            <div class="bc-app-row"><span data-i18n="bc.floors"></span><span class="bc-chev">›</span></div>
+            <div class="bc-app-btn bc-color"><span data-i18n="bc.go"></span></div>
+          </div>
+          <div class="bc-cap" data-i18n="bc.app"></div>
+        </div>
+        <div class="bc-item">
+          <div class="bc-kiosk"><div class="bc-tabs" id="bcTabs"></div><div class="bc-plan"><span class="bc-plan-b bc-color"></span><span class="bc-name"></span></div></div>
+          <div class="bc-cap" data-i18n="bc.kiosk"></div>
+        </div>
+        <div class="bc-item">
+          <div class="bc-sign"><span class="bc-band bc-color"></span><span class="bc-name"></span><span class="bc-arrow">→</span></div>
+          <div class="bc-cap" data-i18n="bc.sign"></div>
+        </div>
+      </div>
+      <div class="bc-note" data-i18n="bc.note"></div>
+    </div>
+  </div>
+
+  <!-- 暂时隐藏：三个产品的完整流程图（待完成）
+  <div class="p-wide">
+    <details class="mm-more">
+      <summary><span data-i18n="ia.more"></span><span class="rc-plus" aria-hidden="true"></span></summary>
+      <div class="p-stack">
+        <div>
+          <div class="p-img contain" style="background-image: url('images/srh/flow-navigator.png');"></div>
+          <div class="p-wide-caption">Navigator</div>
+        </div>
+        <div>
+          <div class="p-img contain" style="background-image: url('images/srh/flow-touchgo.png');"></div>
+          <div class="p-wide-caption">Touch & Go</div>
+        </div>
+        <div>
+          <div class="p-img contain" style="background-image: url('images/srh/flow-scango.png');"></div>
+          <div class="p-wide-caption">Scan & Go</div>
+        </div>
+      </div>
+    </details>
+  </div>
+  -->
+
 
   <article class="p-content">
     <section id="visual">
@@ -1005,10 +1135,12 @@
     </section>
   </article>
 
+  <!-- 暂时隐藏：UI 组件大图（待完成）
   <div class="p-wide">
     <div class="p-img contain" style="background-image: url('images/srh/ui-elements.png');"></div>
     <div class="p-wide-caption" data-i18n="vi.cap">UI 组件</div>
   </div>
+  -->
 
   <article class="p-content">
     <section id="iteration">
@@ -1023,6 +1155,7 @@
     </section>
   </article>
 
+  <!-- 暂时隐藏：早期版本 / 改版后对比图（待完成）
   <div class="p-wide">
     <div class="p-compare phones">
       <div>
@@ -1035,13 +1168,16 @@
       </div>
     </div>
   </div>
+  -->
 
+  <!-- 暂时隐藏：反思（待完成）
   <article class="p-content">
     <section id="reflection">
       <h2 data-i18n="re.h">反思</h2>
       <p><span class="todo" data-i18n="re.p1">写一两段：这个项目让你学到了什么，如果有用户测试或老师的反馈也可以写在这里，以及如果重做一次你会改变什么。</span></p>
     </section>
   </article>
+  -->
 
 </div>
 
@@ -1272,7 +1408,42 @@ var T = {
     "tgz.left.h": "左侧信息区",
     "tgz.left.p": "显示操作提示和固定的设置按钮。时间、搜索框和“请选择一项功能继续”的提示放在中间，语言切换、帮助和紧急呼叫固定在底部，随时都能找到。",
     "tgz.right.h": "右侧操作区",
-    "tgz.right.p": "用户在这里完成所有操作。三个大按钮对应三项核心功能：地图与导航、医生信息和服务设施。"
+    "tgz.right.p": "用户在这里完成所有操作。三个大按钮对应三项核心功能：地图与导航、医生信息和服务设施。",
+    "ia.all": "全部线路",
+    "ia.hint": "点击一条线路，查看它的步骤；点击共用站点（白色胶囊），看看三个产品在这里共享了什么。",
+    "ia.steps": "的步骤",
+    "ia.shared": "共用站点",
+    "ia.lines": "经过的线路",
+    "st.nav1": "选择身份",
+    "st.nav2": "定位",
+    "st.nav3": "首页建议",
+    "st.nav4": "搜索或语音",
+    "st.tg1": "点击开始",
+    "st.tg2": "当前位置",
+    "st.tg3": "选择功能",
+    "st.sg1": "扫描指示牌",
+    "st.sg2": "浏览器打开",
+    "st.b": "建筑",
+    "st.f": "楼层",
+    "st.d": "科室",
+    "st.go": "开始导航",
+    "st.qr": "二维码",
+    "st.end": "到达",
+    "sh.b": "医院的每栋建筑都有固定的名称和颜色，比如主楼是橙色、Haus am Wald 是绿色。三个产品和走廊里的指示牌用的是同一套名称和颜色。",
+    "sh.f": "楼层统一按 Ebene 编号，比如 Ebene 0。无论在应用里还是在触摸屏上，楼层的写法都一样。",
+    "sh.d": "科室来自同一份名称列表。在应用里搜索、在触摸屏的平面图上查看，或者扫码打开网页，看到的科室名称都相同。",
+    "sh.go": "路线根据同一套建筑和楼层数据计算。Navigator 用手机定位作为起点，Touch & Go 用屏幕所在的位置作为起点。",
+    "sh.qr": "换乘站：Touch & Go 把算好的路线变成二维码，用手机扫一下，就在 Scan & Go 里接着导航，不需要重新输入。",
+    "sh.end": "终点站：Navigator 一路导航到这里；Scan & Go 带着已经填好的起点和终点，跳过中间的选择，也到达同一个地方。",
+    "bc.h": "同一栋建筑，三处一致",
+    "bc.p": "选择一栋建筑，看看它在 Navigator 应用、Touch & Go 触摸屏和院内指示牌上的样子：名称和颜色完全一致。",
+    "bc.app": "Navigator 应用",
+    "bc.kiosk": "Touch & Go 触摸屏",
+    "bc.sign": "院内指示牌",
+    "bc.note": "示意图",
+    "bc.floors": "楼层",
+    "bc.go": "导航",
+    "ia.more": "查看三个产品的完整流程图"
   },
   "en": {
     "nav.work": "Work",
@@ -1391,7 +1562,42 @@ var T = {
     "tgz.left.h": "Information area",
     "tgz.left.p": "Shows operation hints and fixed setting buttons. Time, search and the prompt to select a feature sit in the middle; language, help and emergency call stay fixed at the bottom, always within reach.",
     "tgz.right.h": "Command area",
-    "tgz.right.p": "Where users complete every action. Three large buttons lead to the three core features: map and navigation, doctor information, and service facilities."
+    "tgz.right.p": "Where users complete every action. Three large buttons lead to the three core features: map and navigation, doctor information, and service facilities.",
+    "ia.all": "All lines",
+    "ia.hint": "Tap a line to see its steps; tap a shared station (the white capsules) to see what the three products share there.",
+    "ia.steps": "steps",
+    "ia.shared": "Shared station",
+    "ia.lines": "Lines through here",
+    "st.nav1": "Choose role",
+    "st.nav2": "Locate",
+    "st.nav3": "Suggestions",
+    "st.nav4": "Search or voice",
+    "st.tg1": "Tap to start",
+    "st.tg2": "Current location",
+    "st.tg3": "Choose feature",
+    "st.sg1": "Scan a sign",
+    "st.sg2": "Open in browser",
+    "st.b": "Building",
+    "st.f": "Floor",
+    "st.d": "Department",
+    "st.go": "Start navigation",
+    "st.qr": "QR code",
+    "st.end": "Arrive",
+    "sh.b": "Every building has a fixed name and colour — the main building is orange, Haus am Wald green, and so on. All three products and the signs in the corridors use the same names and colours.",
+    "sh.f": "Floors are numbered the same way everywhere, as Ebene — for example Ebene 0 — in the app and on the touch screens alike.",
+    "sh.d": "Departments come from one shared list of names. Search in the app, look at the floor plan on a touch screen, or scan to open the web page — the names are identical.",
+    "sh.go": "Routes are calculated from the same building and floor data. Navigator starts from the phone's location; Touch & Go starts from where the screen stands.",
+    "sh.qr": "Interchange: Touch & Go turns the finished route into a QR code. Scan it with a phone and the navigation continues in Scan & Go — nothing to type again.",
+    "sh.end": "Terminus: Navigator guides you all the way here. Scan & Go arrives at the same place, carrying a start and destination that are already filled in, so it skips the choices in between.",
+    "bc.h": "One building, consistent in three places",
+    "bc.p": "Pick a building and see it in the Navigator app, on a Touch & Go screen and on a sign in the clinic: the same name, the same colour.",
+    "bc.app": "Navigator app",
+    "bc.kiosk": "Touch & Go screen",
+    "bc.sign": "Sign in the clinic",
+    "bc.note": "Schematic",
+    "bc.floors": "Floors",
+    "bc.go": "Navigate",
+    "ia.more": "See the full flow diagrams of all three products"
   },
   "de": {
     "nav.work": "Arbeiten",
@@ -1510,7 +1716,42 @@ var T = {
     "tgz.left.h": "Infobereich",
     "tgz.left.p": "Zeigt Bedienhinweise und feste Einstellungsknöpfe. Uhrzeit, Suche und die Aufforderung, eine Funktion zu wählen, stehen in der Mitte; Sprache, Hilfe und Notruf sind unten fest verankert und immer erreichbar.",
     "tgz.right.h": "Bedienbereich",
-    "tgz.right.p": "Hier erledigen Nutzer:innen alle Aktionen. Drei große Schaltflächen führen zu den drei Kernfunktionen: Karte und Navigation, Arztinformationen und Serviceeinrichtungen."
+    "tgz.right.p": "Hier erledigen Nutzer:innen alle Aktionen. Drei große Schaltflächen führen zu den drei Kernfunktionen: Karte und Navigation, Arztinformationen und Serviceeinrichtungen.",
+    "ia.all": "Alle Linien",
+    "ia.hint": "Tippe auf eine Linie, um ihre Schritte zu sehen; tippe auf eine gemeinsame Station (die weißen Kapseln), um zu sehen, was die drei Produkte dort teilen.",
+    "ia.steps": "– Schritte",
+    "ia.shared": "Gemeinsame Station",
+    "ia.lines": "Linien hier",
+    "st.nav1": "Rolle wählen",
+    "st.nav2": "Orten",
+    "st.nav3": "Vorschläge",
+    "st.nav4": "Suche oder Sprache",
+    "st.tg1": "Antippen",
+    "st.tg2": "Aktueller Standort",
+    "st.tg3": "Funktion wählen",
+    "st.sg1": "Schild scannen",
+    "st.sg2": "Im Browser öffnen",
+    "st.b": "Gebäude",
+    "st.f": "Ebene",
+    "st.d": "Fachbereich",
+    "st.go": "Navigation starten",
+    "st.qr": "QR-Code",
+    "st.end": "Ankunft",
+    "sh.b": "Jedes Gebäude hat einen festen Namen und eine Farbe – das Hauptgebäude ist orange, Haus am Wald grün usw. Alle drei Produkte und die Schilder in den Fluren nutzen dieselben Namen und Farben.",
+    "sh.f": "Ebenen werden überall gleich bezeichnet, etwa Ebene 0 – in der App genauso wie auf den Touchscreens.",
+    "sh.d": "Fachbereiche stammen aus einer gemeinsamen Namensliste. Ob Suche in der App, Grundriss am Touchscreen oder per Scan geöffnete Webseite – die Namen sind identisch.",
+    "sh.go": "Routen werden aus denselben Gebäude- und Ebenendaten berechnet. Navigator startet am Standort des Handys, Touch & Go am Standort des Bildschirms.",
+    "sh.qr": "Umstieg: Touch & Go macht aus der fertigen Route einen QR-Code. Mit dem Handy scannen, und die Navigation geht in Scan & Go weiter – ohne erneute Eingabe.",
+    "sh.end": "Endstation: Navigator führt bis hierher. Scan & Go kommt am selben Ort an – mit bereits ausgefülltem Start und Ziel überspringt es die Auswahl dazwischen.",
+    "bc.h": "Ein Gebäude, an drei Orten gleich",
+    "bc.p": "Wähle ein Gebäude und sieh es in der Navigator-App, auf einem Touch-&-Go-Bildschirm und auf einem Schild in der Klinik: gleicher Name, gleiche Farbe.",
+    "bc.app": "Navigator-App",
+    "bc.kiosk": "Touch-&-Go-Bildschirm",
+    "bc.sign": "Schild in der Klinik",
+    "bc.note": "Schema",
+    "bc.floors": "Ebenen",
+    "bc.go": "Navigieren",
+    "ia.more": "Vollständige Flussdiagramme der drei Produkte ansehen"
   },
   "tr": {
     "nav.work": "Projeler",
@@ -1629,7 +1870,42 @@ var T = {
     "tgz.left.h": "Bilgi alanı",
     "tgz.left.p": "İşlem ipuçlarını ve sabit ayar düğmelerini gösterir. Saat, arama ve bir özellik seçme uyarısı ortada; dil, yardım ve acil çağrı ise altta sabittir, her an ulaşılabilir.",
     "tgz.right.h": "İşlem alanı",
-    "tgz.right.p": "Kullanıcılar tüm işlemleri burada yapar. Üç büyük düğme üç temel özelliğe götürür: harita ve navigasyon, doktor bilgileri ve hizmet olanakları."
+    "tgz.right.p": "Kullanıcılar tüm işlemleri burada yapar. Üç büyük düğme üç temel özelliğe götürür: harita ve navigasyon, doktor bilgileri ve hizmet olanakları.",
+    "ia.all": "Tüm hatlar",
+    "ia.hint": "Adımlarını görmek için bir hatta dokunun; üç ürünün orada neyi paylaştığını görmek için ortak bir durağa (beyaz kapsüller) dokunun.",
+    "ia.steps": "adımları",
+    "ia.shared": "Ortak durak",
+    "ia.lines": "Buradan geçen hatlar",
+    "st.nav1": "Rol seç",
+    "st.nav2": "Konum bul",
+    "st.nav3": "Öneriler",
+    "st.nav4": "Ara veya sesle",
+    "st.tg1": "Başlamak için dokun",
+    "st.tg2": "Mevcut konum",
+    "st.tg3": "İşlev seç",
+    "st.sg1": "Tabelayı tara",
+    "st.sg2": "Tarayıcıda aç",
+    "st.b": "Bina",
+    "st.f": "Kat",
+    "st.d": "Bölüm",
+    "st.go": "Navigasyonu başlat",
+    "st.qr": "QR kod",
+    "st.end": "Varış",
+    "sh.b": "Her binanın sabit bir adı ve rengi var — ana bina turuncu, Haus am Wald yeşil vb. Üç ürün ve koridorlardaki tabelalar aynı adları ve renkleri kullanıyor.",
+    "sh.f": "Katlar her yerde aynı şekilde, Ebene olarak numaralandırılıyor — örneğin Ebene 0 — uygulamada da dokunmatik ekranlarda da.",
+    "sh.d": "Bölümler tek bir ortak ad listesinden geliyor. Uygulamada arayın, dokunmatik ekranda kat planına bakın ya da tarayıp web sayfasını açın — adlar aynı.",
+    "sh.go": "Rotalar aynı bina ve kat verilerinden hesaplanıyor. Navigator telefonun konumundan, Touch & Go ise ekranın bulunduğu yerden başlıyor.",
+    "sh.qr": "Aktarma: Touch & Go hazır rotayı QR koda dönüştürüyor. Telefonla tarayın, navigasyon Scan & Go'da devam etsin — yeniden yazmaya gerek yok.",
+    "sh.end": "Son durak: Navigator sizi buraya kadar götürüyor. Scan & Go da başlangıç ve varış noktası önceden doldurulmuş olarak aynı yere varıyor ve aradaki seçimleri atlıyor.",
+    "bc.h": "Tek bina, üç yerde aynı",
+    "bc.p": "Bir bina seçin ve onu Navigator uygulamasında, bir Touch & Go ekranında ve klinikteki bir tabelada görün: aynı ad, aynı renk.",
+    "bc.app": "Navigator uygulaması",
+    "bc.kiosk": "Touch & Go ekranı",
+    "bc.sign": "Klinikteki tabela",
+    "bc.note": "Şematik",
+    "bc.floors": "Katlar",
+    "bc.go": "Yol tarifi",
+    "ia.more": "Üç ürünün tam akış diyagramlarını görün"
   },
   "ar": {
     "nav.work": "الأعمال",
@@ -1748,7 +2024,42 @@ var T = {
     "tgz.left.h": "منطقة المعلومات",
     "tgz.left.p": "تعرض تلميحات الاستخدام وأزرار الإعدادات الثابتة. الوقت والبحث ودعوة اختيار إحدى الوظائف في المنتصف، بينما تبقى اللغة والمساعدة ونداء الطوارئ ثابتة في الأسفل وفي المتناول دائمًا.",
     "tgz.right.h": "منطقة التحكم",
-    "tgz.right.p": "هنا يُنجز المستخدم كل الإجراءات. ثلاثة أزرار كبيرة تقود إلى الوظائف الأساسية الثلاث: الخريطة والإرشاد، ومعلومات الأطباء، والمرافق الخدمية."
+    "tgz.right.p": "هنا يُنجز المستخدم كل الإجراءات. ثلاثة أزرار كبيرة تقود إلى الوظائف الأساسية الثلاث: الخريطة والإرشاد، ومعلومات الأطباء، والمرافق الخدمية.",
+    "ia.all": "كل الخطوط",
+    "ia.hint": "المس خطًا لترى خطواته، والمس محطة مشتركة (الكبسولات البيضاء) لترى ما تتشاركه المنتجات الثلاثة هناك.",
+    "ia.steps": "— الخطوات",
+    "ia.shared": "محطة مشتركة",
+    "ia.lines": "الخطوط المارّة هنا",
+    "st.nav1": "اختر صفتك",
+    "st.nav2": "تحديد الموقع",
+    "st.nav3": "اقتراحات",
+    "st.nav4": "بحث أو صوت",
+    "st.tg1": "المس للبدء",
+    "st.tg2": "الموقع الحالي",
+    "st.tg3": "اختر الوظيفة",
+    "st.sg1": "امسح لافتة",
+    "st.sg2": "افتح في المتصفح",
+    "st.b": "المبنى",
+    "st.f": "الطابق",
+    "st.d": "القسم",
+    "st.go": "ابدأ التوجيه",
+    "st.qr": "رمز QR",
+    "st.end": "الوصول",
+    "sh.b": "لكل مبنى في المستشفى اسم ولون ثابتان — المبنى الرئيسي برتقالي وHaus am Wald أخضر وهكذا. وتستخدم المنتجات الثلاثة ولافتات الممرّات الأسماء والألوان نفسها.",
+    "sh.f": "تُرقَّم الطوابق بالطريقة نفسها في كل مكان، باسم Ebene — مثل Ebene 0 — في التطبيق وعلى الشاشات اللمسية على حدّ سواء.",
+    "sh.d": "تأتي الأقسام من قائمة أسماء مشتركة واحدة. سواء بحثت في التطبيق أو نظرت إلى المخطط على الشاشة اللمسية أو مسحت الرمز لفتح الصفحة — الأسماء متطابقة.",
+    "sh.go": "تُحسب المسارات من بيانات المباني والطوابق نفسها. يبدأ Navigator من موقع الهاتف، ويبدأ Touch & Go من مكان الشاشة.",
+    "sh.qr": "محطة تبديل: يحوّل Touch & Go المسار الجاهز إلى رمز QR. امسحه بالهاتف ليستمر التوجيه في Scan & Go — دون إعادة الإدخال.",
+    "sh.end": "المحطة الأخيرة: يوجّهك Navigator حتى هنا. ويصل Scan & Go إلى المكان نفسه بنقطتَي بداية ووصول معبّأتين مسبقًا، فيتخطّى الاختيارات بينهما.",
+    "bc.h": "مبنى واحد، متّسق في ثلاثة أماكن",
+    "bc.p": "اختر مبنى وشاهده في تطبيق Navigator وعلى شاشة Touch & Go وعلى لافتة داخل المستشفى: الاسم نفسه واللون نفسه.",
+    "bc.app": "تطبيق Navigator",
+    "bc.kiosk": "شاشة Touch & Go",
+    "bc.sign": "لافتة داخل المستشفى",
+    "bc.note": "رسم توضيحي",
+    "bc.floors": "الطوابق",
+    "bc.go": "التوجيه",
+    "ia.more": "عرض مخططات المسار الكاملة للمنتجات الثلاثة"
   }
 };
 
@@ -1798,6 +2109,7 @@ function setLang(lang) {
   closeLangDropdown();
   updateLangLinks(lang);
   if (typeof fcSlide === "function") fcSlide();
+  if (window.iaRefresh) window.iaRefresh();
   if (typeof fmBackdrop !== "undefined" && fmBackdrop.classList.contains("open")) fmRender();
 }
 
@@ -1967,6 +2279,130 @@ fcSlide();
       }
     });
   }, { threshold: 0.5 }).observe(root);
+})();
+
+/* ══════════ 用户流程：地铁线路图 ══════════
+   三条线路：Navigator（黑）、Touch & Go（蓝）、Scan & Go（粉）
+   共用站点（建筑 / 楼层 / 科室 / 开始导航 / 到达）是白色胶囊，二维码是换乘站 */
+(function() {
+  var svg = document.getElementById("mmSvg"); if (!svg) return;
+  var mm = document.getElementById("metroMap"), panel = document.getElementById("mmPanel");
+  var NS = "http://www.w3.org/2000/svg";
+  var LINES = {
+    nav: { name: "Navigator", color: "#0d0d0d", steps: ["fc.nav.s1","fc.nav.s2","fc.nav.s3","fc.nav.s4","fc.nav.s5","fc.nav.r"],
+           d: "M150 70 H540 L660 190 H1360" },
+    tg:  { name: "Touch & Go", color: "#5E9BD6", steps: ["fc.tg.s1","fc.tg.s2","fc.tg.s3","fc.tg.s4","fc.tg.s5","fc.tg.r"],
+           d: "M150 202 H1020 L1140 322" },
+    sg:  { name: "Scan & Go", color: "#E0457B", steps: ["fc.sg.s1","fc.sg.s2","fc.sg.s3","fc.sg.r"],
+           d: "M880 322 H1272 L1360 216" }
+  };
+  /* 站点：k = 文字 key；l = 经过的线路；type: own / shared / qr */
+  var ST = [
+    { k: "st.nav1", x: 190, y: 70,  l: "nav", type: "own", lab: "down" },
+    { k: "st.nav2", x: 300, y: 70,  l: "nav", type: "own", lab: "up" },
+    { k: "st.nav3", x: 410, y: 70,  l: "nav", type: "own", lab: "down" },
+    { k: "st.nav4", x: 520, y: 70,  l: "nav", type: "own", lab: "up" },
+    { k: "st.tg1",  x: 190, y: 202, l: "tg",  type: "own", lab: "down" },
+    { k: "st.tg2",  x: 300, y: 202, l: "tg",  type: "own", lab: "up" },
+    { k: "st.tg3",  x: 410, y: 202, l: "tg",  type: "own", lab: "down" },
+    { k: "st.b",    x: 720, y0: 181, y1: 211, l: "nav tg", type: "shared", sh: "sh.b" },
+    { k: "st.f",    x: 820, y0: 181, y1: 211, l: "nav tg", type: "shared", sh: "sh.f", lab: "up" },
+    { k: "st.d",    x: 920, y0: 181, y1: 211, l: "nav tg", type: "shared", sh: "sh.d" },
+    { k: "st.go",   x: 1020, y0: 181, y1: 211, l: "nav tg", type: "shared", sh: "sh.go", lab: "up" },
+    { k: "st.end",  x: 1360, y0: 181, y1: 223, l: "nav sg", type: "shared", sh: "sh.end", lab: "up" },
+    { k: "st.sg1",  x: 920, y: 322, l: "sg",  type: "own", lab: "down" },
+    { k: "st.qr",   x: 1140, y: 322, l: "tg sg", type: "qr", sh: "sh.qr", lab: "down" },
+    { k: "st.sg2",  x: 1262, y: 322, l: "sg",  type: "own", lab: "down" }
+  ];
+  function tx(k) { return (T[currentLang] && T[currentLang][k]) || ""; }
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+  var selected = null;
+
+  function draw() {
+    svg.innerHTML = "";
+    /* 线路起点的名称 */
+    el("text", { x: 140, y: 75, class: "mm-start", "text-anchor": "end", fill: LINES.nav.color, "data-l": "nav" }, svg).textContent = "Navigator";
+    el("text", { x: 140, y: 207, class: "mm-start", "text-anchor": "end", fill: LINES.tg.color, "data-l": "tg" }, svg).textContent = "Touch & Go";
+    el("text", { x: 870, y: 327, class: "mm-start", "text-anchor": "end", fill: LINES.sg.color, "data-l": "sg" }, svg).textContent = "Scan & Go";
+    Object.keys(LINES).forEach(function(id) {
+      var p = el("path", { d: LINES[id].d, class: "mm-line", stroke: LINES[id].color, "data-l": id, "data-line": id }, svg);
+      p.addEventListener("click", function() { setLine(id); });
+    });
+    ST.forEach(function(s, i) {
+      var g = el("g", { class: "mm-st " + s.type, "data-l": s.l, "data-i": i }, svg);
+      var label = tx(s.k);
+      if (s.type === "own") {
+        var c = s.l === "nav" ? LINES.nav.color : s.l === "tg" ? LINES.tg.color : LINES.sg.color;
+        el("circle", { cx: s.x, cy: s.y, r: 7, stroke: c }, g);
+        el("text", { x: s.x, y: s.lab === "up" ? s.y - 18 : s.y + 32, "text-anchor": "middle" }, g).textContent = label;
+      } else if (s.type === "shared") {
+        el("rect", { x: s.x - 10, y: s.y0, width: 20, height: s.y1 - s.y0, rx: 10 }, g);
+        el("text", { x: s.x, y: s.lab === "up" ? s.y0 - 14 : s.y1 + 26, "text-anchor": "middle" }, g).textContent = label;
+      } else {
+        el("circle", { cx: s.x, cy: s.y, r: 10 }, g);
+        el("text", { x: s.x, y: s.y + 32, "text-anchor": "middle", "font-weight": "600" }, g).textContent = label;
+      }
+      if (s.type !== "own") {
+        g.setAttribute("tabindex", "0"); g.setAttribute("role", "button");
+        g.addEventListener("click", function() { setStation(i); });
+        g.addEventListener("keydown", function(e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setStation(i); } });
+      }
+      if (selected && selected.type === "st" && selected.i === i) g.classList.add("on");
+    });
+  }
+
+  function setKeys(line) {
+    document.querySelectorAll("#mmLegend .mm-key").forEach(function(k) { k.classList.toggle("active", k.dataset.line === line); });
+    mm.dataset.line = line;
+  }
+  function setLine(id) {
+    selected = id === "all" ? null : { type: "line", id: id };
+    setKeys(id); draw(); render();
+  }
+  function setStation(i) {
+    selected = { type: "st", i: i };
+    setKeys("all"); draw(); render();
+  }
+  function render() {
+    if (!selected) { panel.innerHTML = '<p>' + tx("ia.hint") + '</p>'; return; }
+    if (selected.type === "line") {
+      var L = LINES[selected.id];
+      panel.innerHTML = '<div class="mm-panel-h"><i style="background:' + L.color + '"></i>' + L.name + ' ' + tx("ia.steps") + '</div><ol>' +
+        L.steps.map(function(k) { return '<li>' + tx(k) + '</li>'; }).join("") + '</ol>';
+      return;
+    }
+    var s = ST[selected.i];
+    var chips = s.l.split(" ").map(function(id) { return '<span style="background:' + LINES[id].color + '">' + LINES[id].name + '</span>'; }).join("");
+    panel.innerHTML = '<div class="mm-panel-tag">' + tx("ia.shared") + '</div><div class="mm-panel-h">' + tx(s.k) + '</div><p>' + tx(s.sh) + '</p><div class="mm-lines">' + chips + '</div>';
+  }
+  document.querySelectorAll("#mmLegend .mm-key").forEach(function(k) { k.addEventListener("click", function() { setLine(this.dataset.line); }); });
+  draw(); render();
+
+  /* ── 同一栋建筑，三处一致 ── 颜色来自视觉设计部分的建筑配色 */
+  var BLD = [
+    { n: "Hauptgebäude", c: "#F25F1F" }, { n: "Haus am Wald", c: "#60C545" }, { n: "Haus im Park", c: "#E9A21A" },
+    { n: "Diagnostikzentrum", c: "#49A3DD" }, { n: "Operationszentrum", c: "#6F58AD" }
+  ];
+  var bc = document.getElementById("bldCompare");
+  if (bc) {
+    var chipsBox = document.getElementById("bcChips"), tabs = document.getElementById("bcTabs");
+    BLD.forEach(function(b, i) {
+      var c = document.createElement("button");
+      c.className = "bc-chip"; c.innerHTML = '<i style="background:' + b.c + '"></i>' + b.n; c.dataset.i = i;
+      c.addEventListener("click", function() { pickB(i); });
+      chipsBox.appendChild(c);
+      var t = document.createElement("span"); t.className = "bc-tab"; t.textContent = b.n; tabs.appendChild(t);
+    });
+    function pickB(i) {
+      bc.style.setProperty("--bc", BLD[i].c);
+      bc.querySelectorAll(".bc-name").forEach(function(n) { n.textContent = BLD[i].n; });
+      bc.querySelectorAll(".bc-chip").forEach(function(c, j) { c.classList.toggle("active", j === i); });
+      bc.querySelectorAll(".bc-tab").forEach(function(t, j) { t.classList.toggle("on", j === i); });
+    }
+    pickB(1);
+  }
+
+  window.iaRefresh = function() { draw(); render(); };
 })();
 
 /* ══════════ 功能流程弹窗 ══════════
