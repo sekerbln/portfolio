@@ -53,12 +53,35 @@
     .view-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
     /* ── FEATURED ── */
-    .work-featured {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-      margin-bottom: 96px;
+    .work-featured { margin-bottom: 96px; }
+
+    /* 与首页 FEATURED 相同 */
+    .featured-grid { display: grid; grid-template-columns: minmax(0, 2.8fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    .feat-main-thumb {
+      background: var(--gray-100); border-radius: 12px; height: 740px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+    }
+    .tos-feat { position: relative; background: #000; direction: ltr; }
+    .tos-feat-a, .tos-feat-b { position: absolute; inset: 0; transition: opacity .25s linear; }
+    .tos-feat-a video { position: absolute; top: 50%; left: 100%; height: 118%; width: auto; aspect-ratio: 16 / 9; max-width: none; transform: translate(-50%, -50%); pointer-events: none; }
+    .tos-feat-logo { position: absolute; top: 50%; left: 31%; width: 38%; height: auto; transform: translate(-50%, -50%); overflow: visible; }
+    .tos-feat-b { opacity: 0; background: linear-gradient(180deg, #000 0%, #0c1a33 38%, #2753a4 100%); display: flex; align-items: center; justify-content: center; }
+    .tos-feat-b img { width: 92%; height: 92%; object-fit: contain; }
+    .feat-title { font-family: 'Instrument Serif', serif; font-size: 44px; font-weight: 400; line-height: 1.25; letter-spacing: -.015em; color: var(--text); }
+    .feat-tag { font-size: 16px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 5px; }
+    .feat-main { min-width: 0; position: sticky; top: 80px; align-self: start; display: block; }
+    .feat-side { display: flex; flex-direction: column; gap: 36px; min-width: 0; }
+    .feat-side-card { display: block; cursor: pointer; }
+    .feat-side-card:hover .feat-side-thumb { opacity: .85; }
+    .feat-side-thumb {
+      background: var(--gray-100); border-radius: 10px; height: 340px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; transition: opacity .2s;
+    }
+    .feat-side-title { font-size: 20px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 3px; }
+    .feat-side-sub { font-size: 16px; color: var(--text-faint); }
+    @media (max-width: 767px) {
+      .tos-feat-a video { height: 100%; }
+      .tos-feat-logo { left: 30%; width: 46%; }
     }
 
     .wf-main { position: sticky; top: 80px; min-width: 0; display: block; }
@@ -154,7 +177,7 @@
     /* ════ TABLET ════ */
     @media (min-width: 768px) and (max-width: 1199px) {
       .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .work-featured { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+      .featured-grid { grid-template-columns: 1.5fr 1fr; }
     }
 
     /* ════ MOBILE ════ */
@@ -164,16 +187,14 @@
       .work-toolbar { margin-bottom: 32px; }
       .view-toggle { display: none; }
 
-      .work-featured { grid-template-columns: 1fr; gap: 0; margin-bottom: 56px; }
-      .wf-main { position: static; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-      .wf-main-title { font-size: 26px; }
-      .wf-side { gap: 0; }
-      .wf-side-card {
-        display: grid; grid-template-columns: 140px 1fr;
-        gap: 16px; align-items: center;
-        padding: 16px 0; border-bottom: 1px solid var(--border);
-      }
-      .wf-side-thumb { aspect-ratio: 4 / 3; margin-bottom: 0; border-radius: 8px; }
+      .work-featured { margin-bottom: 56px; }
+      .featured-grid { grid-template-columns: 1fr; gap: 0; }
+      .feat-main { position: static; }
+      .feat-main-thumb { height: 420px; border-radius: 10px; }
+      .feat-main-meta { padding: 12px 0 24px; border-bottom: 1px solid var(--border); }
+      .feat-side { gap: 0; }
+      .feat-side-card { display: grid; grid-template-columns: 140px 1fr; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+      .feat-side-thumb { width: 140px; height: 105px; margin-bottom: 0; border-radius: 8px; }
 
       .work-grid { grid-template-columns: 1fr; row-gap: 40px; }
     }
@@ -269,61 +290,61 @@
 
   <!-- FEATURED -->
   <section class="work-featured" id="workFeatured">
-    <a class="wf-main" href="project-zeitguard.html">
-      <div class="wf-main-thumb">
-        <video autoplay muted loop playsinline>
-          <source src="videos/zeitguard.mov" type="video/mp4">
-        </video>
+  <div class="featured-grid">
+    <a class="feat-main" href="project-timelineos.html">
+      <div class="feat-main-thumb tos-feat" id="tosFeat">
+        <div class="tos-feat-a">
+          <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
+            <source src="videos/neptune-spin.mp4" type="video/mp4">
+          </video>
+          <svg class="tos-feat-logo" viewBox="0 0 479.07 71.91" role="img" aria-label="Timeline OS"><g fill="#fff"><path d="M0,19.71V5.22h49.68v14.49h-17.1v51.21h-15.3V19.71H0Z"/><path d="M54.67,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.87-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM69.03,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M90.27,22.32v5.85c1.5-2.16,3.38-3.84,5.62-5.04,2.25-1.2,4.78-1.8,7.6-1.8,3.42,0,6.31.67,8.68,2.02,2.37,1.35,4.21,3.28,5.54,5.8,1.56-2.46,3.58-4.38,6.07-5.76,2.49-1.38,5.29-2.07,8.41-2.07,5.7,0,10.05,1.67,13.05,4.99,3,3.33,4.5,7.96,4.5,13.9v30.69h-15.48v-27.63c0-2.76-.54-4.89-1.62-6.39-1.08-1.5-2.88-2.25-5.4-2.25-2.16,0-3.9.75-5.22,2.25-1.32,1.5-1.98,3.87-1.98,7.11v26.91h-15.48v-27.72c0-2.76-.56-4.88-1.67-6.34-1.11-1.47-2.83-2.21-5.17-2.21s-4.08.77-5.4,2.29c-1.32,1.53-1.98,3.92-1.98,7.15v26.82h-15.3V22.32h15.21Z"/><path d="M169.33,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01c-1.2-3.06-1.8-6.36-1.8-9.9s.65-6.75,1.94-9.81c1.29-3.06,3.07-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92s1.85,6.34,1.85,9.94v5.31h-36.27c.84,2.52,2.23,4.44,4.18,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.98-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.53,5.95-9.04,7.78s-7.99,2.74-13.45,2.74c-3.96,0-7.51-.66-10.66-1.98ZM173.56,35.55c-1.83,1.2-3.23,2.85-4.19,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.6.6-6.43,1.8Z"/><path d="M224.91,0v70.92h-15.03V0h15.03Z"/><path d="M232.15,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.88-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM246.51,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M267.75,22.32v5.67c1.56-2.1,3.44-3.73,5.62-4.9,2.19-1.17,4.67-1.75,7.42-1.75,5.4,0,9.69,1.68,12.87,5.04,3.18,3.36,4.77,8.04,4.77,14.04v30.51h-15.57v-27.45c0-2.82-.6-5-1.8-6.52-1.2-1.53-3.06-2.29-5.58-2.29-2.22,0-4.05.78-5.49,2.34-1.44,1.56-2.16,3.96-2.16,7.2v26.73h-15.3V22.32h15.21Z"/><path d="M318.01,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01-1.8-6.36-1.8-9.9.64-6.75,1.93-9.81c1.29-3.06,3.08-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92,1.23,3.03,1.84,6.34,1.84,9.94v5.31h-36.27c.84,2.52,2.24,4.44,4.19,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.99-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.54,5.95-9.04,7.78s-8,2.74-13.45,2.74c-3.96,0-7.52-.66-10.67-1.98ZM322.24,35.55c-1.83,1.2-3.22,2.85-4.18,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.61.6-6.44,1.8Z"/></g><g fill="#54beee"><path d="M378.27,69.16c-4.08-1.77-7.63-4.17-10.66-7.2-3.03-3.03-5.42-6.6-7.16-10.71-1.74-4.11-2.61-8.5-2.61-13.18s.87-9.06,2.61-13.14c1.74-4.08,4.12-7.65,7.16-10.71,3.03-3.06,6.58-5.47,10.66-7.24,4.08-1.77,8.46-2.65,13.14-2.65s9.06.88,13.14,2.65,7.65,4.19,10.71,7.24c3.06,3.06,5.46,6.63,7.2,10.71,1.74,4.08,2.61,8.46,2.61,13.14s-.87,9.07-2.61,13.18-4.12,7.68-7.15,10.71c-3.03,3.03-6.58,5.43-10.67,7.2s-8.49,2.65-13.23,2.65-9.06-.88-13.14-2.65ZM398.56,54.9c2.19-.96,4.08-2.28,5.67-3.96,1.59-1.68,2.83-3.62,3.74-5.81.9-2.19,1.35-4.54,1.35-7.06s-.45-4.89-1.35-7.11c-.9-2.22-2.16-4.17-3.78-5.85-1.62-1.68-3.52-3-5.71-3.96-2.19-.96-4.54-1.44-7.06-1.44s-4.88.48-7.06,1.44c-2.19.96-4.06,2.28-5.62,3.96-1.56,1.68-2.79,3.63-3.69,5.85-.9,2.22-1.35,4.59-1.35,7.11s.45,4.88,1.35,7.06c.9,2.19,2.13,4.12,3.69,5.81,1.56,1.68,3.42,3,5.58,3.96s4.53,1.44,7.11,1.44,4.96-.48,7.16-1.44Z"/><path d="M446.58,55.03c2.46,1.35,5.22,2.02,8.28,2.02,2.58,0,4.54-.56,5.89-1.67s2.02-2.59,2.02-4.45c0-1.08-.39-2-1.17-2.75-.78-.75-1.78-1.4-3.01-1.94-1.23-.54-2.64-1.03-4.23-1.48-1.59-.45-3.2-.92-4.82-1.4-2.22-.66-4.5-1.41-6.84-2.25-2.34-.84-4.46-1.97-6.34-3.38-1.89-1.41-3.44-3.19-4.63-5.35-1.2-2.16-1.8-4.86-1.8-8.1,0-3,.57-5.73,1.71-8.19,1.14-2.46,2.75-4.58,4.82-6.34,2.07-1.77,4.54-3.15,7.42-4.14,2.88-.99,6.09-1.48,9.63-1.48,3,0,5.71.29,8.14.85,2.43.57,4.65,1.32,6.66,2.25,2.01.93,3.81,2.02,5.4,3.28,1.59,1.26,3.04,2.61,4.37,4.05l-12.96,9.72c-1.26-1.98-2.92-3.54-4.99-4.68-2.07-1.14-4.25-1.71-6.53-1.71-2.64,0-4.59.51-5.85,1.53-1.26,1.02-1.89,2.31-1.89,3.87,0,.96.38,1.78,1.12,2.47s1.72,1.31,2.92,1.85,2.58,1.03,4.14,1.48c1.56.45,3.18.92,4.86,1.4,2.28.66,4.6,1.44,6.97,2.34s4.53,2.1,6.48,3.6,3.55,3.36,4.81,5.58c1.26,2.22,1.89,5.01,1.89,8.37,0,3-.58,5.8-1.75,8.41s-2.83,4.88-5,6.79-4.79,3.43-7.88,4.54c-3.09,1.11-6.55,1.67-10.39,1.67-3.42,0-6.51-.31-9.27-.94s-5.28-1.52-7.56-2.65c-2.28-1.14-4.33-2.46-6.17-3.96-1.83-1.5-3.52-3.12-5.08-4.86l13.95-10.8h.09c1.92,2.94,4.11,5.08,6.57,6.43Z"/></g></svg>
+        </div>
+        <div class="tos-feat-b" aria-hidden="true">
+          <img src="images/timelineos/hero-devices.webp" alt="" />
+        </div>
       </div>
-      <div class="wf-main-title" data-i18n="p.zeitguard.long">ZeitGuard — 帮助学生克服拖延症</div>
-      <div class="w-meta">
-        <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
-        <span class="w-meta-date" data-i18n="d.2024.02">2024年2月</span>
+      <div class="feat-main-meta">
+        <div class="feat-tag" data-i18n="feat.tag">重磅发布</div>
+        <div class="feat-title" data-i18n="feat.title">Timeline OS — 为移动而设计的操作系统</div>
+        <div style="font-size:16px;color:var(--text-faint);margin-top:6px;" data-i18n="feat.meta">概念设计 · 2021年</div>
       </div>
     </a>
-
-    <div class="wf-side">
-      <a class="wf-side-card" href="project-steps.html">
-        <div class="wf-side-thumb" style="background-image: url('images/steps-bg.png'); background-size: cover; background-position: center;">
-          <img src="images/steps-cover.png" style="height: 14%; object-fit: contain;" />
+    <div class="feat-side">
+      <a class="feat-side-card" href="project-steps.html">
+        <div class="feat-side-thumb" style="background-image: url('images/steps-bg.png'); background-size: cover; background-position: center;">
+          <img src="images/steps-cover.png" style="height: 14%; object-fit: contain; margin-top: 0px;" />
         </div>
         <div>
-          <div class="wf-side-title" data-i18n="p.steps.long">Steps — 记录旅行足迹</div>
-          <div class="w-meta">
-            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
-            <span class="w-meta-date" data-i18n="d.2025.06">2025年6月</span>
-          </div>
+          <div class="feat-side-title" data-i18n="side1.title">Steps — 旅行记录与规划应用</div>
+          <div class="feat-side-sub" data-i18n="side1.sub">产品 · 2025年6月发布</div>
         </div>
       </a>
-
-      <a class="wf-side-card" href="#">
-        <div class="wf-side-thumb" style="background-image: url('images/modulor-bg.png'); background-size: cover; background-position: center;">
-          <img src="images/modulor-cover.png" style="height: 200%; object-fit: contain; transform: translateX(30px) translateY(20px);" />
+      <a class="feat-side-card" href="project-zeitguard.html">
+        <div class="feat-side-thumb">
+          <video autoplay muted loop playsinline
+                 style="width:100%; height:100%; object-fit:cover; object-position:15% center;">
+            <source src="videos/zeitguard.mov" type="video/mp4">
+          </video>
         </div>
         <div>
-          <div class="wf-side-title" data-i18n="p.modulor.long">Modulor Go 改革自助售货体验</div>
-          <div class="w-meta">
-            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
-            <span class="w-meta-date" data-i18n="d.2025.01">2025年1月</span>
-          </div>
+          <div class="feat-side-title" data-i18n="side2.title">ZeitGuard — 帮助学生克服拖延症</div>
+          <div class="feat-side-sub" data-i18n="side2.sub">产品 · 2024年5月发布</div>
         </div>
       </a>
-
-      <a class="wf-side-card" href="project-srh.html">
-        <div class="wf-side-thumb">
-          <video autoplay muted loop playsinline>
+      <a class="feat-side-card" href="project-srh.html">
+        <div class="feat-side-thumb">
+          <video autoplay muted loop playsinline
+                 style="width:102%; height:102%; object-fit:cover; margin:-10%;">
             <source src="videos/Touch & Go.MOV" type="video/mp4">
           </video>
         </div>
         <div>
-          <div class="wf-side-title" data-i18n="p.touchgo.long">为所有人设计的医院导航系统</div>
-          <div class="w-meta">
-            <span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span>
-            <span class="w-meta-date" data-i18n="d.2024.04">2024年4月</span>
-          </div>
+          <div class="feat-side-title" data-i18n="side3.title">Touch & Go — 为所有人设计的便捷医院导航系统</div>
+          <div class="feat-side-sub" data-i18n="side3.sub">产品 · 2024年4月发布</div>
         </div>
       </a>
     </div>
+  </div>
   </section>
 
   <!-- GRID -->
@@ -356,7 +377,7 @@
 
     <a class="w-card" data-cat="ux" href="project-zeitguard.html">
       <div class="w-thumb" style="background-image: url('images/zeitguard-bg.png'); background-size: cover; background-position: center;">
-        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/zeitguard-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 90%; max-width: 90%; object-fit: contain;" />
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/zeitguard-casecover.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 140%; max-width: 140%; object-fit: contain;" />
       </div>
       <div class="w-title" data-i18n="p.zeitguard">ZeitGuard 时间管理应用</div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2024.02">2024年2月</span></div>
@@ -379,8 +400,8 @@
     </a>
 
     <a class="w-card" data-cat="ux" href="#">
-      <div class="w-thumb" style="background-image: url('images/modulor-casebg.png'); background-size: cover; background-position: center;">
-        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/modulor-casecover.png" style="position: absolute; top: 50%; left: 40%; transform: translate(-50%, -50%); max-height: 95%; max-width: 95%; object-fit: contain;" />
+      <div class="w-thumb" style="background-image: url('images/modulor-casebg.png'); background-size: cover; background-position: 79% center;">
+        <img class="scroll-zoom-img" data-absolute="true" data-shadow="false" src="images/modulor-casecover.png" style="position: absolute; top: 50%; left: 5%; transform: translate(-50%, -50%); max-height: 95%; max-width: 95%; object-fit: contain;" />
       </div>
       <div class="w-title" data-i18n="p.modulor">modulor 自动售货应用</div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux">UX 设计</span><span class="w-meta-date" data-i18n="d.2025.01">2025年1月</span></div>
@@ -402,8 +423,8 @@
     </a>
 
     <a class="w-card" data-cat="ux" href="project-timelineos-mobile.html">
-      <div class="w-thumb" style="background-color:#060a16;">
-        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/tos-mobile/hero.webp" style="width:100%;height:100%;object-fit:cover;" />
+      <div class="w-thumb" style="background-color:#fff;">
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/timelineos/more-mobile.webp" style="width:100%;height:100%;object-fit:contain;object-position:right center;" />
       </div>
       <div class="w-title" data-i18n="p.tosmobile"></div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux"></span><span class="w-meta-date" data-i18n="d.2021"></span></div>
@@ -411,7 +432,7 @@
 
     <a class="w-card" data-cat="ux" href="project-mts.html">
       <div class="w-thumb" style="background-color:#EEF2F7;">
-        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/mts/hero.webp" style="height:88%;object-fit:contain;" />
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/MTS.png" style="width:140%;height:140%;object-fit:contain;position:relative;top:-5%;" />
       </div>
       <div class="w-title" data-i18n="p.mts"></div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux"></span><span class="w-meta-date" data-i18n="d.2021"></span></div>
@@ -419,7 +440,7 @@
 
     <a class="w-card" data-cat="ux" href="project-pym.html">
       <div class="w-thumb" style="background-color:#FFFFFF;">
-        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/pym/logo.webp" style="width:70%;height:auto;object-fit:contain;" />
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/PyM.png" style="width:100%;height:100%;object-fit:contain;position:relative;left:10%;" />
       </div>
       <div class="w-title" data-i18n="p.pym"></div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.ux"></span><span class="w-meta-date" data-i18n="d.2021"></span></div>
@@ -442,7 +463,9 @@
     </a>
 
     <a class="w-card" data-cat="brand" href="project-weico.html">
-      <div class="w-thumb" style="background-color:#1b2733;"><span style="color:#fff;font-family:Inter,Geist,sans-serif;font-weight:300;font-size:clamp(40px,5vw,72px);letter-spacing:-.02em">weico</span></div>
+      <div class="w-thumb" style="background-color:#fff;">
+        <img class="scroll-zoom-img" data-absolute="false" data-shadow="false" src="images/weico.png" style="width:100%;height:100%;object-fit:contain;position:relative;top:20%;" />
+      </div>
       <div class="w-title" data-i18n="p.weico"></div>
       <div class="w-meta"><span class="w-meta-cat" data-i18n="cat.brand"></span><span class="w-meta-date" data-i18n="d.2023.08"></span></div>
     </a>
@@ -522,6 +545,15 @@ var T = {
     "d.2021": "2021年",
     "d.2023.08": "2023年8月",
     "d.2024.05": "2024年5月",
+    "feat.tag": "重磅发布",
+    "feat.title": "Timeline OS — 为移动而设计的操作系统",
+    "feat.meta": "概念设计 · 2021年",
+    "side1.title": "Steps — 记录旅行足迹",
+    "side1.sub": "产品 · 2025年6月发布",
+    "side2.title": "ZeitGuard — 帮助学生克服拖延症",
+    "side2.sub": "产品 · 2024年5月发布",
+    "side3.title": "为所有人设计的医院导航系统",
+    "side3.sub": "产品 · 2024年4月发布",
     "d.2022.04": "2022年4月"
   },
   "en": {
@@ -568,6 +600,15 @@ var T = {
     "d.2021": "2021",
     "d.2023.08": "August 2023",
     "d.2024.05": "May 2024",
+    "feat.tag": "Featured",
+    "feat.title": "Timeline OS — an operating system designed for mobility",
+    "feat.meta": "Concept · 2021",
+    "side1.title": "Steps — Record your travel journey",
+    "side1.sub": "Product · June 2025",
+    "side2.title": "ZeitGuard — Helping students overcome procrastination",
+    "side2.sub": "Product · Released May 2024",
+    "side3.title": "A navigation system designed for everyone",
+    "side3.sub": "Product · Apr 2024",
     "d.2022.04": "April 2022"
   },
   "de": {
@@ -614,6 +655,15 @@ var T = {
     "d.2021": "2021",
     "d.2023.08": "August 2023",
     "d.2024.05": "Mai 2024",
+    "feat.tag": "Highlight",
+    "feat.title": "Timeline OS – ein Betriebssystem für ein Leben in Bewegung",
+    "feat.meta": "Konzept · 2021",
+    "side1.title": "Steps — Reiseerinnerungen festhalten",
+    "side1.sub": "Produkt · Veröffentlicht Juni 2024",
+    "side2.title": "ZeitGuard — Studierenden helfen, Prokrastination zu überwinden",
+    "side2.sub": "Produkt · Veröffentlicht Mai 2024",
+    "side3.title": "Ein Navigationssystem für alle",
+    "side3.sub": "Produkt · Veröffentlicht Apr 2024",
     "d.2022.04": "April 2022"
   },
   "tr": {
@@ -660,6 +710,15 @@ var T = {
     "d.2021": "2021",
     "d.2023.08": "Ağustos 2023",
     "d.2024.05": "Mayıs 2024",
+    "feat.tag": "Öne çıkan",
+    "feat.title": "Timeline OS — hareket hâlindeki yaşam için tasarlanmış işletim sistemi",
+    "feat.meta": "Konsept · 2021",
+    "side1.title": "Steps — Seyahat yolculuğunuzu kaydedin",
+    "side1.sub": "Ürün · Haziran 2025",
+    "side2.title": "ZeitGuard — Öğrencilerin erteleme alışkanlığını yenmesine yardımcı oluyor",
+    "side2.sub": "Ürün · Mayıs 2024",
+    "side3.title": "Herkes için tasarlanmış bir yön bulma sistemi",
+    "side3.sub": "Ürün · Nisan 2024",
     "d.2022.04": "Nisan 2022"
   },
   "ar": {
@@ -706,6 +765,15 @@ var T = {
     "d.2021": "2021",
     "d.2023.08": "أغسطس 2023",
     "d.2024.05": "مايو 2024",
+    "feat.tag": "مميّز",
+    "feat.title": "Timeline OS — نظام تشغيل مصمَّم للتنقّل",
+    "feat.meta": "تصوّر · 2021",
+    "side1.title": "Steps — وثّق رحلاتك",
+    "side1.sub": "منتج · يونيو 2025",
+    "side2.title": "ZeitGuard — مساعدة الطلاب على التغلّب على التسويف",
+    "side2.sub": "منتج · مايو 2024",
+    "side3.title": "نظام إرشاد مصمَّم للجميع",
+    "side3.sub": "منتج · أبريل 2024",
     "d.2022.04": "أبريل 2022"
   }
 };
@@ -843,6 +911,25 @@ function updateZoom() {
   });
 }
 window.addEventListener('scroll', updateZoom);
+
+
+/* ── Timeline OS 主推卡片：向下滚动时从星球视频过渡到黑底设备图 ── */
+(function(){
+  var box=document.getElementById("tosFeat"); if(!box) return;
+  var A=box.querySelector(".tos-feat-a"), B=box.querySelector(".tos-feat-b"), grid=box.closest(".featured-grid"), main=box.closest(".feat-main");
+  var v=box.querySelector("video"); if(v){ var pl=v.play(); if(pl&&pl.catch) pl.catch(function(){}); }
+  var tick=false;
+  function upd(){ tick=false;
+    var p, range=grid.offsetHeight-main.offsetHeight, vh=window.innerHeight;
+    if(range>60){ p=(80-grid.getBoundingClientRect().top)/range; }
+    else { p=(vh*0.45-box.getBoundingClientRect().top)/(vh*0.4); }
+    p=Math.max(0,Math.min(1,p));
+    var t=Math.max(0,Math.min(1,(p-0.18)/0.3));
+    A.style.opacity=String(1-t); B.style.opacity=String(t);
+  }
+  function req(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
+  window.addEventListener("scroll",req,{passive:true}); window.addEventListener("resize",req); upd();
+})();
 
 setLang(currentLang);
 updateZoom();
