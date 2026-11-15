@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44cd5515-22ec-45eb-9341-b4f5e72fdc8f" name="Changes" comment="0.0.7.6 Test update">
-      <change beforePath="$PROJECT_DIR$/project-timelineos.html" beforeDir="false" afterPath="$PROJECT_DIR$/project-timelineos.html" afterDir="false" />
-    </list>
+    <list default="true" id="44cd5515-22ec-45eb-9341-b4f5e72fdc8f" name="Changes" comment="0.0.7.7 Test update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +88,7 @@
       <workItem from="1786230576627" duration="645000" />
       <workItem from="1790339392199" duration="1602000" />
       <workItem from="1790341117806" duration="43611000" />
-      <workItem from="1793735519307" duration="40993000" />
+      <workItem from="1793735519307" duration="41512000" />
     </task>
     <task id="LOCAL-00001" summary="0.0.1 Test update">
       <option name="closed" value="true" />
@@ -244,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794710059418</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="0.0.7.7 Test update">
+      <option name="closed" value="true" />
+      <created>1794711743159</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1794711743159</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +285,7 @@
     <MESSAGE value="0.0.7.4 Test update" />
     <MESSAGE value="0.0.7.5 Test update" />
     <MESSAGE value="0.0.7.6 Test update" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.0.7.6 Test update" />
+    <MESSAGE value="0.0.7.7 Test update" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.0.7.7 Test update" />
   </component>
 </project>
