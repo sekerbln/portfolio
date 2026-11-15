@@ -2092,10 +2092,6 @@
     </div>
   </div>
 
-  <div class="p-wide">
-    <img class="pf-img" src="images/timelineos/style-ocean.webp" alt="" loading="lazy" />
-  </div>
-
   <article class="p-content"><section><h3 data-i18n="ld.h"></h3></section></article>
   <div class="p-wide dk-sc" data-sc="tabs">
     <div class="pf-card"><div class="sw ">
@@ -4306,6 +4302,13 @@ setLang(currentLang);
   blocks.forEach(function(w){ [].forEach.call(w.querySelectorAll("img"),function(im){ im.loading="eager"; im.addEventListener("load",layout); }); });
   if("ResizeObserver" in window){ var ro=new ResizeObserver(function(){ layout(); }); blocks.forEach(function(w){ ro.observe(w._in); }); ro.observe(document.body); }
   layout(); setTimeout(layout,800);
+})();
+</script>
+<script>
+/* 图片加载失败时隐藏，避免手机上出现带问号的空框 */
+(function(){
+  function gone(im){ im.style.display="none"; var w=im.parentElement; if(w&&w.classList.contains("p-wide")&&w.children.length===1) w.style.display="none"; }
+  [].forEach.call(document.images,function(im){ if(im.complete&&im.naturalWidth===0&&im.getAttribute("src")) gone(im); else im.addEventListener("error",function(){ gone(im); }); });
 })();
 </script>
 </body>
