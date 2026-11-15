@@ -1753,8 +1753,8 @@
     /* ══════════ Timeline OS：日夜滑块 + 生活 / 工作模式 ══════════ */
     .dn { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; border-radius: 20px; padding: 32px; background: url("images/timelineos/day-bg.png") center / cover no-repeat; transition: background .6s; min-width: 0; }
     .dn.is-night { background: url("images/timelineos/night-bg.png") center / cover no-repeat; color: #fff; }
-    .dn-stage { position: relative; aspect-ratio: 1200 / 1700; border-radius: 16px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
-    .dn-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .dn-stage { position: relative; aspect-ratio: 407 / 532; }
+    .dn-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
     .dn-night { opacity: 0; transition: opacity .2s; }
     .dn-clock { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; direction: ltr; }
     .dn-time { font-size: 64px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
@@ -1927,6 +1927,13 @@
     .mon-solo { max-width: 920px; margin: 0 auto; }
     .mon-solo .mon-screen img { display: block; width: 100%; height: auto; border-radius: 4px; }
     .mon-solo + .pf-cap { margin-top: 24px; }
+    /* 移动端：外框圆角随屏幕变小，内容圆角匹配，避免内容凸出圆角 */
+    @media (max-width: 899px) {
+      .mon-screen { border-radius: 9px; padding: 2.2%; }
+      .mon-screen::after { width: 4px; height: 4px; margin-left: -2px; top: .6%; }
+      .mon-screen .hs-stage, .mon-screen .hs-stage img, .mon-screen img { border-radius: 3px; }
+      .mon-base { height: 6px; border-radius: 4px 4px 2px 2px; }
+    }
     /* 滚动驱动的自动切换：区块固定在屏幕中间，滚动时依次切换状态 */
     .dk-sc.is-sc { margin-bottom: 72px; }
     .dk-sc.is-sc > .dk-sc-in { position: sticky; top: var(--sc-top, 90px); }
@@ -1971,6 +1978,35 @@
     /* 大标题：宽屏上保持一行，字号按语言长度自动缩小 */
     .dk-headline { max-width: 1320px; }
     @media (min-width: 900px) { .dk-headline .p-title { white-space: nowrap; text-wrap: nowrap; } }
+
+    /* ══════════ 拨号盘（代码重绘，严格按原图 385×497 的比例；1px ≈ 0.26cqw） ══════════ */
+    .dn-stage { container-type: inline-size; aspect-ratio: 385 / 497; }
+    .dp { position: absolute; inset: 0; border-radius: 13.5cqw; font-family: 'Open Sans', sans-serif !important; }
+    .dp-card { position: absolute; left: 6.5cqw; right: 6.75cqw; top: 6.75cqw; height: 100cqw; border-radius: 11.5cqw; }
+    .dp-keys { position: absolute; left: 50%; top: 22.86cqw; transform: translateX(-50%); display: grid; grid-template-columns: repeat(3, 20.9cqw); grid-auto-rows: 12.47cqw; align-items: center; direction: ltr; }
+    .dp-keys span { text-align: center; font-size: 7.3cqw; font-weight: 300; line-height: 1; font-variant-numeric: tabular-nums; }
+    .dp-call { position: absolute; left: 50%; top: 78.7cqw; width: 13.5cqw; height: 13.5cqw; margin-left: -6.75cqw; border-radius: 50%; background: #3cc34a; display: grid; place-items: center; }
+    .dp-call svg { width: 7.8cqw; height: 7.8cqw; }
+    .dp-nav { position: absolute; left: 6.5cqw; right: 6.75cqw; bottom: 6.75cqw; height: 10.9cqw; border-radius: 99px; direction: ltr; }
+    .dp-ic { position: absolute; top: 50%; width: 6.3cqw; height: 6.3cqw; transform: translate(-50%, -50%); display: grid; place-items: center; }
+    .dp-ic svg { width: 100%; height: 100%; }
+    .dp-ic:nth-child(1) { left: 12.6%; } .dp-ic:nth-child(2) { left: 27.6%; } .dp-ic:nth-child(3) { left: 50%; } .dp-ic:nth-child(4) { left: 72.4%; } .dp-ic:nth-child(5) { left: 87.4%; }
+    .dp-ic.dp-act { z-index: 1; }
+    .dp-ic.dp-act::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 19.5cqw; height: 10.2cqw; transform: translate(-50%, -50%); border-radius: 99px; }
+    /* 白天：清透玻璃外框 + 白色卡片 + 深蓝数字 */
+    .dp-light { background: rgba(255,255,255,.15); -webkit-backdrop-filter: blur(4px) saturate(1.15); backdrop-filter: blur(4px) saturate(1.15); box-shadow: inset 0 0 0 1px rgba(255,255,255,.28); }
+    .dp-light .dp-card { background: #fff; box-shadow: 0 1.5cqw 5cqw rgba(30,50,90,.12); }
+    .dp-light .dp-keys span { color: #1b347b; }
+    .dp-light .dp-nav { background: rgba(255,255,255,.32); color: #fff; }
+    .dp-light .dp-act { color: #1b347b; }
+    .dp-light .dp-act::before { background: #fff; box-shadow: 0 .8cqw 2.5cqw rgba(30,50,90,.12); }
+    /* 夜间：深灰外框 + 渐变卡片 + 白色数字 */
+    .dp-dark { background: #262626; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 3cqw 8cqw rgba(0,0,0,.4); }
+    .dp-dark .dp-card { background: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 25%, #161616 42%, #161616 100%); }
+    .dp-dark .dp-keys span { color: #fff; }
+    .dp-dark .dp-nav { background: #121212; color: #b9b9b9; }
+    .dp-dark .dp-act { color: #fff; }
+    .dp-dark .dp-act::before { background: #313131; }
   </style>
 </head>
 <body>
@@ -2088,8 +2124,8 @@
   <div class="p-wide dk-sc" data-sc="range">
     <div class="dn" id="tosDayNight">
       <div class="dn-stage">
-        <img class="dn-day" src="images/timelineos/Light Dial Panel.png" alt="" />
-        <img class="dn-night" id="dnNight" src="images/timelineos/Dark Dial Panel.png" alt="" />
+        <div class="dp dp-light dn-day" aria-hidden="true"><div class="dp-card"><div class="dp-keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>*</span><span>0</span><span>#</span></div><span class="dp-call"><svg viewBox="0 0 24 24"><path d="M6.6 3.2c.5-.4 1.3-.3 1.7.2l2.2 3.1c.4.5.3 1.2-.1 1.6L9 9.6c.8 1.9 2.6 3.8 4.6 4.8l1.5-1.4c.4-.4 1.1-.5 1.6-.1l3.1 2.2c.5.4.6 1.1.2 1.7l-1.4 2c-.6.8-1.6 1.2-2.6.9C10.2 18.2 5.9 13.9 4.4 8.1c-.3-1 .1-2 .9-2.6z" fill="#fff"/></svg></span></div><div class="dp-nav"><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 1-8.5 6.1l2.4.8A6.5 6.5 0 1 0 7.6 7.3L10 9.6H3V2.6l2.8 2.8A9 9 0 0 1 12 3z"/><path d="M11 7.5h2v4.1l3.1 1.9-1 1.7L11 12.7z"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4.5 4a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6zM4.8 16.4c.5-1.9 2-3 3.7-3s3.2 1.1 3.7 3zM14 9h5.5v1.8H14zm0 3.6h5.5v1.8H14z"/></svg></span><span class="dp-ic dp-act"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="3.2" r="1.9"/><circle cx="12" cy="3.2" r="1.9"/><circle cx="19" cy="3.2" r="1.9"/><circle cx="5" cy="9.1" r="1.9"/><circle cx="12" cy="9.1" r="1.9"/><circle cx="19" cy="9.1" r="1.9"/><circle cx="5" cy="15" r="1.9"/><circle cx="12" cy="15" r="1.9"/><circle cx="19" cy="15" r="1.9"/><circle cx="12" cy="20.9" r="1.9"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="1.5" y="10" width="2" height="4" rx="1"/><rect x="5.5" y="7" width="2" height="10" rx="1"/><rect x="9.5" y="4" width="2" height="16" rx="1"/><rect x="13.5" y="8" width="2" height="8" rx="1"/><rect x="17.5" y="6" width="2" height="12" rx="1"/><rect x="21.5" y="10" width="2" height="4" rx="1"/></svg></span></div></div>
+        <div class="dp dp-dark dn-night" id="dnNight" aria-hidden="true"><div class="dp-card"><div class="dp-keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>*</span><span>0</span><span>#</span></div><span class="dp-call"><svg viewBox="0 0 24 24"><path d="M6.6 3.2c.5-.4 1.3-.3 1.7.2l2.2 3.1c.4.5.3 1.2-.1 1.6L9 9.6c.8 1.9 2.6 3.8 4.6 4.8l1.5-1.4c.4-.4 1.1-.5 1.6-.1l3.1 2.2c.5.4.6 1.1.2 1.7l-1.4 2c-.6.8-1.6 1.2-2.6.9C10.2 18.2 5.9 13.9 4.4 8.1c-.3-1 .1-2 .9-2.6z" fill="#fff"/></svg></span></div><div class="dp-nav"><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 1-8.5 6.1l2.4.8A6.5 6.5 0 1 0 7.6 7.3L10 9.6H3V2.6l2.8 2.8A9 9 0 0 1 12 3z"/><path d="M11 7.5h2v4.1l3.1 1.9-1 1.7L11 12.7z"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4.5 4a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6zM4.8 16.4c.5-1.9 2-3 3.7-3s3.2 1.1 3.7 3zM14 9h5.5v1.8H14zm0 3.6h5.5v1.8H14z"/></svg></span><span class="dp-ic dp-act"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="3.2" r="1.9"/><circle cx="12" cy="3.2" r="1.9"/><circle cx="19" cy="3.2" r="1.9"/><circle cx="5" cy="9.1" r="1.9"/><circle cx="12" cy="9.1" r="1.9"/><circle cx="19" cy="9.1" r="1.9"/><circle cx="5" cy="15" r="1.9"/><circle cx="12" cy="15" r="1.9"/><circle cx="19" cy="15" r="1.9"/><circle cx="12" cy="20.9" r="1.9"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg></span><span class="dp-ic"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="1.5" y="10" width="2" height="4" rx="1"/><rect x="5.5" y="7" width="2" height="10" rx="1"/><rect x="9.5" y="4" width="2" height="16" rx="1"/><rect x="13.5" y="8" width="2" height="8" rx="1"/><rect x="17.5" y="6" width="2" height="12" rx="1"/><rect x="21.5" y="10" width="2" height="4" rx="1"/></svg></span></div></div>
       </div>
       <div class="dn-ctrl">
         <div class="dn-clock"><span class="dn-time" id="dnTime">12:00</span><span class="dn-phase" id="dnPhase"></span></div>
