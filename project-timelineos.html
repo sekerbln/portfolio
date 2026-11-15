@@ -1967,6 +1967,10 @@
     .dk-headline .p-meta .p-meta-cat { color: #fff; }
     .dk-headline { max-width: 1040px; }
     .dk-headline .p-title { text-wrap: balance; }
+
+    /* 大标题：宽屏上保持一行，字号按语言长度自动缩小 */
+    .dk-headline { max-width: 1320px; }
+    @media (min-width: 900px) { .dk-headline .p-title { white-space: nowrap; text-wrap: nowrap; } }
   </style>
 </head>
 <body>
@@ -4317,6 +4321,24 @@ setLang(currentLang);
 (function(){
   function gone(im){ im.style.display="none"; var w=im.parentElement; if(w&&w.classList.contains("p-wide")&&w.children.length===1) w.style.display="none"; }
   [].forEach.call(document.images,function(im){ if(im.complete&&im.naturalWidth===0&&im.getAttribute("src")) gone(im); else im.addEventListener("error",function(){ gone(im); }); });
+})();
+</script>
+<script>
+/* 大标题一行显示：文字太长时自动缩小字号 */
+(function(){
+  var box=document.querySelector(".dk-headline"), h=box&&box.querySelector(".p-title"); if(!h) return;
+  function fit(){
+    h.style.fontSize="";
+    if(window.innerWidth<900) return;
+    var cs=getComputedStyle(box), avail=box.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    var size=parseFloat(getComputedStyle(h).fontSize), guard=0;
+    while(h.scrollWidth>avail && size>26 && guard++<60){ size-=1; h.style.fontSize=size+"px"; }
+  }
+  var prev=window.pfRefresh;
+  window.pfRefresh=function(){ if(prev) prev(); fit(); };
+  window.addEventListener("resize",fit); window.addEventListener("load",fit);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  fit();
 })();
 </script>
 </body>
