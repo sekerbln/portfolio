@@ -1870,7 +1870,7 @@
     .dk-word { position: absolute; z-index: 2; left: var(--page-px); right: var(--page-px); top: 46%; transform: translateY(-50%); display: flex; justify-content: space-between; align-items: center; direction: ltr; animation: dkRise 1.2s cubic-bezier(.2,.7,.2,1) both; }
     .dk-w { height: clamp(34px, 4.6vw, 68px); width: auto; filter: drop-shadow(0 4px 24px rgba(0,0,0,.5)); }
     .dk-logo-m { display: none; }
-    .dk-index { position: absolute; z-index: 2; left: var(--page-px); right: var(--page-px); bottom: 36px; list-style: none; display: grid; grid-template-columns: repeat(7, 1fr); gap: 0 20px; margin: 0; padding: 0; }
+    .dk-index { position: absolute; z-index: 2; left: var(--page-px); right: var(--page-px); bottom: 36px; list-style: none; display: grid; grid-template-columns: repeat(8, 1fr); gap: 0 18px; margin: 0; padding: 0; }
     .dk-index a { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.78); font-size: 13px; line-height: 1.3; transition: color .2s, border-color .2s; }
     .dk-index a:hover { color: #fff; border-top-color: #2753a4; }
     .dk-i-n { font-size: 11px; letter-spacing: .08em; color: rgba(255,255,255,.45); font-variant-numeric: tabular-nums; }
@@ -1900,7 +1900,9 @@
       .dk-meta-tags { padding: 24px 20px 0; } .dk-meta-grid { grid-template-columns: 1fr; padding: 24px 20px 28px; }
       .dk-headline { padding-top: 64px; }
     }
-    @media (max-width: 767px) { .dk-index { bottom: 96px; } .dk-planet, .dk-logo-m { top: 40%; } }
+    @media (max-width: 767px) { .dk-index { bottom: 28px; } .dk-planet, .dk-logo-m { top: 40%; } }
+    /* 这个页面不显示手机端底部的胶囊悬浮菜单 */
+    .capsule-wrap, .capsule-nav { display: none !important; }
     @media (prefers-reduced-motion: reduce) { .dk-planet, .dk-word { animation: none; } }
 
     /* ══════════════════ v2.1: video hero, merging logo, Open Sans ══════════════════ */
@@ -2026,7 +2028,7 @@
   
   <div class="dk-word"><svg class="dk-w dk-w-l" viewBox="0 0 354 71.91" aria-hidden="true"><g fill="#fff"><path d="M0,19.71V5.22h49.68v14.49h-17.1v51.21h-15.3V19.71H0Z"/><path d="M54.67,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.87-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM69.03,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M90.27,22.32v5.85c1.5-2.16,3.38-3.84,5.62-5.04,2.25-1.2,4.78-1.8,7.6-1.8,3.42,0,6.31.67,8.68,2.02,2.37,1.35,4.21,3.28,5.54,5.8,1.56-2.46,3.58-4.38,6.07-5.76,2.49-1.38,5.29-2.07,8.41-2.07,5.7,0,10.05,1.67,13.05,4.99,3,3.33,4.5,7.96,4.5,13.9v30.69h-15.48v-27.63c0-2.76-.54-4.89-1.62-6.39-1.08-1.5-2.88-2.25-5.4-2.25-2.16,0-3.9.75-5.22,2.25-1.32,1.5-1.98,3.87-1.98,7.11v26.91h-15.48v-27.72c0-2.76-.56-4.88-1.67-6.34-1.11-1.47-2.83-2.21-5.17-2.21s-4.08.77-5.4,2.29c-1.32,1.53-1.98,3.92-1.98,7.15v26.82h-15.3V22.32h15.21Z"/><path d="M169.33,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01c-1.2-3.06-1.8-6.36-1.8-9.9s.65-6.75,1.94-9.81c1.29-3.06,3.07-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92s1.85,6.34,1.85,9.94v5.31h-36.27c.84,2.52,2.23,4.44,4.18,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.98-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.53,5.95-9.04,7.78s-7.99,2.74-13.45,2.74c-3.96,0-7.51-.66-10.66-1.98ZM173.56,35.55c-1.83,1.2-3.23,2.85-4.19,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.6.6-6.43,1.8Z"/><path d="M224.91,0v70.92h-15.03V0h15.03Z"/><path d="M232.15,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.88-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM246.51,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M267.75,22.32v5.67c1.56-2.1,3.44-3.73,5.62-4.9,2.19-1.17,4.67-1.75,7.42-1.75,5.4,0,9.69,1.68,12.87,5.04,3.18,3.36,4.77,8.04,4.77,14.04v30.51h-15.57v-27.45c0-2.82-.6-5-1.8-6.52-1.2-1.53-3.06-2.29-5.58-2.29-2.22,0-4.05.78-5.49,2.34-1.44,1.56-2.16,3.96-2.16,7.2v26.73h-15.3V22.32h15.21Z"/><path d="M318.01,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01-1.8-6.36-1.8-9.9.64-6.75,1.93-9.81c1.29-3.06,3.08-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92,1.23,3.03,1.84,6.34,1.84,9.94v5.31h-36.27c.84,2.52,2.24,4.44,4.19,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.99-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.54,5.95-9.04,7.78s-8,2.74-13.45,2.74c-3.96,0-7.52-.66-10.67-1.98ZM322.24,35.55c-1.83,1.2-3.22,2.85-4.18,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.61.6-6.44,1.8Z"/></g></svg><svg class="dk-w dk-w-r" viewBox="357 0 122.4 71.91" aria-hidden="true"><g fill="#54beee"><path d="M378.27,69.16c-4.08-1.77-7.63-4.17-10.66-7.2-3.03-3.03-5.42-6.6-7.16-10.71-1.74-4.11-2.61-8.5-2.61-13.18s.87-9.06,2.61-13.14c1.74-4.08,4.12-7.65,7.16-10.71,3.03-3.06,6.58-5.47,10.66-7.24,4.08-1.77,8.46-2.65,13.14-2.65s9.06.88,13.14,2.65,7.65,4.19,10.71,7.24c3.06,3.06,5.46,6.63,7.2,10.71,1.74,4.08,2.61,8.46,2.61,13.14s-.87,9.07-2.61,13.18-4.12,7.68-7.15,10.71c-3.03,3.03-6.58,5.43-10.67,7.2s-8.49,2.65-13.23,2.65-9.06-.88-13.14-2.65ZM398.56,54.9c2.19-.96,4.08-2.28,5.67-3.96,1.59-1.68,2.83-3.62,3.74-5.81.9-2.19,1.35-4.54,1.35-7.06s-.45-4.89-1.35-7.11c-.9-2.22-2.16-4.17-3.78-5.85-1.62-1.68-3.52-3-5.71-3.96-2.19-.96-4.54-1.44-7.06-1.44s-4.88.48-7.06,1.44c-2.19.96-4.06,2.28-5.62,3.96-1.56,1.68-2.79,3.63-3.69,5.85-.9,2.22-1.35,4.59-1.35,7.11s.45,4.88,1.35,7.06c.9,2.19,2.13,4.12,3.69,5.81,1.56,1.68,3.42,3,5.58,3.96s4.53,1.44,7.11,1.44,4.96-.48,7.16-1.44Z"/><path d="M446.58,55.03c2.46,1.35,5.22,2.02,8.28,2.02,2.58,0,4.54-.56,5.89-1.67s2.02-2.59,2.02-4.45c0-1.08-.39-2-1.17-2.75-.78-.75-1.78-1.4-3.01-1.94-1.23-.54-2.64-1.03-4.23-1.48-1.59-.45-3.2-.92-4.82-1.4-2.22-.66-4.5-1.41-6.84-2.25-2.34-.84-4.46-1.97-6.34-3.38-1.89-1.41-3.44-3.19-4.63-5.35-1.2-2.16-1.8-4.86-1.8-8.1,0-3,.57-5.73,1.71-8.19,1.14-2.46,2.75-4.58,4.82-6.34,2.07-1.77,4.54-3.15,7.42-4.14,2.88-.99,6.09-1.48,9.63-1.48,3,0,5.71.29,8.14.85,2.43.57,4.65,1.32,6.66,2.25,2.01.93,3.81,2.02,5.4,3.28,1.59,1.26,3.04,2.61,4.37,4.05l-12.96,9.72c-1.26-1.98-2.92-3.54-4.99-4.68-2.07-1.14-4.25-1.71-6.53-1.71-2.64,0-4.59.51-5.85,1.53-1.26,1.02-1.89,2.31-1.89,3.87,0,.96.38,1.78,1.12,2.47s1.72,1.31,2.92,1.85,2.58,1.03,4.14,1.48c1.56.45,3.18.92,4.86,1.4,2.28.66,4.6,1.44,6.97,2.34s4.53,2.1,6.48,3.6,3.55,3.36,4.81,5.58c1.26,2.22,1.89,5.01,1.89,8.37,0,3-.58,5.8-1.75,8.41s-2.83,4.88-5,6.79-4.79,3.43-7.88,4.54c-3.09,1.11-6.55,1.67-10.39,1.67-3.42,0-6.51-.31-9.27-.94s-5.28-1.52-7.56-2.65c-2.28-1.14-4.33-2.46-6.17-3.96-1.83-1.5-3.52-3.12-5.08-4.86l13.95-10.8h.09c1.92,2.94,4.11,5.08,6.57,6.43Z"/></g></svg></div>
   <svg class="dk-logo dk-logo-m" viewBox="0 0 479.07 71.91" role="img" aria-label="Timeline OS"><g fill="#fff"><path d="M0,19.71V5.22h49.68v14.49h-17.1v51.21h-15.3V19.71H0Z"/><path d="M54.67,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.87-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM69.03,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M90.27,22.32v5.85c1.5-2.16,3.38-3.84,5.62-5.04,2.25-1.2,4.78-1.8,7.6-1.8,3.42,0,6.31.67,8.68,2.02,2.37,1.35,4.21,3.28,5.54,5.8,1.56-2.46,3.58-4.38,6.07-5.76,2.49-1.38,5.29-2.07,8.41-2.07,5.7,0,10.05,1.67,13.05,4.99,3,3.33,4.5,7.96,4.5,13.9v30.69h-15.48v-27.63c0-2.76-.54-4.89-1.62-6.39-1.08-1.5-2.88-2.25-5.4-2.25-2.16,0-3.9.75-5.22,2.25-1.32,1.5-1.98,3.87-1.98,7.11v26.91h-15.48v-27.72c0-2.76-.56-4.88-1.67-6.34-1.11-1.47-2.83-2.21-5.17-2.21s-4.08.77-5.4,2.29c-1.32,1.53-1.98,3.92-1.98,7.15v26.82h-15.3V22.32h15.21Z"/><path d="M169.33,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01c-1.2-3.06-1.8-6.36-1.8-9.9s.65-6.75,1.94-9.81c1.29-3.06,3.07-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92s1.85,6.34,1.85,9.94v5.31h-36.27c.84,2.52,2.23,4.44,4.18,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.98-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.53,5.95-9.04,7.78s-7.99,2.74-13.45,2.74c-3.96,0-7.51-.66-10.66-1.98ZM173.56,35.55c-1.83,1.2-3.23,2.85-4.19,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.6.6-6.43,1.8Z"/><path d="M224.91,0v70.92h-15.03V0h15.03Z"/><path d="M232.15,2.92c1.65-1.71,3.82-2.56,6.52-2.56s4.89.85,6.57,2.56c1.68,1.71,2.52,3.91,2.52,6.61s-.84,4.8-2.52,6.48c-1.68,1.68-3.87,2.52-6.57,2.52s-4.88-.84-6.52-2.52c-1.65-1.68-2.48-3.84-2.48-6.48s.83-4.9,2.48-6.61ZM246.51,22.32v48.6h-15.57V22.32h15.57Z"/><path d="M267.75,22.32v5.67c1.56-2.1,3.44-3.73,5.62-4.9,2.19-1.17,4.67-1.75,7.42-1.75,5.4,0,9.69,1.68,12.87,5.04,3.18,3.36,4.77,8.04,4.77,14.04v30.51h-15.57v-27.45c0-2.82-.6-5-1.8-6.52-1.2-1.53-3.06-2.29-5.58-2.29-2.22,0-4.05.78-5.49,2.34-1.44,1.56-2.16,3.96-2.16,7.2v26.73h-15.3V22.32h15.21Z"/><path d="M318.01,69.93c-3.15-1.32-5.83-3.12-8.05-5.4s-3.93-4.95-5.13-8.01-1.8-6.36-1.8-9.9.64-6.75,1.93-9.81c1.29-3.06,3.08-5.75,5.35-8.05,2.28-2.31,4.98-4.12,8.1-5.44,3.12-1.32,6.51-1.98,10.17-1.98s7.12.63,10.21,1.89c3.09,1.26,5.76,3.02,8.01,5.27,2.25,2.25,3.99,4.89,5.22,7.92,1.23,3.03,1.84,6.34,1.84,9.94v5.31h-36.27c.84,2.52,2.24,4.44,4.19,5.76,1.95,1.32,4.33,1.98,7.15,1.98,2.34,0,4.33-.46,5.98-1.4,1.65-.93,2.99-2.21,4-3.82l12.24,7.2c-2.52,3.36-5.54,5.95-9.04,7.78s-8,2.74-13.45,2.74c-3.96,0-7.52-.66-10.67-1.98ZM322.24,35.55c-1.83,1.2-3.22,2.85-4.18,4.95h20.88c-.84-2.22-2.13-3.9-3.87-5.04-1.74-1.14-3.87-1.71-6.39-1.71s-4.61.6-6.44,1.8Z"/></g><g fill="#54beee"><path d="M378.27,69.16c-4.08-1.77-7.63-4.17-10.66-7.2-3.03-3.03-5.42-6.6-7.16-10.71-1.74-4.11-2.61-8.5-2.61-13.18s.87-9.06,2.61-13.14c1.74-4.08,4.12-7.65,7.16-10.71,3.03-3.06,6.58-5.47,10.66-7.24,4.08-1.77,8.46-2.65,13.14-2.65s9.06.88,13.14,2.65,7.65,4.19,10.71,7.24c3.06,3.06,5.46,6.63,7.2,10.71,1.74,4.08,2.61,8.46,2.61,13.14s-.87,9.07-2.61,13.18-4.12,7.68-7.15,10.71c-3.03,3.03-6.58,5.43-10.67,7.2s-8.49,2.65-13.23,2.65-9.06-.88-13.14-2.65ZM398.56,54.9c2.19-.96,4.08-2.28,5.67-3.96,1.59-1.68,2.83-3.62,3.74-5.81.9-2.19,1.35-4.54,1.35-7.06s-.45-4.89-1.35-7.11c-.9-2.22-2.16-4.17-3.78-5.85-1.62-1.68-3.52-3-5.71-3.96-2.19-.96-4.54-1.44-7.06-1.44s-4.88.48-7.06,1.44c-2.19.96-4.06,2.28-5.62,3.96-1.56,1.68-2.79,3.63-3.69,5.85-.9,2.22-1.35,4.59-1.35,7.11s.45,4.88,1.35,7.06c.9,2.19,2.13,4.12,3.69,5.81,1.56,1.68,3.42,3,5.58,3.96s4.53,1.44,7.11,1.44,4.96-.48,7.16-1.44Z"/><path d="M446.58,55.03c2.46,1.35,5.22,2.02,8.28,2.02,2.58,0,4.54-.56,5.89-1.67s2.02-2.59,2.02-4.45c0-1.08-.39-2-1.17-2.75-.78-.75-1.78-1.4-3.01-1.94-1.23-.54-2.64-1.03-4.23-1.48-1.59-.45-3.2-.92-4.82-1.4-2.22-.66-4.5-1.41-6.84-2.25-2.34-.84-4.46-1.97-6.34-3.38-1.89-1.41-3.44-3.19-4.63-5.35-1.2-2.16-1.8-4.86-1.8-8.1,0-3,.57-5.73,1.71-8.19,1.14-2.46,2.75-4.58,4.82-6.34,2.07-1.77,4.54-3.15,7.42-4.14,2.88-.99,6.09-1.48,9.63-1.48,3,0,5.71.29,8.14.85,2.43.57,4.65,1.32,6.66,2.25,2.01.93,3.81,2.02,5.4,3.28,1.59,1.26,3.04,2.61,4.37,4.05l-12.96,9.72c-1.26-1.98-2.92-3.54-4.99-4.68-2.07-1.14-4.25-1.71-6.53-1.71-2.64,0-4.59.51-5.85,1.53-1.26,1.02-1.89,2.31-1.89,3.87,0,.96.38,1.78,1.12,2.47s1.72,1.31,2.92,1.85,2.58,1.03,4.14,1.48c1.56.45,3.18.92,4.86,1.4,2.28.66,4.6,1.44,6.97,2.34s4.53,2.1,6.48,3.6,3.55,3.36,4.81,5.58c1.26,2.22,1.89,5.01,1.89,8.37,0,3-.58,5.8-1.75,8.41s-2.83,4.88-5,6.79-4.79,3.43-7.88,4.54c-3.09,1.11-6.55,1.67-10.39,1.67-3.42,0-6.51-.31-9.27-.94s-5.28-1.52-7.56-2.65c-2.28-1.14-4.33-2.46-6.17-3.96-1.83-1.5-3.52-3.12-5.08-4.86l13.95-10.8h.09c1.92,2.94,4.11,5.08,6.57,6.43Z"/></g></svg>
-  <ol class="dk-index"><li><a href="#overview"><span class="dk-i-n">01</span><span class="dk-i-t" data-i18n="toc.overview"></span></a></li><li><a href="#principles"><span class="dk-i-n">02</span><span class="dk-i-t" data-i18n="toc.principles"></span></a></li><li><a href="#styles"><span class="dk-i-n">03</span><span class="dk-i-t" data-i18n="toc.styles"></span></a></li><li><a href="#timeline"><span class="dk-i-n">04</span><span class="dk-i-t" data-i18n="toc.timeline"></span></a></li><li><a href="#framework"><span class="dk-i-n">05</span><span class="dk-i-t" data-i18n="toc.framework"></span></a></li><li><a href="#layout"><span class="dk-i-n">06</span><span class="dk-i-t" data-i18n="toc.layout"></span></a></li><li><a href="#lifework"><span class="dk-i-n">07</span><span class="dk-i-t" data-i18n="toc.lifework"></span></a></li></ol>
+  <ol class="dk-index"><li><a href="#overview"><span class="dk-i-n">01</span><span class="dk-i-t" data-i18n="toc.overview"></span></a></li><li><a href="#principles"><span class="dk-i-n">02</span><span class="dk-i-t" data-i18n="toc.principles"></span></a></li><li><a href="#styles"><span class="dk-i-n">03</span><span class="dk-i-t" data-i18n="toc.styles"></span></a></li><li><a href="#timeline"><span class="dk-i-n">04</span><span class="dk-i-t" data-i18n="toc.timeline"></span></a></li><li><a href="#framework"><span class="dk-i-n">05</span><span class="dk-i-t" data-i18n="toc.framework"></span></a></li><li><a href="#layout"><span class="dk-i-n">06</span><span class="dk-i-t" data-i18n="toc.layout"></span></a></li><li><a href="#lifework"><span class="dk-i-n">07</span><span class="dk-i-t" data-i18n="toc.lifework"></span></a></li><li><a href="#spinoffs"><span class="dk-i-n">08</span><span class="dk-i-t" data-i18n="toc.spinoffs"></span></a></li></ol>
 </section></div>
 <header class="dk-headline"><div class="p-meta"><span data-i18n="p.date"></span> <span class="p-meta-cat" data-i18n="p.cat"></span> <span data-i18n="p.type"></span></div><h1 class="p-title" data-i18n="p.title"></h1></header>
 
@@ -2049,6 +2051,7 @@
       <li><a href="#framework" data-i18n="toc.framework"></a></li>
       <li><a href="#layout" data-i18n="toc.layout"></a></li>
       <li><a href="#lifework" data-i18n="toc.lifework"></a></li>
+      <li><a href="#spinoffs" data-i18n="toc.spinoffs"></a></li>
     </ol>
   </aside>
 
@@ -2170,7 +2173,7 @@
   </div>
   <article class="p-content dk-lw3"><section><p data-i18n="lw.p3"></p></section></article>
 
-  <div class="p-wide">
+  <div class="p-wide" id="spinoffs" style="scroll-margin-top:100px">
     <div style="text-align:center"><img src="images/timelineos/dual-screen.webp" alt="" loading="lazy" width="1280" height="1015" style="display:block;margin:0 auto;width:72%;max-width:760px;height:auto" /><div class="pf-cap" data-i18n="ds.cap" style="margin-top:36px"></div></div>
 
   <article class="p-content dk-end"><section><p data-i18n="end.p"></p></section></article>
@@ -2193,16 +2196,16 @@
     <a class="p-related-more" href="work.html"><span data-i18n="rel.all"></span> ›</a>
   </div>
   <div class="p-related-grid">
-    <a class="r-card" href="project-workflow.html">
+    <a class="r-card" href="https://www.behance.net/gallery/141272665/WorkFlow">
       <div class="r-thumb" style="background-color:#fff;"><img src="images/timelineos/more-workflow.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:6%;box-sizing:border-box" /></div>
       <div class="r-title" data-i18n="rel.1"></div><div class="r-meta" data-i18n="cat.ux"></div>
     </a>
-    <a class="r-card" href="project-timelineos-mobile.html">
+    <a class="r-card" href="https://www.behance.net/gallery/141273045/Timeline-OS-Mobile">
       <div class="r-thumb" style="background-color:#fff;"><img src="images/timelineos/more-mobile.webp" alt="" style="width:100%;height:100%;object-fit:contain;object-position:right center;padding:5% 0 5% 5%;box-sizing:border-box" /></div>
       <div class="r-title" data-i18n="rel.2"></div><div class="r-meta" data-i18n="cat.ux"></div>
     </a>
-    <a class="r-card" href="project-timelineos-tv.html">
-      <div class="r-thumb" style="background: url('images/tv-casebg.png') center / cover no-repeat, linear-gradient(180deg, #000 0%, #0c1a33 38%, #2753a4 100%);"><img src="images/timelineos/more-tv.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:5%;box-sizing:border-box" /></div>
+    <a class="r-card" href="https://www.behance.net/gallery/141625581/Timeline-OS-tv">
+      <div class="r-thumb" style="background: url('images/tv-casebg.png') center / cover no-repeat, linear-gradient(180deg, #000 0%, #0c1a33 38%, #2753a4 100%);"><img src="images/timelineos/more-tv.png" alt="" style="width:100%;height:100%;object-fit:contain;padding:5%;box-sizing:border-box" /></div>
       <div class="r-title" data-i18n="rel.3"></div><div class="r-meta" data-i18n="cat.ux"></div>
     </a>
   </div>
@@ -2320,6 +2323,7 @@ var T = {
     "toc.framework": "UI 框架",
     "toc.layout": "屏幕布局",
     "toc.lifework": "生活 / 工作模式",
+    "toc.spinoffs": "衍生设计",
     "toc.reflection": "反思",
     "ov.lead": "Timeline OS 是一个以时间线为核心的跨平台操作系统概念，为在不同场景、不同设备之间不断切换的现代人设计。",
     "ov.p1": "当我们在不同的场景之间移动、在不同的时间使用不同的设备，能不能获得一个完整连续的体验？Timeline OS 借助云技术和统一的 UI 框架，把手机、电脑和物联网设备连接起来，提供跨越场景和设备的一体化体验。",
@@ -2447,6 +2451,7 @@ var T = {
     "toc.framework": "UI framework",
     "toc.layout": "Screen layout",
     "toc.lifework": "Life / work mode",
+    "toc.spinoffs": "Spin-offs",
     "toc.reflection": "Reflection",
     "ov.lead": "Timeline OS is a timeline-based, cross-platform operating system concept, designed for people who constantly move between scenarios and devices.",
     "ov.p1": "When we move between scenarios and use different devices at different times, can we still have one complete experience? Leveraging cloud technology and a unified UI framework, Timeline OS connects mobile, desktop and IoT devices into an all-in-one experience across scenarios and devices.",
@@ -2574,6 +2579,7 @@ var T = {
     "toc.framework": "UI-Framework",
     "toc.layout": "Bildschirmlayout",
     "toc.lifework": "Life-/Work-Modus",
+    "toc.spinoffs": "Weitere Entwürfe",
     "toc.reflection": "Reflexion",
     "ov.lead": "Timeline OS ist das Konzept eines plattformübergreifenden Betriebssystems rund um eine Zeitleiste – für Menschen, die ständig zwischen Situationen und Geräten wechseln.",
     "ov.p1": "Wenn wir uns zwischen Situationen bewegen und zu unterschiedlichen Zeiten verschiedene Geräte nutzen – können wir trotzdem ein durchgängiges Erlebnis haben? Mit Cloud-Technologie und einem einheitlichen UI-Framework verbindet Timeline OS Smartphone, Desktop und IoT-Geräte zu einem Erlebnis über Situationen und Geräte hinweg.",
@@ -2701,6 +2707,7 @@ var T = {
     "toc.framework": "UI çerçevesi",
     "toc.layout": "Ekran düzeni",
     "toc.lifework": "Yaşam / iş modu",
+    "toc.spinoffs": "Türev tasarımlar",
     "toc.reflection": "Değerlendirme",
     "ov.lead": "Timeline OS, sürekli farklı ortamlar ve cihazlar arasında geçiş yapan insanlar için tasarlanmış, zaman çizelgesi temelli, platformlar arası bir işletim sistemi konsepti.",
     "ov.p1": "Farklı ortamlar arasında dolaşıp farklı zamanlarda farklı cihazlar kullandığımızda yine de bütünlüklü bir deneyim yaşayabilir miyiz? Timeline OS, bulut teknolojisi ve birleşik bir UI çerçevesiyle mobil, masaüstü ve IoT cihazlarını ortamlar ve cihazlar ötesinde tek bir deneyimde buluşturuyor.",
@@ -2828,6 +2835,7 @@ var T = {
     "toc.framework": "إطار الواجهة",
     "toc.layout": "تخطيط الشاشة",
     "toc.lifework": "وضع الحياة / العمل",
+    "toc.spinoffs": "تصاميم مشتقة",
     "toc.reflection": "تأملات",
     "ov.lead": "Timeline OS تصوّر لنظام تشغيل متعدد المنصات يقوم على خط زمني، صُمّم لأشخاص يتنقّلون باستمرار بين السياقات والأجهزة.",
     "ov.p1": "حين نتنقّل بين السياقات ونستخدم أجهزة مختلفة في أوقات مختلفة، هل يمكن أن نحظى بتجربة متكاملة واحدة؟ يستعين Timeline OS بتقنيات السحابة وإطار واجهة موحّد ليربط الهاتف والحاسوب وأجهزة إنترنت الأشياء في تجربة واحدة تتجاوز السياقات والأجهزة.",
