@@ -320,7 +320,16 @@
     }
     [dir="rtl"] .hero-input { padding: 0 20px 0 52px; }
     [dir="rtl"] .hero-input-icon { right: auto; left: 14px; }
-  </style>
+      /* ── WorkFlow 精选卡片：W 标志铺满的蓝底 + 2×2 应用图标 ── */
+    .wf-feat { position: relative; background: #1655c9 url('images/workflow/banner.webp') center / cover no-repeat; }
+    .wf-feat::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(8,30,90,.28) 0%, rgba(8,30,90,0) 65%); }
+    .wf-feat-grid { position: relative; height: 66%; aspect-ratio: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20%; }
+    .wf-feat-grid img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(0,25,90,.45)); transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .feat-side-card:hover .wf-feat-grid img { transform: translateY(-3px); }
+    .feat-side-card:hover .wf-feat-grid img:nth-child(2) { transition-delay: .04s; }
+    .feat-side-card:hover .wf-feat-grid img:nth-child(3) { transition-delay: .08s; }
+    .feat-side-card:hover .wf-feat-grid img:nth-child(4) { transition-delay: .12s; }
+    </style>
 </head>
 <body>
 
@@ -435,13 +444,13 @@
       </div>
     </a>
     <div class="feat-side">
-      <a class="feat-side-card" href="project-steps.html">
-        <div class="feat-side-thumb" style="background-image: url('images/steps-bg.png'); background-size: cover; background-position: center;">
-          <img src="images/steps-cover.png" style="height: 14%; object-fit: contain; margin-top: 0px;" />
+      <a class="feat-side-card" href="project-workflow.html">
+        <div class="feat-side-thumb wf-feat">
+          <div class="wf-feat-grid"><img src="images/workflow/app-talkie.svg" alt="TalkiE" /><img src="images/workflow/app-incalendar.svg" alt="InCalendar" /><img src="images/workflow/app-doit.svg" alt="Do It" /><img src="images/workflow/app-expressmail.svg" alt="Express Mail" /></div>
         </div>
         <div>
-          <div class="feat-side-title" data-i18n="side1.title">Steps — 旅行记录与规划应用</div>
-          <div class="feat-side-sub" data-i18n="side1.sub">产品 · 2025年6月发布</div>
+          <div class="feat-side-title" data-i18n="side1.title">WorkFlow — 运行在 Timeline OS 上的生产力套件</div>
+          <div class="feat-side-sub" data-i18n="side1.sub">UX 设计 · 2021年</div>
         </div>
       </a>
       <a class="feat-side-card" href="project-zeitguard.html">
@@ -691,8 +700,8 @@ var T = {
     "feat.tag": "重磅发布",
     "feat.title": "Timeline OS — 为移动而设计的操作系统",
     "feat.meta": "概念设计 · 2021年",
-    "side1.title": "Steps — 记录旅行足迹",
-    "side1.sub": "产品 · 2025年6月发布",
+    "side1.title": "WorkFlow — 运行在 Timeline OS 上的生产力套件",
+    "side1.sub": "UX 设计 · 2021年",
     "side2.title": "ZeitGuard — 帮助学生克服拖延症",
     "side2.sub": "产品 · 2024年5月发布",
     "side3.title": "为所有人设计的医院导航系统",
@@ -790,8 +799,8 @@ var T = {
     "feat.tag": "Featured",
     "feat.title": "Timeline OS — an operating system designed for mobility",
     "feat.meta": "Concept · 2021",
-    "side1.title": "Steps — Record your travel journey",
-    "side1.sub": "Product · June 2025",
+    "side1.title": "WorkFlow — A productivity suite for Timeline OS",
+    "side1.sub": "UX Design · 2021",
     "side2.title": "ZeitGuard — Helping students overcome procrastination",
     "side2.sub": "Product · Released May 2024",
     "side3.title": "A navigation system designed for everyone",
@@ -889,8 +898,8 @@ var T = {
     "feat.tag": "Highlight",
     "feat.title": "Timeline OS – ein Betriebssystem für ein Leben in Bewegung",
     "feat.meta": "Konzept · 2021",
-    "side1.title": "Steps — Reiseerinnerungen festhalten",
-    "side1.sub": "Produkt · Veröffentlicht Juni 2024",
+    "side1.title": "WorkFlow — Eine Produktivitäts-Suite für Timeline OS",
+    "side1.sub": "UX-Design · 2021",
     "side2.title": "ZeitGuard — Studierenden helfen, Prokrastination zu überwinden",
     "side2.sub": "Produkt · Veröffentlicht Mai 2024",
     "side3.title": "Ein Navigationssystem für alle",
@@ -990,8 +999,8 @@ var T = {
     "feat.tag": "Öne çıkan",
     "feat.title": "Timeline OS — hareket hâlindeki yaşam için tasarlanmış işletim sistemi",
     "feat.meta": "Konsept · 2021",
-    "side1.title": "Steps — Seyahat yolculuğunuzu kaydedin",
-    "side1.sub": "Ürün · Haziran 2025",
+    "side1.title": "WorkFlow — Timeline OS için verimlilik paketi",
+    "side1.sub": "UX Tasarımı · 2021",
     "side2.title": "ZeitGuard — Öğrencilerin erteleme alışkanlığını yenmesine yardımcı oluyor",
     "side2.sub": "Ürün · Mayıs 2024",
     "side3.title": "Herkes için tasarlanmış bir yön bulma sistemi",
@@ -1044,8 +1053,8 @@ var T = {
     "feat.tag": "مميّز",
     "feat.title": "Timeline OS — نظام تشغيل مصمَّم للتنقّل",
     "feat.meta": "تصوّر · 2021",
-    "side1.title": "Steps — وثّق رحلاتك",
-    "side1.sub": "منتج · يونيو 2025",
+    "side1.title": "WorkFlow — حزمة إنتاجية لنظام Timeline OS",
+    "side1.sub": "تصميم UX · 2021",
     "side2.title": "ZeitGuard — مساعدة الطلاب على التغلّب على التسويف",
     "side2.sub": "منتج · مايو 2024",
     "side3.title": "نظام إرشاد مصمَّم للجميع",
@@ -1110,6 +1119,16 @@ function updateResumeLinks() {
 
 var currentLang = detectLang();
 
+
+/* 站内链接（包括作品页）带上当前语言 */
+function updateLangLinks(lang) {
+  document.querySelectorAll('a[href^="index.html"], a[href^="resume.html"], a[href^="work.html"], a[href^="project-"]').forEach(function(a) {
+    var url = new URL(a.getAttribute('href'), window.location.href);
+    url.searchParams.set('lang', lang);
+    a.setAttribute('href', url.pathname.split('/').pop() + url.search + url.hash);
+  });
+}
+
 function setLang(lang) {
   if (!T[lang]) return;
   currentLang = lang;
@@ -1127,6 +1146,7 @@ function setLang(lang) {
     var k = el.getAttribute("data-i18n-ph");
     if (T[lang][k] != null) el.placeholder = T[lang][k];
   });
+  updateLangLinks(lang);
 
   // Update nav button label
   document.getElementById("langBtnLabel").textContent = LANG_META[lang].label;
