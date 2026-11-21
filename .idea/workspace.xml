@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44cd5515-22ec-45eb-9341-b4f5e72fdc8f" name="Changes" comment="0.0.8.1 Test update">
+    <list default="true" id="44cd5515-22ec-45eb-9341-b4f5e72fdc8f" name="Changes" comment="0.0.8.2 Test update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/workflow/app-doit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/images/workflow/app-doit.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/workflow/app-expressmail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/images/workflow/app-expressmail.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/workflow/app-incalendar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/images/workflow/app-incalendar.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/workflow/app-talkie.svg" beforeDir="false" afterPath="$PROJECT_DIR$/images/workflow/app-talkie.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work.html" beforeDir="false" afterPath="$PROJECT_DIR$/work.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-workflow.html" beforeDir="false" afterPath="$PROJECT_DIR$/project-workflow.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +91,7 @@
       <workItem from="1790339392199" duration="1602000" />
       <workItem from="1790341117806" duration="43611000" />
       <workItem from="1793735519307" duration="41651000" />
-      <workItem from="1794714307117" duration="9785000" />
+      <workItem from="1794714307117" duration="11283000" />
     </task>
     <task id="LOCAL-00001" summary="0.0.1 Test update">
       <option name="closed" value="true" />
@@ -298,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1795213333636</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="0.0.8.2 Test update">
+      <option name="closed" value="true" />
+      <created>1795214642448</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1795214642448</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +341,7 @@
     <MESSAGE value="0.0.7.9 Test update" />
     <MESSAGE value="0.0.8.0 Test update" />
     <MESSAGE value="0.0.8.1 Test update" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.0.8.1 Test update" />
+    <MESSAGE value="0.0.8.2 Test update" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.0.8.2 Test update" />
   </component>
 </project>
